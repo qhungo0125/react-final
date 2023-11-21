@@ -91,7 +91,7 @@ export const DashBoard = () => {
                 setDOB(DOB);
 
                 setLoading(false);
-                console.log('responseData: ', responseData);
+                // console.log('responseData: ', responseData);
             }
         };
 
