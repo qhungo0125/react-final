@@ -12,13 +12,6 @@ export default defineConfig({
     port: 3000, // Change this to your desired port
   },
   build: {
-    rollupOptions: {
-      external: ["react"],
-      output: {
-        globals: {
-          react: "React",
-        },
-      },
-    },
+    outDir: 'dist',
   },
 });
