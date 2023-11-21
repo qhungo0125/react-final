@@ -43,7 +43,7 @@ function AvatarModal({ open, closeModel, setNewAvatarFile, currentAvatar }) {
         setAvatar(file)
     }
 
-    console.log(avatar)
+    // console.log(avatar)
 
     const handleClose = () => {
         closeModel()
