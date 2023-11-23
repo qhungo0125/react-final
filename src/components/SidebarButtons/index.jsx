@@ -1,4 +1,5 @@
-import { Box, Button, ListItem, ListItemText } from '@mui/material';
+import { Button, ListItem, ListItemText } from '@mui/material';
+import Box from '@mui/system/Box';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from 'react-router-dom';

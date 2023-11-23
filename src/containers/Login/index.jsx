@@ -1,7 +1,7 @@
 import SInput from '../../components/Custom/SInput';
 import SButton from '../../components/Custom/SButton';
 import './styles.css';
-import { Box } from '@mui/material';
+import Box from '@mui/system/Box';
 import { Apple, Google } from '@mui/icons-material';
 import { useLogin } from './state';
 import { Link } from 'react-router-dom';

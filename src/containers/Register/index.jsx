@@ -2,7 +2,7 @@ import SInput from '../../components/Custom/SInput';
 import SButton from '../../components/Custom/SButton';
 import './styles.css';
 import '../Login/styles.css';
-import { Box } from '@mui/material';
+import Box from '@mui/system/Box';
 import { Apple, Email, Google, Password } from '@mui/icons-material';
 import useRegisterState from './state';
 import { Link } from 'react-router-dom';

@@ -2,7 +2,7 @@ import SInput from '../../components/LoginInput';
 import SButton from '../../components/LoginButtons';
 import './styles.css';
 import '../Login/styles.css';
-import { Box } from '@mui/material';
+import Box from '@mui/system/Box';
 import { Apple, Google } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 const styles = {

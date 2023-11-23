@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import Box from '@mui/material/Box';
+import Box from '@mui/system/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import { AppBar, IconButton, Toolbar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';

@@ -1,10 +1,10 @@
 import {
     Button,
-    Box,
     Modal,
     Typography,
     IconButton
 } from '@mui/material';
+import Box from '@mui/system/Box';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState, useEffect } from 'react';
 
