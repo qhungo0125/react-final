@@ -2,6 +2,8 @@ import React from 'react';
 import ResponsiveDrawer from '../components/Drawer';
 import { Container } from '@mui/material';
 import { DashBoard } from './Dashboard';
+import { General } from './General';
+import PrimarySearchAppBar from '../components/Header'
 
 const Page = () => {
   return (
@@ -16,23 +18,30 @@ const Page = () => {
         },
       }}
     >
-      {
-        <ResponsiveDrawer>
-          <Container
-            sx={{
-              mt: { xs: 6, sm: 0 },
-              background: 'white',
-              borderRadius: 4,
-              paddingY: 2,
-              '&.MuiContainer-root': {
-                maxWidth: '100%',
-              },
-            }}
-          >
-            <DashBoard />
-          </Container>
-        </ResponsiveDrawer>
-      }
+      <div style={{position:"relative"}}>
+        <PrimarySearchAppBar />
+      </div>
+      <div>
+        {
+          <ResponsiveDrawer>
+            <Container
+              sx={{
+                mt: { xs: 6, sm: 0 },
+                background: 'white',
+                borderRadius: 4,
+                paddingY: 2,
+                '&.MuiContainer-root': {
+                  maxWidth: '100%',
+                },
+              }}
+            >
+              {/* <DashBoard /> */}
+              <General />
+            </Container>
+          </ResponsiveDrawer>
+        }
+      </div>
+
     </Container>
   );
 };
