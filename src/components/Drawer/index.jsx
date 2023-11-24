@@ -17,10 +17,9 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import classes from '../../utils/sampleData';
+import AddIcon from '@mui/icons-material/Add';
+import { classes } from '../../utils/sampleData';
 import NavTabs from './tabs.jsx';
-import './itemList.js'
 
 const drawerWidth = 240;
 
@@ -95,7 +94,7 @@ export default function PersistentDrawerLeft(props) {
             </IconButton>
           </Toolbar>
           <NavTabs />
-          <Box sx={{width:"140px"}}></Box>
+          <Box sx={{ width: "140px" }}></Box>
         </Box>
       </AppBar>
       <Drawer
@@ -132,7 +131,11 @@ export default function PersistentDrawerLeft(props) {
           ))}
         </List>
         <Divider />
+
         <List>
+          <IconButton color="primary" aria-label="add to shopping cart">
+            <AddIcon />
+          </IconButton>
         </List>
       </Drawer>
       <Main open={open}>

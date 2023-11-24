@@ -2,7 +2,8 @@ import React from 'react';
 import ResponsiveDrawer from '../components/Drawer';
 import { Container } from '@mui/material';
 import { DashBoard } from './Dashboard';
-import { General } from './General';
+import General from './General';
+import People from './People';
 import PrimarySearchAppBar from '../components/Header'
 
 const Page = () => {
@@ -33,10 +34,11 @@ const Page = () => {
                 '&.MuiContainer-root': {
                   maxWidth: '100%',
                 },
+                height: '80vh'
               }}
             >
               {/* <DashBoard /> */}
-              <General />
+              <People />
             </Container>
           </ResponsiveDrawer>
         }
