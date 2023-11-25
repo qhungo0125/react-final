@@ -2,6 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import { useNavigate } from 'react-router-dom';
 
 function LinkNavigation(event) {
   if (
@@ -33,7 +34,9 @@ function LinkTab(props) {
 }
 
 export default function NavTabs() {
-  const [value, setValue] = React.useState(0);
+  const navigate = useNavigate()
+
+  const [value, setValue] = React.useState("stream");
 
   const handleChange = (event, newValue) => {
     // event.type can be equal to focus with selectionFollowsFocus.
@@ -47,11 +50,11 @@ export default function NavTabs() {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Tabs value={value} onChange={handleChange} sx={{"& .MuiTabs-indicator":{display:'none'}}} centered>
-        <LinkTab label="Stream" href="/#" />
-        <LinkTab label="People" href="/#" />
-        <LinkTab label="Grade" href="/#" />
-        <LinkTab label="General" href="/#" />
+      <Tabs value={value} onChange={handleChange} sx={{ "& .MuiTabs-indicator": { display: 'none' } }} centered>
+        <Tab value="stream" label="Stream" onClick={() => { navigate("/class/stream") }}/>
+        <Tab value="people" label="People" onClick={() => { navigate("/class/people") }} />
+        <Tab value="grade" label="Grade" onClick={() => { navigate("/class/grade") }}/>
+        <Tab value="general" label="General" onClick={() => { navigate("/class/general") }} />
       </Tabs>
     </Box>
   );

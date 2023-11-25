@@ -2,11 +2,33 @@ import React from 'react';
 import ResponsiveDrawer from '../components/Drawer';
 import { Container } from '@mui/material';
 import { DashBoard } from './Dashboard';
-import General from './General';
+import Stream from './Stream';
 import People from './People';
+import Grade from './Grade';
+import General from './General'
 import PrimarySearchAppBar from '../components/Header'
+import { useState } from 'react';
 
-const Page = () => {
+const Page = ({ tab_name }) => {
+  var tab;
+  switch (tab_name) {
+    case ("stream"):
+      tab=<Stream />
+      break;
+    case ("people"):
+      tab=<People />
+      break;
+    case ("grade"):
+      tab=<Grade />
+      break;
+    case ("general"):
+      tab=<General />
+      break;
+    default:
+      tab=<Stream />
+      break;
+  }
+
   return (
     <Container
       sx={{
@@ -19,7 +41,7 @@ const Page = () => {
         },
       }}
     >
-      <div style={{position:"relative"}}>
+      <div style={{ position: "relative" }}>
         <PrimarySearchAppBar />
       </div>
       <div>
@@ -38,7 +60,7 @@ const Page = () => {
               }}
             >
               {/* <DashBoard /> */}
-              <People />
+              {tab}
             </Container>
           </ResponsiveDrawer>
         }

@@ -19,7 +19,9 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import AddIcon from '@mui/icons-material/Add';
 import { classes } from '../../utils/sampleData';
+import { useNavigate } from 'react-router-dom';
 import NavTabs from './tabs.jsx';
+
 
 const drawerWidth = 240;
 
@@ -69,13 +71,13 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export default function PersistentDrawerLeft(props) {
+  const navigate = useNavigate()
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
 
   const handleDrawer = () => {
     setOpen(prev => !prev);
   };
-
 
   return (
     <Box sx={{ display: 'flex', position: 'relative' }}>
@@ -93,7 +95,7 @@ export default function PersistentDrawerLeft(props) {
               <MenuIcon />
             </IconButton>
           </Toolbar>
-          <NavTabs />
+          <NavTabs/>
           <Box sx={{ width: "140px" }}></Box>
         </Box>
       </AppBar>
@@ -131,12 +133,11 @@ export default function PersistentDrawerLeft(props) {
           ))}
         </List>
         <Divider />
-
-        <List>
-          <IconButton color="primary" aria-label="add to shopping cart">
+        <Box sx={{ width: "100%", textAlign: "center", marginTop: "10px" }}>
+          <IconButton color="primary" size='large'>
             <AddIcon />
           </IconButton>
-        </List>
+        </Box>
       </Drawer>
       <Main open={open}>
         <DrawerHeader />

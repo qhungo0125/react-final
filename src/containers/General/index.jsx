@@ -8,7 +8,7 @@ const sample_class = classes[0]
 function General() {
 
     return (
-        <Box sx={{ maxWidth: '500px', marginLeft: 'auto',margiRight: 'auto'}}>
+        <Box sx={{ maxWidth: '500px', marginLeft: 'auto',marginRight: 'auto'}}>
             <Box className="G-input">
                 <label>ID</label>
                 <TextField
