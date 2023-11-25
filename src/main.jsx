@@ -18,6 +18,7 @@ const router = createBrowserRouter([
   { path: '/class/general', Component: () => <Page tab_name={"general"}/> },
   { path: '/class/grade', Component: () => <Page tab_name={"grade"}/> },
   { path: '/class/stream', Component: () => <Page tab_name={"stream"}/> },
+  { path: '/add_class', Component: () => <Page tab_name={"add"}/> },
   // { path: '/', Component: () => <Login /> },
   { path: '/dashboard', Component: () => <Page /> },
   { path: '*', Component: () => <NotFound /> },

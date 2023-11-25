@@ -123,7 +123,7 @@ export default function PersistentDrawerLeft(props) {
         <List>
           {classes.map((class_item) => (
             <ListItem key={class_item.id} disablePadding>
-              <ListItemButton>
+              <ListItemButton onClick={()=>{navigate("/class/stream")}}>
                 <ListItemIcon sx={{ minWidth: '37px' }}>
                   <InboxIcon />
                 </ListItemIcon>
@@ -134,7 +134,7 @@ export default function PersistentDrawerLeft(props) {
         </List>
         <Divider />
         <Box sx={{ width: "100%", textAlign: "center", marginTop: "10px" }}>
-          <IconButton color="primary" size='large'>
+          <IconButton color="primary" size='large' onClick={()=>{navigate("/add_class")}}>
             <AddIcon />
           </IconButton>
         </Box>
