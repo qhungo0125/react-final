@@ -7,6 +7,7 @@ import NotFound from './components/NotFound';
 import Login from './containers/Login/index';
 import GlobalContext from './context';
 import ConfirmRegister from './containers/ConfirmRegister';
+import ForgotPassword from './containers/ForgotPassword';
 
 const router = createBrowserRouter([
   { path: '/login', Component: () => <Login /> },
@@ -14,13 +15,15 @@ const router = createBrowserRouter([
   { path: '/', Component: () => <Home /> },
   { path: '/dashboard', Component: () => <Page /> },
   { path: '/confirm-register', Component: () => <ConfirmRegister /> },
+  { path: '/forgot-password', Component: () => <ForgotPassword /> },
+  // { path: '/confirm-password', Component: () => <ConfirmRegister /> },
   { path: '*', Component: () => <NotFound /> },
 ]);
 
 export default function App() {
   return (
     <GlobalContext>
-      <RouterProvider router={router} />;
+      <RouterProvider router={router} />
     </GlobalContext>
   );
 }
