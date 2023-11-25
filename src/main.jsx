@@ -2,9 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+const env = process.env.NODE_ENV;
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  env === 'development' ? (
     <App />
-  </React.StrictMode>,
+  ) : (
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  ),
 );

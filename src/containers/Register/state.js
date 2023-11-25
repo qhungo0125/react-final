@@ -1,6 +1,7 @@
 import React from 'react';
 import useSWRMutation from 'swr/mutation';
 import axios from '../../utils/axiosConfig';
+import { AuthenticationAPI } from '../../api/authentication';
 
 export const validateEmail = (email) => {
   const res = /\S+@\S+\.\S+/;
@@ -13,7 +14,7 @@ export async function postRequest(url, { arg }) {
 }
 
 export default function useRegisterState() {
-  const { data, trigger } = useSWRMutation('/user/auth/register', postRequest);
+  const [loading, setLoading] = React.useState(false);
 
   const [formData, setFormData] = React.useState({
     name: '',
@@ -81,22 +82,29 @@ export default function useRegisterState() {
         return;
       }
       // trigger to registration
-      const res = await trigger({
+      setLoading(true);
+
+      const res = await AuthenticationAPI.register({
         first_name: name,
         email: email,
         password: password,
       });
+
+      console.log('res >>>', res);
+      setLoading(false);
       // save token to local storage
-      localStorage.setItem('token', res.headers['authorization']);
-      alert('register successfully');
+      // localStorage.setItem('token', res.headers['authorization']);
+      alert(res.message);
       // redirect to dashboard
       // handle code here
     } catch (error) {
+      console.log('error>>', error);
+      alert('Error occues');
       localStorage.removeItem('token');
-      setErrors((data) => ({
-        ...data,
-        email: error.response.data.error.message,
-      }));
+      // setErrors((data) => ({
+      //   ...data,
+      //   email: error.response.data.error.message,
+      // }));
     }
   };
 

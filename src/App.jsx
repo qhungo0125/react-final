@@ -6,12 +6,14 @@ import Page from './containers';
 import NotFound from './components/NotFound';
 import Login from './containers/Login/index';
 import GlobalContext from './context';
+import ConfirmRegister from './containers/ConfirmRegister';
 
 const router = createBrowserRouter([
   { path: '/login', Component: () => <Login /> },
   { path: '/register', Component: () => <Register /> },
   { path: '/', Component: () => <Home /> },
   { path: '/dashboard', Component: () => <Page /> },
+  { path: '/confirm-register', Component: () => <ConfirmRegister /> },
   { path: '*', Component: () => <NotFound /> },
 ]);
 

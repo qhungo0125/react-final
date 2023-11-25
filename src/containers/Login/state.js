@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 export function useLogin() {
   const navigate = useNavigate();
-  const { data, trigger } = useSWRMutation('/user/auth/login', postRequest);
+  const { data, trigger } = useSWRMutation('/accounts/auth/login', postRequest);
 
   const [formData, setFormData] = React.useState({
     email: '',
