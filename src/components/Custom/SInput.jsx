@@ -6,7 +6,7 @@ function SInput({ label, value, onInputChange, type = 'text' }) {
       size="small"
       label={label}
       value={value}
-      onChange={(e) => onInputChange(e.target.value)}
+      onChange={onInputChange}
       type={type}
       variant="outlined"
       sx={{

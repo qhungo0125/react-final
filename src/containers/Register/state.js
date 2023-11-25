@@ -40,6 +40,7 @@ export default function useRegisterState() {
   };
 
   const handleNameChange = (e) => {
+    console.log(e.target.value);
     handleDataChange({ key: 'name', value: e.target.value });
   };
 
@@ -53,6 +54,7 @@ export default function useRegisterState() {
 
   const handleRegister = async () => {
     const { name, email, password } = formData;
+    console.log(formData);
     try {
       //validation
       if (!name || !email || !password) {
@@ -85,9 +87,9 @@ export default function useRegisterState() {
       setLoading(true);
 
       const res = await AuthenticationAPI.register({
-        first_name: name,
-        email: email,
-        password: password,
+        name,
+        email,
+        password,
       });
 
       console.log('res >>>', res);

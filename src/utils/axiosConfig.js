@@ -5,6 +5,8 @@ const ClientAxios = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
   headers: {
     'content-type': 'application/json',
+    authorization: localStorage.getItem('token'),
+    withCredentials: true,
   },
   paramsSerializer: {
     serialize: (params) => queryString.stringify(params),

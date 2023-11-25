@@ -18,6 +18,9 @@ const ConfirmRegister = () => {
       if (!res.success) {
         alert(res.error?.message);
         navigate('/login');
+      } else {
+        alert(res.message);
+        navigate('/login');
       }
     };
 

@@ -2,9 +2,9 @@ import ClientAxios from '../utils/axiosConfig';
 
 export const AuthenticationAPI = {
   register: async (params) => {
-    const { first_name, email, password } = params;
+    const { name, email, password } = params;
     const response = await ClientAxios.post('/accounts/auth/register', {
-      first_name,
+      name,
       email,
       password,
     });
@@ -22,6 +22,12 @@ export const AuthenticationAPI = {
   forgotPassword: async ({ email }) => {
     const data = await ClientAxios.post('/accounts/auth/forgot', {
       email,
+    });
+    return data;
+  },
+  updatePassword: async ({ password }) => {
+    const data = await ClientAxios.post('/accounts/auth/reset', {
+      password,
     });
     return data;
   },

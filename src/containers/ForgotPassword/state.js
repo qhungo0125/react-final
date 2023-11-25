@@ -11,8 +11,8 @@ const useForgotState = () => {
     successMessage: '',
   });
 
-  const setEmail = React.useCallback((newEmail) => {
-    setForgotData((current) => ({ ...current, email: newEmail }));
+  const setEmail = React.useCallback((e) => {
+    setForgotData((current) => ({ ...current, email: e.target.value }));
   }, []);
 
   const submitForgot = React.useCallback(async () => {
