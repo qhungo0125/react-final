@@ -9,7 +9,7 @@ const GlobalContext = ({ children }) => {
     role: STUDENT_ROLE,
   });
 
-  const value = React.useMemo({ loginState }, [loginState]);
+  const value = React.useMemo(() => ({ loginState }), [loginState]);
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
