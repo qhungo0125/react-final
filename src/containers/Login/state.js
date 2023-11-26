@@ -68,8 +68,8 @@ export function useLogin() {
         password: password,
       });
       // save token to local storage
-      if (res && res.data && res.data.data) {
-        const { token, _id: userId } = res.data.data;
+      if (res && res.data) {
+        const { access_token, _id: userId } = res.data.data;
         localStorage.setItem('token', token);
         localStorage.setItem('userid', userId);
         alert('login successfully');
