@@ -16,6 +16,8 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { MenuContext } from '../../context/MenuContext';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -59,6 +61,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function PrimarySearchAppBar() {
     const navigate = useNavigate()
+    const menuContext = useContext(MenuContext)
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -82,6 +85,11 @@ export default function PrimarySearchAppBar() {
     const handleMobileMenuOpen = (event) => {
         setMobileMoreAnchorEl(event.currentTarget);
     };
+
+    const handleHomeIconClick = () => {
+        menuContext.handleTabChanges("home")
+        navigate("/dashboard")
+    }
 
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
@@ -161,14 +169,16 @@ export default function PrimarySearchAppBar() {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ width: { xs: '100px', md: '50px' } }}
-                    >
-                        MUI
-                    </Typography>
+                    <Box sx={{ cursor: 'pointer' }} onClick={handleHomeIconClick}>
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="div"
+                            sx={{ width: { xs: '100px', md: '100px' } }}
+                        >
+                            NHOM4
+                        </Typography>
+                    </Box>
                     <Search>
                         <SearchIconWrapper>
                             <SearchIcon />

@@ -83,13 +83,11 @@ export default function PersistentDrawerLeft(props) {
   };
 
   const handleClassChange = () => {
-    menuContext.handleDisplayClassTab(true)
     menuContext.handleClassTabChanges("stream")
     navigate("/class/stream")
   }
 
   const handleAddClassButton = () => {
-    menuContext.handleDisplayClassTab(false)
     menuContext.handleTabChanges("add_class")
     navigate("/add_class")
   }

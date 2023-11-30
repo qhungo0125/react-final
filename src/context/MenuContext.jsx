@@ -8,15 +8,13 @@ function MenuProvider({ children }) {
     const [displayClassTab, setDisplayClassTab] = useState(false)
 
     const handleTabChanges = (value) => {
+        setDisplayClassTab(false)
         setTab(value)
     }
 
     const handleClassTabChanges = (value) => {
+        setDisplayClassTab(true)
         setClassTab(value)
-    }
-
-    const handleDisplayClassTab = (value) => {
-        setDisplayClassTab(value)
     }
 
     const value = {
@@ -25,7 +23,6 @@ function MenuProvider({ children }) {
         displayClassTab,
         handleTabChanges,
         handleClassTabChanges,
-        handleDisplayClassTab
     }
 
     return (
