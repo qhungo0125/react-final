@@ -19,10 +19,20 @@ export default function NavTabs() {
 
   return (
     <Box sx={{
-      width: '100%',
-      display: menuContext.displayClassTab ? 'block' : 'none'
+      width: '80%',
+      display: menuContext.displayClassTab ? 'block' : 'none',
     }}>
-      <Tabs value={menuContext.classTab} sx={{ "& .MuiTabs-indicator": { display: 'none' } }} centered>
+      <Tabs
+        value={menuContext.classTab}
+        sx={{
+          "& .MuiTabs-indicator": { display: 'none' },
+          "& .MuiTabScrollButton-root": { color: 'black' },
+          "& .MuiTabs-flexContainer": { justifyContent: 'center' }
+        }}
+        variant='scrollable'
+        scrollButtons='auto'
+        allowScrollButtonsMobile
+      >
         <Tab value="stream" label="Stream" onClick={handleTabClick} />
         <Tab value="people" label="People" onClick={handleTabClick} />
         <Tab value="grade" label="Grade" onClick={handleTabClick} />
