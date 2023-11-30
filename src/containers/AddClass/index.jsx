@@ -1,5 +1,5 @@
 import { } from "@mui/icons-material";
-import { Button, Box, TextField } from "@mui/material";
+import { Button, Box, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 
 function AddClass() {
@@ -11,7 +11,11 @@ function AddClass() {
 
     return (
         <Box sx={{ maxWidth: '500px', marginLeft: 'auto', marginRight: 'auto' }}>
-            <Box sx={{height:"450px"}}>
+            <Box sx={{ height: "450px" }}>
+                <Box sx={{height:"90px", paddingTop:"10px", textAlign:"center"}}>
+                    <Typography variant="h4" sx={{ fontWeight: "semibold" }}>New Class</Typography>
+                </Box>
+
                 <Box className="G-input">
                     <label>ID</label>
                     <TextField
@@ -49,7 +53,7 @@ function AddClass() {
 
             <Box sx={{ textAlign: "center" }}>
                 <Button variant="contained">
-                    Submit
+                    Create
                 </Button>
             </Box>
 

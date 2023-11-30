@@ -19,7 +19,7 @@ export default function NavTabs() {
 
   return (
     <Box sx={{
-      width: '80%',
+      width: '82%',
       display: menuContext.displayClassTab ? 'block' : 'none',
     }}>
       <Tabs

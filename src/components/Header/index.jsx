@@ -31,7 +31,7 @@ const Search = styled('div')(({ theme }) => ({
     width: '100%',
     [theme.breakpoints.up('sm')]: {
         marginLeft: theme.spacing(3),
-        width: 'auto',
+        width: '25ch',
     },
 }));
 
@@ -169,25 +169,35 @@ export default function PrimarySearchAppBar() {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
-                    <Box sx={{ cursor: 'pointer' }} onClick={handleHomeIconClick}>
+                    <Box sx={{ display: "flex" }}>
                         <Typography
                             variant="h6"
                             noWrap
                             component="div"
-                            sx={{ width: { xs: '100px', md: '100px' } }}
+                            sx={{ cursor: 'pointer', marginRight:"25px" }}
+                            onClick={handleHomeIconClick}
                         >
                             NHOM4
                         </Typography>
+                        <Typography
+                            variant="subtitle2"
+                            component="div"
+                            sx={{ cursor: 'pointer', marginTop:"auto", marginBottom:"auto" }}
+                        >
+                            AddClass
+                        </Typography>
                     </Box>
-                    <Search>
-                        <SearchIconWrapper>
-                            <SearchIcon />
-                        </SearchIconWrapper>
-                        <StyledInputBase
-                            placeholder="Search…"
-                            inputProps={{ 'aria-label': 'search' }}
-                        />
-                    </Search>
+                    <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
+                        <Search>
+                            <SearchIconWrapper>
+                                <SearchIcon />
+                            </SearchIconWrapper>
+                            <StyledInputBase
+                                placeholder="Search…"
+                                inputProps={{ 'aria-label': 'search' }}
+                            />
+                        </Search>
+                    </Box>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
