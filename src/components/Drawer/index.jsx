@@ -21,6 +21,8 @@ import AddIcon from '@mui/icons-material/Add';
 import { classes } from '../../utils/sampleData';
 import { useNavigate } from 'react-router-dom';
 import NavTabs from './tabs.jsx';
+import { useContext } from 'react';
+import { MenuContext } from '../../context/MenuContext.jsx';
 
 
 const drawerWidth = 240;
@@ -72,12 +74,25 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function PersistentDrawerLeft(props) {
   const navigate = useNavigate()
-  const theme = useTheme();
+  const menuContext = useContext(MenuContext)
+
   const [open, setOpen] = React.useState(true);
 
   const handleDrawer = () => {
     setOpen(prev => !prev);
   };
+
+  const handleClassChange = () => {
+    menuContext.handleDisplayClassTab(true)
+    menuContext.handleClassTabChanges("stream")
+    navigate("/class/stream")
+  }
+
+  const handleAddClassButton = () => {
+    menuContext.handleDisplayClassTab(false)
+    menuContext.handleTabChanges("add_class")
+    navigate("/add_class")
+  }
 
   return (
     <Box sx={{ display: 'flex', position: 'relative' }}>
@@ -95,7 +110,7 @@ export default function PersistentDrawerLeft(props) {
               <MenuIcon />
             </IconButton>
           </Toolbar>
-          <NavTabs/>
+          <NavTabs />
           <Box sx={{ width: "140px" }}></Box>
         </Box>
       </AppBar>
@@ -115,7 +130,7 @@ export default function PersistentDrawerLeft(props) {
         open={open}
       >
         <DrawerHeader>
-          <Typography noWrap component="div" sx={{ width: '100%', paddingLeft: '10px', paddingTop: '12px', fontSize: '18px', fontWeight: '500' }}>
+          <Typography noWrap component="div" sx={{ width: '100%', paddingLeft: '10px', paddingTop: '12px', fontSize: '17px', fontWeight: '500' }}>
             Class List
           </Typography>
         </DrawerHeader>
@@ -123,7 +138,7 @@ export default function PersistentDrawerLeft(props) {
         <List>
           {classes.map((class_item) => (
             <ListItem key={class_item.id} disablePadding>
-              <ListItemButton onClick={()=>{navigate("/class/stream")}}>
+              <ListItemButton onClick={handleClassChange}>
                 <ListItemIcon sx={{ minWidth: '37px' }}>
                   <InboxIcon />
                 </ListItemIcon>
@@ -134,7 +149,7 @@ export default function PersistentDrawerLeft(props) {
         </List>
         <Divider />
         <Box sx={{ width: "100%", textAlign: "center", marginTop: "10px" }}>
-          <IconButton color="primary" size='large' onClick={()=>{navigate("/add_class")}}>
+          <IconButton color="primary" size='large' onClick={handleAddClassButton}>
             <AddIcon />
           </IconButton>
         </Box>

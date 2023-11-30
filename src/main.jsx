@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
+import { MenuProvider } from './context/MenuContext';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Login from './containers/Login/index';
 import Register from './containers/Register/index';
@@ -14,11 +15,11 @@ const router = createBrowserRouter([
   { path: '/login', Component: () => <Login /> },
   { path: '/register', Component: () => <Register /> },
   { path: '/', Component: () => <Home /> },
-  { path: '/class/people', Component: () => <Page tab_name={"people"}/> },
-  { path: '/class/general', Component: () => <Page tab_name={"general"}/> },
-  { path: '/class/grade', Component: () => <Page tab_name={"grade"}/> },
-  { path: '/class/stream', Component: () => <Page tab_name={"stream"}/> },
-  { path: '/add_class', Component: () => <Page tab_name={"add"}/> },
+  { path: '/class/people', Component: () => <Page /> },
+  { path: '/class/general', Component: () => <Page /> },
+  { path: '/class/grade', Component: () => <Page /> },
+  { path: '/class/stream', Component: () => <Page /> },
+  { path: '/add_class', Component: () => <Page/> },
   // { path: '/', Component: () => <Login /> },
   { path: '/dashboard', Component: () => <Page /> },
   { path: '*', Component: () => <NotFound /> },
@@ -26,6 +27,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />;
+    <MenuProvider>
+      <RouterProvider router={router} />;
+    </MenuProvider>
   </React.StrictMode>,
 );

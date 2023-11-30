@@ -8,30 +8,49 @@ import Grade from './Grade';
 import General from './General'
 import AddClass from './AddClass';
 import PrimarySearchAppBar from '../components/Header'
-import { useState } from 'react';
 
-const Page = ({ tab_name }) => {
+import { useContext } from 'react';
+import { MenuContext } from '../context/MenuContext';
+
+const Page = () => {
+  const menuContext = useContext(MenuContext)
+
   var tab;
-  switch (tab_name) {
-    case ("stream"):
-      tab = <Stream />
-      break;
-    case ("people"):
-      tab = <People />
-      break;
-    case ("grade"):
-      tab = <Grade />
-      break;
-    case ("general"):
-      tab = <General />
-      break;
-    case ("add"):
-      tab = <AddClass />
-      break;
-    default:
-      tab = <Stream />
-      break;
+  if (menuContext.displayClassTab) {
+    switch (menuContext.classTab) {
+      case ("stream"):
+        tab = <Stream />
+        break;
+      case ("people"):
+        tab = <People />
+        break;
+      case ("grade"):
+        tab = <Grade />
+        break;
+      case ("general"):
+        tab = <General />
+        break;
+      case ("add"):
+        tab = <AddClass />
+        break;
+      default:
+        tab = <Stream />
+        break;
+    }
+  } else {
+    switch (menuContext.tab) {
+      case ("home"):
+        tab = <DashBoard />
+        break;
+      case ("add_class"):
+        tab = <AddClass />
+        break;
+      default:
+        tab = <DashBoard />
+        break;
+    }
   }
+
 
   return (
     <Container
