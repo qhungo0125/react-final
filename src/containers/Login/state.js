@@ -67,13 +67,19 @@ export function useLogin() {
         email: email,
         password: password,
       });
+
+      console.log('res>>>', res);
+
       // save token to local storage
       if (res && res.data) {
-        const { access_token, _id: userId } = res.data.data;
-        localStorage.setItem('token', token);
+        const { access_token, _id: userId } = res.data;
+        localStorage.setItem('token', access_token);
         localStorage.setItem('userid', userId);
-        alert('login successfully');
+        // alert('login successfully');
         navigate('/dashboard');
+      } else {
+        alert('Error occurs');
+        // res.error ? alert(res.error.message) : alert('Error occurs');
       }
     } catch (error) {
       localStorage.removeItem('token');
