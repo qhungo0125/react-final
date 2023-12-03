@@ -96,7 +96,7 @@ export default function useRegisterState() {
       setLoading(false);
       // save token to local storage
       // localStorage.setItem('token', res.headers['authorization']);
-      alert(res.message);
+      alert(res.error.message);
       // redirect to dashboard
       // handle code here
     } catch (error) {
