@@ -98,6 +98,8 @@ export default function useRegisterState() {
       // localStorage.setItem('token', res.headers['authorization']);
       if(res.error && res.error.message){
         alert(res.error.message);
+      }else{
+        alert(res.message);
       }
       // redirect to dashboard
       // handle code here
