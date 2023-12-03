@@ -68,22 +68,23 @@ export const DashBoard = () => {
     const userId = localStorage.getItem('userid');
         const getData = async (userId) => {
             // const responseData = await axios.get(`/auth/profile/${userId}`);
-            const responseData = await  ClientAxios.get(`/accounts/auth/profile`);
+            console.log(`Bearer ${localStorage.getItem('token')}`);
+            const responseData = await  ClientAxios.get(`/accounts/auth/profile/${userId}`);
+
             if (responseData) {
                 const {
-                    first_name,
-                    last_name,
+                    name: first_name,
                     region,
-                    telephone,
+                    phone: telephone,
                     email,
                     password,
                     sex,
                     avatar,
                     DOB,
-                } = responseData.data.data;
+                } = responseData.data;
 
                 setFirstName(first_name);
-                setLastName(last_name);
+                setLastName("last_name");
                 setRegion(region);
                 setPhone(telephone);
                 setEmail(email);

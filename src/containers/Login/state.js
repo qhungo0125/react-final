@@ -76,7 +76,8 @@ export function useLogin() {
         localStorage.setItem('token', access_token);
         localStorage.setItem('userid', userId);
         // alert('login successfully');
-        navigate('/dashboard');
+        // setTimeout()
+        setTimeout(()=> navigate('/dashboard'), 2000);;
       } else {
         alert('Error occurs');
         // res.error ? alert(res.error.message) : alert('Error occurs');
