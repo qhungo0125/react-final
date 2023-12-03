@@ -68,7 +68,7 @@ export const DashBoard = () => {
     const userId = localStorage.getItem('userid');
         const getData = async (userId) => {
             // const responseData = await axios.get(`/auth/profile/${userId}`);
-            const responseData = await  ClientAxios.get(`/auth/profile`);
+            const responseData = await  ClientAxios.get(`/accounts/auth/profile`);
             if (responseData) {
                 const {
                     first_name,
