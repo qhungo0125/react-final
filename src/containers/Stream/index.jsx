@@ -2,9 +2,8 @@ import ClassBanner from "./banner";
 
 function Stream() {
     return (
-        <div style={{ width: "70%", marginLeft: "auto", marginRight: "auto" }}>
+        <div style={{ maxWidth: "900px", marginLeft: "auto", marginRight: "auto", paddingLeft:"50px", paddingRight:"50px" }}>
             <ClassBanner className={"Phát triển ứng dụng web nâng cao"}/>
-            <div>Stream</div>
         </div>
     );
 }
