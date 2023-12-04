@@ -1,6 +1,7 @@
 import React from 'react';
 import useSWRMutation from 'swr/mutation';
 import axios from '../../utils/axiosConfig';
+import { AuthenticationAPI } from '../../api/authentication';
 
 export const validateEmail = (email) => {
   const res = /\S+@\S+\.\S+/;
@@ -13,7 +14,7 @@ export async function postRequest(url, { arg }) {
 }
 
 export default function useRegisterState() {
-  const { data, trigger } = useSWRMutation('/user/auth/register', postRequest);
+  const [loading, setLoading] = React.useState(false);
 
   const [formData, setFormData] = React.useState({
     name: '',
@@ -39,6 +40,7 @@ export default function useRegisterState() {
   };
 
   const handleNameChange = (e) => {
+    console.log(e.target.value);
     handleDataChange({ key: 'name', value: e.target.value });
   };
 
@@ -52,6 +54,7 @@ export default function useRegisterState() {
 
   const handleRegister = async () => {
     const { name, email, password } = formData;
+    console.log(formData);
     try {
       //validation
       if (!name || !email || !password) {
@@ -81,22 +84,33 @@ export default function useRegisterState() {
         return;
       }
       // trigger to registration
-      const res = await trigger({
-        first_name: name,
-        email: email,
-        password: password,
+      setLoading(true);
+
+      const res = await AuthenticationAPI.register({
+        name,
+        email,
+        password,
       });
+
+      console.log('res >>>', res);
+      setLoading(false);
       // save token to local storage
-      localStorage.setItem('token', res.headers['authorization']);
-      alert('register successfully');
+      // localStorage.setItem('token', res.headers['authorization']);
+      if(res.error && res.error.message){
+        alert(res.error.message);
+      }else{
+        alert(res.message);
+      }
       // redirect to dashboard
       // handle code here
     } catch (error) {
+      console.log('error>>', error);
+      alert('Error occues');
       localStorage.removeItem('token');
-      setErrors((data) => ({
-        ...data,
-        email: error.response.data.error.message,
-      }));
+      // setErrors((data) => ({
+      //   ...data,
+      //   email: error.response.data.error.message,
+      // }));
     }
   };
 

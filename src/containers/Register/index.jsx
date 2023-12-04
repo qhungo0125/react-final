@@ -104,9 +104,6 @@ function Register() {
               Log in
             </Link>
           </div>
-          <div style={{ marginTop: '30px', fontSize: '11px' }}>
-            <SButton styles={styles.signup_w_apple} />
-          </div>
           <div style={{ marginTop: '10px', fontSize: '11px' }}>
             <SButton styles={styles.signup_w_gg} />
           </div>

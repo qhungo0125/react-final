@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 export function useLogin() {
   const navigate = useNavigate();
-  const { data, trigger } = useSWRMutation('/user/auth/login', postRequest);
+  const { data, trigger } = useSWRMutation('/accounts/auth/login', postRequest);
 
   const [formData, setFormData] = React.useState({
     email: '',
@@ -67,13 +67,20 @@ export function useLogin() {
         email: email,
         password: password,
       });
+
+      console.log('res>>>', res);
+
       // save token to local storage
-      if (res && res.data && res.data.data) {
-        const { token, _id: userId } = res.data.data;
-        localStorage.setItem('token', token);
+      if (res && res.data) {
+        const { access_token, _id: userId } = res.data;
+        localStorage.setItem('token', access_token);
         localStorage.setItem('userid', userId);
-        alert('login successfully');
-        navigate('/dashboard');
+        // alert('login successfully');
+        // setTimeout()
+        setTimeout(()=> navigate('/dashboard'), 2000);;
+      } else {
+        alert('Error occurs');
+        // res.error ? alert(res.error.message) : alert('Error occurs');
       }
     } catch (error) {
       localStorage.removeItem('token');
