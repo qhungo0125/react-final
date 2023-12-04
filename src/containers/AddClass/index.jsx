@@ -10,12 +10,8 @@ function AddClass() {
     })
 
     return (
-        <Box sx={{ maxWidth: '500px', marginLeft: 'auto', marginRight: 'auto' }}>
+        <Box sx={{ maxWidth: '500px', marginLeft: 'auto', marginRight: 'auto', marginTop: '30px' }}>
             <Box sx={{ height: "450px" }}>
-                <Box sx={{height:"90px", paddingTop:"10px", textAlign:"center"}}>
-                    <Typography variant="h4" sx={{ fontWeight: "semibold" }}>New Class</Typography>
-                </Box>
-
                 <Box className="G-input">
                     <label>ID</label>
                     <TextField

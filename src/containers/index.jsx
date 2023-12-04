@@ -12,7 +12,7 @@ import PrimarySearchAppBar from '../components/Header'
 import { useContext } from 'react';
 import { MenuContext } from '../context/MenuContext';
 
-const Page = () => {
+const identifyTabs = () => {
   const menuContext = useContext(MenuContext)
 
   var tab;
@@ -51,6 +51,11 @@ const Page = () => {
     }
   }
 
+  return tab
+}
+
+const Page = () => {
+  const menuContext = useContext(MenuContext)
 
   return (
     <Container
@@ -83,7 +88,7 @@ const Page = () => {
               }}
             >
               {/* <DashBoard /> */}
-              {tab}
+              {identifyTabs()}
             </Container>
           </ResponsiveDrawer>
         }

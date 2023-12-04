@@ -179,13 +179,13 @@ export default function PrimarySearchAppBar() {
                         >
                             NHOM4
                         </Typography>
-                        <Typography
+                        {/* <Typography
                             variant="subtitle2"
                             component="div"
                             sx={{ cursor: 'pointer', marginTop:"auto", marginBottom:"auto" }}
                         >
                             AddClass
-                        </Typography>
+                        </Typography> */}
                     </Box>
                     <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
                         <Search>
