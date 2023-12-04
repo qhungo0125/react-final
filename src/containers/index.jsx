@@ -5,52 +5,52 @@ import DashBoard from './Dashboard';
 import Stream from './Stream';
 import People from './People';
 import Grade from './Grade';
-import General from './General'
+import General from './General';
 import AddClass from './AddClass';
-import PrimarySearchAppBar from '../components/Header'
+import PrimarySearchAppBar from '../components/Header';
 
 import { useContext } from 'react';
 import { MenuContext } from '../context/MenuContext';
 
 const Page = () => {
-  const menuContext = useContext(MenuContext)
+  const menuContext = useContext(MenuContext);
+  console.log(menuContext);
 
   var tab;
   if (menuContext.displayClassTab) {
     switch (menuContext.classTab) {
-      case ("stream"):
-        tab = <Stream />
+      case 'stream':
+        tab = <Stream />;
         break;
-      case ("people"):
-        tab = <People />
+      case 'people':
+        tab = <People />;
         break;
-      case ("grade"):
-        tab = <Grade />
+      case 'grade':
+        tab = <Grade />;
         break;
-      case ("general"):
-        tab = <General />
+      case 'general':
+        tab = <General />;
         break;
-      case ("add"):
-        tab = <AddClass />
+      case 'add':
+        tab = <AddClass />;
         break;
       default:
-        tab = <Stream />
+        tab = <Stream />;
         break;
     }
   } else {
     switch (menuContext.tab) {
-      case ("home"):
-        tab = <DashBoard />
+      case 'home':
+        tab = <DashBoard />;
         break;
-      case ("add_class"):
-        tab = <AddClass />
+      case 'add_class':
+        tab = <AddClass />;
         break;
       default:
-        tab = <DashBoard />
+        tab = <DashBoard />;
         break;
     }
   }
-
 
   return (
     <Container
@@ -64,7 +64,7 @@ const Page = () => {
         },
       }}
     >
-      <div style={{ position: "relative" }}>
+      <div style={{ position: 'relative' }}>
         <PrimarySearchAppBar />
       </div>
       <div>
@@ -79,7 +79,7 @@ const Page = () => {
                 '&.MuiContainer-root': {
                   maxWidth: '100%',
                 },
-                height: '80vh'
+                height: '80vh',
               }}
             >
               {/* <DashBoard /> */}
@@ -88,7 +88,6 @@ const Page = () => {
           </ResponsiveDrawer>
         }
       </div>
-
     </Container>
   );
 };
