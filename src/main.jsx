@@ -16,7 +16,6 @@ const router = createBrowserRouter([
   { path: '/register', Component: () => <Register /> },
   { path: '/', Component: () => <Home /> },
   { path: '/class/people', Component: () => <Page /> },
-  { path: '/class/general', Component: () => <Page /> },
   { path: '/class/grade', Component: () => <Page /> },
   { path: '/class/stream', Component: () => <Page /> },
   { path: '/add_class', Component: () => <Page/> },

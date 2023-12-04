@@ -27,9 +27,6 @@ const identifyTabs = () => {
       case ("grade"):
         tab = <Grade />
         break;
-      case ("general"):
-        tab = <General />
-        break;
       case ("add"):
         tab = <AddClass />
         break;
