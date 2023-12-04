@@ -28,7 +28,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import axios from '../../utils/axiosConfig';
 import Loader from "../../components/Loader"
-import AvatarModal from './AvatarModal';
+// import AvatarModal from './AvatarModal';
 import ClientAxios from '../../utils/axiosConfig';
 
 const DEFAULT_AVATAR = "https://statusneo.com/wp-content/uploads/2023/02/MicrosoftTeams-image551ad57e01403f080a9df51975ac40b6efba82553c323a742b42b1c71c1e45f1.jpg"

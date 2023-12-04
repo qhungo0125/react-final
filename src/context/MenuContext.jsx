@@ -1,6 +1,12 @@
 import { useState, createContext } from "react";
 
-const MenuContext = createContext();
+const MenuContext = createContext({
+    tab: "home",
+    classTab: "stream",
+    displayClassTab: false,
+    handleTabChanges: () => {},
+    handleClassTabChanges: () => {},
+});
 
 function MenuProvider({ children }) {
     const [tab, setTab] = useState("home")
