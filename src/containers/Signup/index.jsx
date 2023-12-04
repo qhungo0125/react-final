@@ -40,6 +40,7 @@ function Login() {
           component="form"
           sx={{
             '& .MuiTextField-root': { marginBlock: 1 },
+            width: { xs: '100%', md: '50%' }
           }}
           noValidate
           autoComplete="off"

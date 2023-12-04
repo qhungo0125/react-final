@@ -108,9 +108,9 @@ function Register() {
             <SButton styles={styles.signup_w_gg} />
           </div>
         </Box>
-        <div className="login_image">
+        <Box sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }} className="login_image">
           <img src="./login_bg.jpg" />
-        </div>
+        </Box>
       </div>
     </div>
   );

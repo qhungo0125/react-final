@@ -1,3 +1,4 @@
+
 import React from 'react';
 import dayjs from 'dayjs';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
@@ -140,153 +141,11 @@ export const DashBoard = () => {
             },
         );
     };
-
     return (
-        <Grid width={'100%'} container spacing={2} sx={{ mt: 2 }}>
-            <Loader open={isLoading} />
-            <Grid container alignItems="center" justifyContent="center">
-                <Grid item textAlign={'center'} sx={{ position: 'relative' }}>
-                    <img
-                        src={newAvatarFile ? newAvatarFile.preview : currentAvatar}
-                        height={200}
-                        style={{ borderRadius: '50%' }}
-                    ></img>
-                    <IconButton
-                        style={{ background: '#fff' }}
-                        sx={{
-                            position: 'absolute',
-                            top: '10px',
-                            right: '10px',
-                            fontSize: '20px'
-                        }}
-                        onClick={handleEditAvatar}
-                    >
-                        <Edit fontSize="inherit" />
-                    </IconButton >
-                </Grid>
-            </Grid>
-
-            <AvatarModal
-                open={openAvatarModal}
-                closeModel={() => setOpenAvatarModal(false)}
-                setNewAvatarFile={(new_avatar_file) => { setNewAvatarFile(new_avatar_file) }}
-                currentAvatar={currentAvatar}
-            />
-
-            <Grid item xs={12} sm={12} md={6}>
-                <TextField
-                    fullWidth
-                    label="First Name"
-                    variant="outlined"
-                    placeholder="First Name"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                />
-            </Grid>
-            <Grid item xs={12} sm={12} md={6}>
-                <TextField
-                    fullWidth
-                    label="Last Name"
-                    variant="outlined"
-                    placeholder="Last Name"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                />
-            </Grid>
-
-            <Grid item xs={12} sm={12} md={6}>
-                <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-helper-label">Region</InputLabel>
-                    <Select
-                        value={region}
-                        label="Region"
-                        onChange={(e) => setRegion(e.target.value)}
-                    >
-                        <MenuItem value={'Viet Nam'}>Viet Nam</MenuItem>
-                        <MenuItem value={'USA'}>USA</MenuItem>
-                    </Select>
-                </FormControl>
-            </Grid>
-
-            <Grid item xs={12} sm={12} md={6}>
-                <TextField
-                    fullWidth
-                    label="Phone"
-                    type="text"
-                    variant="outlined"
-                    // value={formatPhoneNumber('84123232233')}
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                />
-            </Grid>
-
-            <Grid item xs={12} sm={12} md={6}>
-                <TextField
-                    fullWidth
-                    label="Email"
-                    type="email"
-                    variant="outlined"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-            </Grid>
-            <Grid item xs={12} sm={12} md={6}>
-                <TextField
-                    fullWidth
-                    label="Password"
-                    type={showPassword ? 'text' : 'password'}
-                    value={pass}
-                    onChange={(e) => setPass(e.target.value)}
-                    InputProps={{
-                        endAdornment: (
-                            <InputAdornment position="end">
-                                <IconButton onClick={handleTogglePasswordVisibility}>
-                                    {showPassword ? <Visibility /> : <VisibilityOff />}
-                                </IconButton>
-                            </InputAdornment>
-                        ),
-                    }}
-                />
-            </Grid>
-
-            <Grid item xs={12} sm={12} md={6}>
-                <FormControl fullWidth>
-                    <FormLabel id="demo-controlled-radio-buttons-group">Gender</FormLabel>
-                    <RadioGroup
-                        row
-                        aria-labelledby="demo-controlled-radio-buttons-group"
-                        name="controlled-radio-buttons-group"
-                        value={gender}
-                        onChange={(e) => setGender(e.target.value)}
-                    >
-                        <FormControlLabel
-                            value="Female"
-                            control={<Radio />}
-                            label="Female"
-                        />
-                        <FormControlLabel value="Male" control={<Radio />} label="Male" />
-                    </RadioGroup>
-                </FormControl>
-            </Grid>
-
-            <Grid item xs={12} sm={12} md={6}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DemoContainer components={['DatePicker']}>
-                        <DatePicker
-                            label="Date of birth"
-                            value={dayjs(dob)}
-                            onChange={(newValue) => setDOB(newValue)}
-                        />
-                    </DemoContainer>
-                </LocalizationProvider>
-            </Grid>
-
-            <Grid item sm={12} textAlign={'center'} sx={{ mt: 2 }}>
-                <Button variant="contained" onClick={handleSaveChanges}>
-                    Save Changes
-                </Button>
-            </Grid>
-
-        </Grid>
+    <div>
+        Dashboard
+    </div>
     );
-};
+}
+
+export default DashBoard;
