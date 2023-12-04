@@ -9,6 +9,7 @@ import GlobalContext from './context';
 import ConfirmRegister from './containers/ConfirmRegister';
 import ForgotPassword from './containers/ForgotPassword';
 import ConfirmPassword from './containers/ConfirmPassword';
+import { MenuProvider } from './context/MenuContext';
 
 const router = createBrowserRouter([
   { path: '/login', Component: () => <Login /> },
@@ -29,7 +30,9 @@ const router = createBrowserRouter([
 export default function App() {
   return (
     <GlobalContext>
-      <RouterProvider router={router} />
+      <MenuProvider>
+        <RouterProvider router={router} />
+      </MenuProvider>
     </GlobalContext>
   );
 }
