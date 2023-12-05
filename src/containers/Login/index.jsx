@@ -5,6 +5,8 @@ import Box from '@mui/system/Box';
 import { Apple, Google } from '@mui/icons-material';
 import { useLogin } from './state';
 import { Link } from 'react-router-dom';
+import { useGlobal } from '../../context';
+import ClientAxios from '../../utils/axiosConfig';
 
 const styles = {
   login_btn: {
@@ -32,6 +34,8 @@ const styles = {
 };
 
 function Login() {
+  const { loginState } = useGlobal();
+  console.log(loginState);
   const {
     formData,
     errors,
@@ -74,8 +78,13 @@ function Login() {
           <span style={{ color: 'red', fontSize: '12px', marginLeft: '15px' }}>
             {passwordError}
           </span>
-          <div style={{ textAlign: 'right', fontSize:'10px' }}>
-            <Link to={'/'} color="inherit">
+          <div style={{ textAlign: 'right' }}>
+            <Link
+              to={'/forgot-password'}
+              color="inherit"
+              sx={{ fontSize: '10px' }}
+            >
+
               Forgot Password?
             </Link>
           </div>
@@ -100,11 +109,17 @@ function Login() {
               Sign up
             </Link>
           </div>
-          <div style={{ marginTop: '30px', fontSize: '11px' }}>
+          {/* <div style={{ marginTop: '30px', fontSize: '11px' }}>
             <SButton styles={styles.login_w_apple} />
-          </div>
+          </div> */}
           <div style={{ marginTop: '10px', fontSize: '11px' }}>
-            <SButton styles={styles.login_w_gg} />
+            <SButton
+              styles={styles.login_w_gg}
+              onButtonClick={async (e) => {
+                const data = await ClientAxios.get('/accounts/auth/google');
+                console.log('data>>>', data);
+              }}
+            />
           </div>
         </Box>
         <Box sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }} className="login_image">
