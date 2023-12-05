@@ -84,7 +84,7 @@ export default function PersistentDrawerLeft(props) {
 
   const handleClassChange = () => {
     menuContext.handleClassTabChanges("stream")
-    navigate("/class/stream")
+    navigate("/class")
   }
 
   const handleAddClassButton = () => {

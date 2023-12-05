@@ -5,9 +5,11 @@ import DashBoard from './Dashboard';
 import Stream from './Stream';
 import People from './People';
 import Grade from './Grade';
-import General from './General'
 import AddClass from './AddClass';
 import PrimarySearchAppBar from '../components/Header'
+import Detail from './Grade/Detail';
+import Review from './Grade/Review';
+import Structure from './Grade/Structure';
 
 import { useContext } from 'react';
 import { MenuContext } from '../context/MenuContext';
@@ -17,18 +19,25 @@ const identifyTabs = () => {
 
   var tab;
   if (menuContext.displayClassTab) {
-    switch (menuContext.classTab) {
+    var currentClassTab = menuContext.classTab
+    switch (currentClassTab) {
       case ("stream"):
         tab = <Stream />
         break;
       case ("people"):
         tab = <People />
         break;
-      case ("grade"):
-        tab = <Grade />
-        break;
       case ("add"):
         tab = <AddClass />
+        break;
+      case ("grade_detail"):
+        tab = <Detail />
+        break;
+      case ("grade_structure"):
+        tab = <Structure />
+        break;
+      case ("grade_review"):
+        tab = <Review />
         break;
       default:
         tab = <Stream />
