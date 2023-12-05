@@ -127,6 +127,9 @@ export default function PrimarySearchAppBar() {
                 vertical: 'top',
                 horizontal: 'right',
             }}
+            sx={{
+                top:"40px !important"
+            }}
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
         >

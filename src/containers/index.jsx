@@ -27,9 +27,6 @@ const identifyTabs = () => {
       case ("people"):
         tab = <People />
         break;
-      case ("add"):
-        tab = <AddClass />
-        break;
       case ("grade_detail"):
         tab = <Detail />
         break;
@@ -61,8 +58,6 @@ const identifyTabs = () => {
 }
 
 const Page = () => {
-  const menuContext = useContext(MenuContext)
-
   return (
     <Container
       sx={{
@@ -89,6 +84,7 @@ const Page = () => {
                 paddingY: 2,
                 '&.MuiContainer-root': {
                   maxWidth: '100%',
+                  marginTop:'0 !important'
                 },
                 height: '80vh'
               }}

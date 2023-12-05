@@ -3,6 +3,7 @@ import './App.css';
 import Register from './containers/Register';
 import Home from './containers/Home';
 import Page from './containers';
+import AddClass from './containers/AddClass';
 import NotFound from './components/NotFound';
 import Login from './containers/Login/index';
 import GlobalContext from './context';
@@ -15,6 +16,8 @@ const router = createBrowserRouter([
   { path: '/register', Component: () => <Register /> },
   { path: '/', Component: () => <Home /> },
   { path: '/dashboard', Component: () => <Page /> },
+  { path: '/class', Component: () => <Page /> },
+  { path: '/add_class', Component: () => <Page /> },
   { path: '/confirm-register', Component: () => <ConfirmRegister /> },
   { path: '/forgot-password', Component: () => <ForgotPassword /> },
   { path: '/confirm-password', Component: () => <ConfirmPassword /> },

@@ -24,7 +24,7 @@ export default function ClassBanner({ className }) {
                     alt="green iguana"
                     image="../class_banner.jpg"
                     title={className}
-                    sx={{ position: "relative", maxHeight: "250px" }}
+                    sx={{ position: "relative", maxHeight: "200px" }}
                 />
                 <Accordion>
                     <AccordionSummary
@@ -35,7 +35,8 @@ export default function ClassBanner({ className }) {
                             padding: "0",
                             paddingInline: "10px",
                             backgroundColor:"#1976d2",
-                            color:"white"
+                            color:"white",
+                            "& .MuiAccordionSummary-expandIconWrapper": {color: 'inherit'}
                         }}
                     >
                         <Typography component={"div"}>
@@ -45,7 +46,7 @@ export default function ClassBanner({ className }) {
                     <AccordionDetails>
                         <div style={{fontSize:"14px", marginBlock:"5px"}}>
                             Class ID: {sample_class.id}<br/>
-                            Student number: {sample_class.name}
+                            Student number: {sample_class.student_number}
                         </div>
                     </AccordionDetails>
                 </Accordion>

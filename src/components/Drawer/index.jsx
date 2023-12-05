@@ -88,7 +88,9 @@ export default function PersistentDrawerLeft(props) {
   }
 
   const handleAddClassButton = () => {
+    
     menuContext.handleTabChanges("add_class")
+    console.log(menuContext.tab)
     navigate("/add_class")
   }
 
