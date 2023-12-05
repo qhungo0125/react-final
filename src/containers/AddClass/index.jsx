@@ -1,6 +1,7 @@
 import { } from "@mui/icons-material";
 import { Button, Box, TextField, Typography } from "@mui/material";
 import { useState } from "react";
+import "./styles.css"
 
 function AddClass() {
     const [info, setInfo] = useState({
