@@ -6,31 +6,33 @@ import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { MenuContext } from '../../context/MenuContext';
 
-
 export default function NavTabs() {
-  const navigate = useNavigate()
-
-  const menuContext = useContext(MenuContext)
+  const navigate = useNavigate();
+  const menuContext = useContext(MenuContext);
 
   const handleTabClick = (e) => {
-    console.log(e)
-    menuContext.handleClassTabChanges((e.target.innerText).toLowerCase())
-  }
+    const tabName = e.target.innerText.toLowerCase();
+    menuContext.handleClassTabChanges(tabName);
+    const { classId } = menuContext;
+    navigate(`/class/${tabName}?id=${classId}`);
+  };
 
   return (
-    <Box sx={{
-      width: '80%',
-      display: menuContext.displayClassTab ? 'block' : 'none',
-    }}>
+    <Box
+      sx={{
+        width: '80%',
+        display: menuContext.displayClassTab ? 'block' : 'none',
+      }}
+    >
       <Tabs
         value={menuContext.classTab}
         sx={{
-          "& .MuiTabs-indicator": { display: 'none' },
-          "& .MuiTabScrollButton-root": { color: 'black' },
-          "& .MuiTabs-flexContainer": { justifyContent: 'center' }
+          '& .MuiTabs-indicator': { display: 'none' },
+          '& .MuiTabScrollButton-root': { color: 'black' },
+          '& .MuiTabs-flexContainer': { justifyContent: 'center' },
         }}
-        variant='scrollable'
-        scrollButtons='auto'
+        variant="scrollable"
+        scrollButtons="auto"
         allowScrollButtonsMobile
       >
         <Tab value="stream" label="Stream" onClick={handleTabClick} />

@@ -82,7 +82,6 @@ export default function PersistentDrawerLeft(props) {
   React.useEffect(() => {
     const getClassList = async () => {
       const res = await ClientAxios.get('/classes');
-      console.log('res', res);
       setClassList(res.data);
     };
     getClassList();
@@ -93,8 +92,9 @@ export default function PersistentDrawerLeft(props) {
   };
 
   const handleClassChange = (classId) => {
+    menuContext.updateClassId(classId);
     menuContext.handleClassTabChanges('stream');
-    navigate(`/class/stream/?id=${classId}`);
+    navigate(`/class/stream?id=${classId}`);
   };
 
   const handleAddClassButton = () => {
