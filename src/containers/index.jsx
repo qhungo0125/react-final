@@ -64,6 +64,7 @@ const Page = () => {
         margin: 0,
         border: 'none',
         width: '100%',
+        marginBottom:'50px',
         '&.MuiContainer-root': {
           maxWidth: '100%',
           padding: 0,

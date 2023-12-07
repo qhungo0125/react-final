@@ -43,7 +43,7 @@ export default function ClassBanner({ className }) {
                             {className}
                         </Typography>
                     </AccordionSummary>
-                    <AccordionDetails>
+                    <AccordionDetails sx={{backgroundColor:'aliceblue'}}>
                         <div style={{fontSize:"14px", marginBlock:"5px"}}>
                             Class ID: {sample_class.id}<br/>
                             Student number: {sample_class.student_number}

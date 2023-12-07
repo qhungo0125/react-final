@@ -171,7 +171,7 @@ export default function PrimarySearchAppBar() {
     return (<div>
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
-                <Toolbar>
+                <Toolbar sx={{minHeight:"45px !important"}}>
                     <Box sx={{ display: "flex" }}>
                         <Typography
                             variant="h6"

@@ -98,8 +98,8 @@ export default function PersistentDrawerLeft(props) {
     <Box sx={{ display: 'flex', position: 'relative' }}>
       <CssBaseline />
       <AppBar position="absolute" open={open} sx={{ backgroundColor: '#fff', boxShadow: 'none', borderBottom: '1px solid rgba(0, 0, 0, 0.12)' }}>
-        <Box sx={{ display: 'flex', justifyContent: { sm: "unset", md: 'space-between' } }}>
-          <Toolbar sx={{ minHeight: '48px !important', maxWidth: '50px' }}>
+        <Box sx={{ display: 'flex', justifyContent: { sm: "unset", md: 'space-between' }, height:"48px" }}>
+          <Toolbar sx={{ maxWidth: '50px', minHeight:"48px !important" }}>
             <IconButton
               aria-label="open drawer"
               onClick={handleDrawer}
@@ -135,7 +135,7 @@ export default function PersistentDrawerLeft(props) {
             noWrap
             component="div"
             sx={{
-              width: '100%', paddingLeft: '10px', paddingTop: '12px', fontSize: '17px', fontWeight: '500',
+              width: '100%', paddingLeft: '10px', paddingTop: '12px', fontSize: '16px', fontWeight: '500',
             }}
           >
             Class List
@@ -149,7 +149,7 @@ export default function PersistentDrawerLeft(props) {
                 <ListItemIcon sx={{ minWidth: '37px' }}>
                   <InboxIcon />
                 </ListItemIcon>
-                <ListItemText primary={class_item.name} />
+                <ListItemText primary={class_item.name} sx={{"& .MuiTypography-root ":{fontSize:"15px !important"}}}/>
               </ListItemButton>
             </ListItem>
           ))}

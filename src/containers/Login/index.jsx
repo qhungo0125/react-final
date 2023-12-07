@@ -78,13 +78,12 @@ function Login() {
           <span style={{ color: 'red', fontSize: '12px', marginLeft: '15px' }}>
             {passwordError}
           </span>
-          <div style={{ textAlign: 'right' }}>
+          <div style={{ textAlign: 'right', fontSize: '10px' }}>
             <Link
               to={'/forgot-password'}
               color="inherit"
-              sx={{ fontSize: '10px' }}
+              sx={{ fontSize: 'inherit' }}
             >
-
               Forgot Password?
             </Link>
           </div>
