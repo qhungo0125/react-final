@@ -18,7 +18,6 @@ export default function NavTabs() {
   const menuContext = useContext(MenuContext)
 
   const handleTabClick = (e) => {
-    console.log(e)
     menuContext.handleClassTabChanges((e.target.innerText).toLowerCase())
   }
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -45,7 +44,7 @@ export default function NavTabs() {
           <Tabs
             value={menuContext.classTab}
             sx={{
-              "& .MuiTabs-indicator": { display: 'none' },
+              '& .MuiTabs-indicator': { display: 'none' },
               "& .MuiTabScrollButton-root": { color: 'black' },
               "& .MuiTabs-flexContainer": { justifyContent: 'center' },
               "& .MuiButtonBase-root": { minHeight: 'inherit' },
