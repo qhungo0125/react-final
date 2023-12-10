@@ -31,10 +31,10 @@ const AddMember = () => {
       navigate('/login');
     } else {
       let params = { classId };
-      if (role === 'admin') {
+      if (role === 'teacher') {
         params.teacherId = userid;
       }
-      if (role === 'user') {
+      if (role === 'student') {
         params.studentId = userid;
       }
       addMember(params);
