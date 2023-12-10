@@ -9,6 +9,8 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import { TextField } from '@mui/material';
+import ClientAxios from '../../utils/axiosConfig';
+
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
@@ -20,10 +22,21 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }));
 
 export default function StudentInviteModal({ open, classId, handleClose }) {
-    const handleInvite = () => {
+    const [email, setEmail] = React.useState('')
+
+    const handleInvite = async () => {
         // send request
         console.log(classId)
-
+        const res = await ClientAxios.post('/class/invite',
+            {
+                classId: classId,
+                teacherEmails: [],
+                studentEmails: [email]
+            }
+        );
+        if(res && res.success){
+            alert('Invitation has been sent.')
+        }
         handleClose()
     }
     return (
@@ -56,6 +69,8 @@ export default function StudentInviteModal({ open, classId, handleClose }) {
                     type="email"
                     fullWidth
                     variant="standard"
+                    value={email}
+                    onChange={(e) => { setEmail(e.target.value) }}
                 />
             </DialogContent>
             <DialogActions>

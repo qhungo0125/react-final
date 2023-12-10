@@ -9,6 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import { TextField } from '@mui/material';
+import ClientAxios from '../../utils/axiosConfig';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
@@ -20,10 +21,21 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }));
 
 export default function TeacherInviteModal({ open, classId, handleClose }) {
-    const handleInvite = () => {
+    const [email, setEmail] = React.useState('')
+
+    const handleInvite = async () => {
         // send request
         console.log(classId)
-
+        const res = await ClientAxios.post('/class/invite',
+            {
+                classId: classId,
+                teacherEmails: [email],
+                studentEmails: []
+            }
+        )
+        if(res && res.success){
+            alert('Invitation has been sent.')
+        }
         handleClose()
     }
     return (
@@ -32,7 +44,7 @@ export default function TeacherInviteModal({ open, classId, handleClose }) {
             aria-labelledby="customized-dialog-title"
             open={open}
         >
-            <DialogTitle sx={{ m: 0, p: 2, width:'500px' }} id="customized-dialog-title">
+            <DialogTitle sx={{ m: 0, p: 2, width: '500px' }} id="customized-dialog-title">
                 Teacher Invitation
             </DialogTitle>
             <IconButton
@@ -56,6 +68,8 @@ export default function TeacherInviteModal({ open, classId, handleClose }) {
                     type="email"
                     fullWidth
                     variant="standard"
+                    value={email}
+                    onChange={(e) => { setEmail(e.target.value) }}
                 />
             </DialogContent>
             <DialogActions>
