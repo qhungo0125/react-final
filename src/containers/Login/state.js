@@ -72,9 +72,10 @@ export function useLogin() {
 
       // save token to local storage
       if (res && res.data) {
-        const { access_token, _id: userId } = res.data;
+        const { access_token, _id: userId, role  } = res.data;
         localStorage.setItem('token', access_token);
         localStorage.setItem('userid', userId);
+        localStorage.setItem('role', role);
         // alert('login successfully');
         // setTimeout()
         setTimeout(()=> navigate('/dashboard'), 2000);;
