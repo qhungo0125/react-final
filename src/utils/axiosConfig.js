@@ -1,7 +1,6 @@
 import axios from 'axios';
 import queryString from 'query-string';
 
-console.log(import.meta.env.VITE_API_URL);
 
 const ClientAxios = axios.create({
   baseURL: import.meta.env.VITE_API_URL,

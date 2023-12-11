@@ -14,7 +14,6 @@ import { MenuContext } from '../context/MenuContext';
 
 const Page = () => {
   const menuContext = useContext(MenuContext);
-  console.log(menuContext);
 
   var tab;
   if (menuContext.displayClassTab) {

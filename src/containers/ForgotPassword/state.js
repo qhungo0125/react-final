@@ -16,9 +16,6 @@ const useForgotState = () => {
   }, []);
 
   const submitForgot = React.useCallback(async () => {
-    console.log({
-      email: forgotData.email,
-    });
 
     setForgotData((current) => ({
       ...current,
@@ -28,7 +25,6 @@ const useForgotState = () => {
     const data = await AuthenticationAPI.forgotPassword({
       email: forgotData.email,
     });
-    console.log('data>>>', data);
 
     if (!data.success) {
       setForgotData((current) => ({

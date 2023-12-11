@@ -26,7 +26,6 @@ export default function StudentInviteModal({ open, classId, handleClose }) {
 
     const handleInvite = async () => {
         // send request
-        console.log(classId)
         const res = await ClientAxios.post('/class/invite',
             {
                 classId: classId,

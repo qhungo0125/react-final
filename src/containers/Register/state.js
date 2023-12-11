@@ -40,7 +40,6 @@ export default function useRegisterState() {
   };
 
   const handleNameChange = (e) => {
-    console.log(e.target.value);
     handleDataChange({ key: 'name', value: e.target.value });
   };
 
@@ -54,7 +53,6 @@ export default function useRegisterState() {
 
   const handleRegister = async () => {
     const { name, email, password } = formData;
-    console.log(formData);
     try {
       //validation
       if (!name || !email || !password) {
@@ -92,7 +90,6 @@ export default function useRegisterState() {
         password,
       });
 
-      console.log('res >>>', res);
       setLoading(false);
       // save token to local storage
       // localStorage.setItem('token', res.headers['authorization']);
@@ -104,7 +101,6 @@ export default function useRegisterState() {
       // redirect to dashboard
       // handle code here
     } catch (error) {
-      console.log('error>>', error);
       alert('Error occues');
       localStorage.removeItem('token');
       // setErrors((data) => ({
