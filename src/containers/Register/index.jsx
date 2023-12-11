@@ -6,6 +6,7 @@ import Box from '@mui/system/Box';
 import { Apple, Email, Google, Password } from '@mui/icons-material';
 import useRegisterState from './state';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 const styles = {
   signup: {
@@ -42,6 +43,12 @@ function Register() {
     handleRegister,
   } = useRegisterState();
 
+  const [role, setRole] = useState('student'); // Initial state is an empty string
+
+  const handleRoleChange = (event) => {
+    setRole(event.target.value);
+  };
+
   const { name, email, password } = formData;
   const { name: nameError, email: emailError, password: passError } = errors;
 
@@ -74,6 +81,28 @@ function Register() {
           <span style={{ color: 'red', fontSize: '12px', marginLeft: '15px' }}>
             {emailError}
           </span>
+          <div>
+            <label>
+              <input
+                type="radio"
+                name="role"
+                value="student"
+                checked={role === 'student'}
+                onChange={handleRoleChange}
+              />
+              Student
+            </label>
+            <label style={{ marginLeft: '10px' }}>
+              <input
+                type="radio"
+                name="role"
+                value="teacher"
+                checked={role === 'teacher'}
+                onChange={handleRoleChange}
+              />
+              Teacher
+            </label>
+          </div>
           <SInput
             label={'Password'}
             type={'password'}
@@ -108,7 +137,10 @@ function Register() {
             <SButton styles={styles.signup_w_gg} />
           </div>
         </Box>
-        <Box sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }} className="login_image">
+        <Box
+          sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}
+          className="login_image"
+        >
           <img src="./login_bg.jpg" />
         </Box>
       </div>
