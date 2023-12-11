@@ -113,7 +113,7 @@ function Register() {
             {passError}
           </span>
           <div style={{ marginTop: '10px', fontSize: '12px' }}>
-            <SButton styles={styles.signup} onButtonClick={handleRegister} />
+            <SButton styles={styles.signup} onButtonClick={()=>handleRegister(role)} />
           </div>
           <div
             style={{

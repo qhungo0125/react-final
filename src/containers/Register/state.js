@@ -51,7 +51,7 @@ export default function useRegisterState() {
     handleDataChange({ key: 'password', value: e.target.value });
   };
 
-  const handleRegister = async () => {
+  const handleRegister = async (role) => {
     const { name, email, password } = formData;
     try {
       //validation
@@ -88,6 +88,7 @@ export default function useRegisterState() {
         name,
         email,
         password,
+        role
       });
 
       setLoading(false);
