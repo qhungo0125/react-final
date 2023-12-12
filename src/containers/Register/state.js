@@ -102,6 +102,7 @@ export default function useRegisterState() {
       // redirect to dashboard
       // handle code here
     } catch (error) {
+      setLoading(false);
       alert('Error occues');
       localStorage.removeItem('token');
       // setErrors((data) => ({
@@ -112,6 +113,7 @@ export default function useRegisterState() {
   };
 
   return {
+    loading,
     formData,
     errors,
     handleEmailChange,

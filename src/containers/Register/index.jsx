@@ -37,11 +37,19 @@ function Register() {
   const {
     formData,
     errors,
+    loading,
     handleEmailChange,
     handleNameChange,
     handlePasswordChange,
     handleRegister,
   } = useRegisterState();
+
+  
+  if (loading){
+    styles.signup.text = 'Loading...';
+  }else{
+    styles.signup.text = 'Create account';
+  }
 
   const [role, setRole] = useState('student'); // Initial state is an empty string
 
