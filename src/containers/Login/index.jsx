@@ -62,7 +62,7 @@ function Login() {
           component="form"
           sx={{
             '& .MuiTextField-root': { marginBlock: 1 },
-            width: { xs: '100%', md: '50%' },
+            width: { xs: '100%', md: '100%' },
           }}
           noValidate
           autoComplete="off"
@@ -129,7 +129,7 @@ function Login() {
           </div>
         </Box>
         <Box
-          sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}
+          sx={{ display: { xs: 'none', sm: 'none', md: 'none', lg: "block" } }}
           className="login_image"
         >
           <img src="./login_bg.jpg" />
