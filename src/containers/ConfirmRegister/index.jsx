@@ -30,7 +30,7 @@ const ConfirmRegister = () => {
       validateToken(token);
     }
   }, []);
-  return <div>ConfirmRegister</div>;
+  return <div></div>;
 };
 
 export default ConfirmRegister;
