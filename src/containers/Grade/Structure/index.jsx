@@ -14,7 +14,7 @@ export default function Structure() {
         columns,
         rows,
         editMode,
-        handleEditClick,
+        handleEditMode,
         fetchData
     } = useGradeStructure();
 
@@ -22,46 +22,43 @@ export default function Structure() {
         fetchData()
     }, [])
 
-    return (
+    console.log(editMode)
 
+    return (
         <div style={{ height: 600, width: '100%' }}>
             {loading && <Loader open={loading} />}
-            {loading ||
-                (editMode ?
-                    <EditingGrid _rows={structuredClone(rows)}/>
-                    :
-                    <div>
-                        <Box sx={{ width: '100%', marginBottom: '3px', textAlign: "right" }}>
-                            <Button startIcon={<EditIcon />} sx={{ textTransform: 'none' }} onClick={handleEditClick}>
-                                Edit
-                            </Button>
-                        </Box>
-                        <DataGrid
-                            rows={rows}
-                            columns={columns}
-                            initialState={{
-                                pagination: {
-                                    paginationModel: { page: 0, pageSize: 10 },
-                                },
-                            }}
-                            sx={{
-                                fontSize: '14px',
-                                "& .MuiDataGrid-footerContainer": { display: 'none' },
-                                width: "500px",
-                                marginLeft: "auto",
-                                marginRight: 'auto'
-                            }}
-                            pageSizeOptions={[0, 10]}
-                            slots={{ toolbar: GridToolbar }}
+            {!loading && editMode && <EditingGrid _rows={structuredClone(rows)} handleEditMode={handleEditMode}/>}
+            {!loading && editMode ||
+                <div>
+                    <Box sx={{ width: '100%', marginBottom: '3px', textAlign: "right" }}>
+                        <Button startIcon={<EditIcon />} sx={{ textTransform: 'none' }} onClick={handleEditMode}>
+                            Edit
+                        </Button>
+                    </Box>
+                    <DataGrid
+                        rows={rows}
+                        columns={columns}
+                        initialState={{
+                            pagination: {
+                                paginationModel: { page: 0, pageSize: 10 },
+                            },
+                        }}
+                        sx={{
+                            fontSize: '14px',
+                            "& .MuiDataGrid-footerContainer": { display: 'none' },
+                            width: "500px",
+                            marginLeft: "auto",
+                            marginRight: 'auto'
+                        }}
+                        pageSizeOptions={[0, 10]}
+                        slots={{ toolbar: GridToolbar }}
 
-                            disableColumnMenu
-                            disableDensitySelector
-                            disableColumnFilter
-                            disableColumnSelector
-                        />
-
-                    </div>
-                )
+                        disableColumnMenu
+                        disableDensitySelector
+                        disableColumnFilter
+                        disableColumnSelector
+                    />
+                </div>
             }
         </div>
     );

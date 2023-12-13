@@ -22,7 +22,7 @@ export default function useGradeStructure() {
         setLoading(true);
         // const userId = localStorage.getItem('userid');
         const getScoreTypes = async () => {
-            const { success, data } = await axios.get(`/score/mock/grade-structure`);
+            const { success, data } = await axios.post(`/score/mock/grade-structure`);
             if (data) {
                 setGradeStructure(data)
                 console.log(data)
@@ -46,7 +46,7 @@ export default function useGradeStructure() {
         console.log(temp_rows)
     }
 
-    const handleEditClick = () => {
+    const handleEditMode = () => {
         setEditMode(prev => !prev)
     }
 
@@ -54,7 +54,7 @@ export default function useGradeStructure() {
         if (isSave) {//is save
             setRows(_rows)
         }
-        handleEditClick()
+        handleEditMode()
     }
 
     return {
@@ -63,7 +63,7 @@ export default function useGradeStructure() {
         columns,
         rows,
         editMode,
-        handleEditClick,
+        handleEditMode,
         handleSaveChanges,
         fetchData
     };

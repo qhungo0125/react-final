@@ -15,6 +15,8 @@ import {
     GridRowEditStopReasons,
 } from '@mui/x-data-grid';
 import { randomId } from '@mui/x-data-grid-generator';
+import axios from '../../../utils/axiosConfig.js';
+
 
 function EditToolbar(props) {
     const { setRows, setRowModesModel } = props;
@@ -37,10 +39,9 @@ function EditToolbar(props) {
     );
 }
 
-export default function EditingGrid({ _rows, handleSaveChanges }) {
+export default function EditingGrid({ _rows, handleEditMode }) {
     const [rows, setRows] = React.useState(_rows);
     const [rowModesModel, setRowModesModel] = React.useState({});
-
 
     const handleRowEditStop = (params, event) => {
         if (params.reason === GridRowEditStopReasons.rowFocusOut) {
@@ -133,14 +134,34 @@ export default function EditingGrid({ _rows, handleSaveChanges }) {
         }
     ]
 
+    const handleSaveChangesClick = async () => {
+        // send changes
+        handleEditMode()
+        console.log("edit click")
+
+        // sua lai gui rows, khong gui tung dong
+        const { success, data } = await axios.post(`/score/mock/update-grade-composition`,
+            {
+                subjectId: "",
+                teacherId: "",
+                semesterId: "",
+                scoreTypeId: "",
+                newScoreTypeName: "",
+                isPublish: ""
+            });
+        if (data) {
+            console.log(data)
+        }
+    }
+
     return (
         <div>
             <Box sx={{ width: '100%', marginBottom: '3px', textAlign: "right" }}>
                 <div>
-                    <Button startIcon={<DoneAllIcon />} sx={{ textTransform: 'none' }} >
+                    <Button startIcon={<DoneAllIcon />} sx={{ textTransform: 'none' }} onClick={handleSaveChangesClick}>
                         Save
                     </Button>
-                    <Button startIcon={<CancelIcon />} sx={{ textTransform: 'none' }} >
+                    <Button startIcon={<CancelIcon />} sx={{ textTransform: 'none' }} onClick={handleEditMode}>
                         Cancel
                     </Button>
                 </div>
