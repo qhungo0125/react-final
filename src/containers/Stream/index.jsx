@@ -22,7 +22,6 @@ function Stream() {
       <img
         src="https://wallpapers.com/images/hd/virtual-classroom-background-xl1p59ku6y834y02.jpg"
         className="card-img-top"
-        style={{ height: 18 + 'rem' }}
         alt={infoClass._id}
       />
       <div className="card-body">

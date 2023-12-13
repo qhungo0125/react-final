@@ -67,7 +67,7 @@ const ConfirmPassword = () => {
 
     if (!token) {
       alert('Invalid token');
-      navigate('/');
+      // navigate('/');
     } else {
       validateToken(token);
     }

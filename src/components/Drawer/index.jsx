@@ -10,15 +10,11 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import AddIcon from '@mui/icons-material/Add';
-import { classes } from '../../utils/sampleData';
 import { useNavigate } from 'react-router-dom';
 import NavTabs from './tabs.jsx';
 import { useContext } from 'react';
@@ -76,8 +72,24 @@ export default function PersistentDrawerLeft(props) {
   const navigate = useNavigate();
   const menuContext = useContext(MenuContext);
 
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const [classList, setClassList] = React.useState([]);
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768) {
+        setOpen(true);
+      } else {
+        setOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []); //
 
   React.useEffect(() => {
     const getClassList = async () => {
@@ -120,21 +132,20 @@ export default function PersistentDrawerLeft(props) {
               aria-label="open drawer"
               onClick={handleDrawer}
               edge="start"
-              // sx={{ mr: 2, ...(open && { display: 'none' }) }}
-              sx={{ mr: 2 }}
             >
               <MenuIcon />
             </IconButton>
           </Toolbar>
           <NavTabs />
-
+          {/* 
           <Box
             sx={{ width: '140px', display: { sx: 'none', sm: 'block' } }}
-          ></Box>
+          ></Box> */}
         </Box>
       </AppBar>
       <Drawer
         sx={{
+          height:"90vh",
           width: drawerWidth,
           flexShrink: 0,
           '& .MuiDrawer-paper': {
@@ -165,13 +176,21 @@ export default function PersistentDrawerLeft(props) {
         </DrawerHeader>
         <Divider />
         <List>
-          {classList.map((class_item) => (
-            <ListItem key={class_item._id} disablePadding>
-              <ListItemButton onClick={() => handleClassChange(class_item._id)}>
-                <ListItemIcon sx={{ minWidth: '37px' }}>
+          {classList.map((classInfor) => (
+            <ListItem key={classInfor._id} disablePadding>
+              <ListItemButton onClick={() => handleClassChange(classInfor._id)}>
+                <ListItemIcon>
                   <InboxIcon />
                 </ListItemIcon>
-                <ListItemText primary={class_item.name} />
+                <p
+                  style={{
+                    textOverflow: 'ellipsis',
+                    overflow: 'hidden',
+                  }}
+                >
+                  {classInfor.name}
+                </p>
+                {/* <ListItemText primary={classInfor.name} /> */}
               </ListItemButton>
             </ListItem>
           ))}

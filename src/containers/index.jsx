@@ -77,8 +77,10 @@ const Page = () => {
                 paddingY: 2,
                 '&.MuiContainer-root': {
                   maxWidth: '100%',
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  justifyContent: 'center',
                 },
-                height: '80vh',
               }}
             >
               {/* <DashBoard /> */}
