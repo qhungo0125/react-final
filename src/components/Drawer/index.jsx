@@ -20,6 +20,9 @@ import NavTabs from './tabs.jsx';
 import { useContext } from 'react';
 import { MenuContext } from '../../context/MenuContext.jsx';
 import ClientAxios from '../../utils/axiosConfig.js';
+import { Button } from '@mui/material';
+import SInput from '../Custom/SInput.jsx';
+import addMember from '../../api/class.js';
 
 const drawerWidth = 240;
 
@@ -74,6 +77,37 @@ export default function PersistentDrawerLeft(props) {
 
   const [open, setOpen] = React.useState(false);
   const [classList, setClassList] = React.useState([]);
+
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [invitationCode, setInvitationCode] = React.useState('');
+  const openForm = () => setIsOpen(true);
+  const closeForm = () => setIsOpen(false);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    // You can perform further actions with the invitation code, e.g., send it to a server
+    console.log('Submitted Invitation Code:', invitationCode);
+    // Close the form after submission
+    // closeForm();
+
+    const role = localStorage.getItem('role');
+    const userid = localStorage.getItem('userid');
+
+    if (!role || !userid) {
+      alert('You must login to access this page');
+      navigate('/login');
+    } else {
+      let params = { invitationCode };
+      if (role === 'teacher') {
+        params.teacherId = userid;
+      }
+      if (role === 'student') {
+        params.studentId = userid;
+      }
+      addMember(params);
+      closeForm();
+    }
+  };
 
   React.useEffect(() => {
     const handleResize = () => {
@@ -145,7 +179,7 @@ export default function PersistentDrawerLeft(props) {
       </AppBar>
       <Drawer
         sx={{
-          height:"90vh",
+          height: '90vh',
           width: drawerWidth,
           flexShrink: 0,
           '& .MuiDrawer-paper': {
@@ -159,6 +193,73 @@ export default function PersistentDrawerLeft(props) {
         anchor="left"
         open={open}
       >
+        <div
+          style={{
+            marginTop: '1rem',
+            textAlign: 'center',
+          }}
+        >
+          <Button
+            variant="contained"
+            onClick={() => {
+              openForm();
+            }}
+          >
+            Join by Code
+          </Button>
+
+          {isOpen && (
+            <div
+              style={{
+                position: 'fixed',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                // backgroundColor: '#fff',
+                backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                padding: '20px',
+                boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
+                zIndex: 999,
+                height: '100vh',
+                width: '100vw',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <form onSubmit={handleSubmit}>
+                {/* <SInput
+                  label={'Email'}
+                  value={'Email'}
+                  onInputChange={() => {}}
+                /> */}
+                <label>
+                  Invitation Code:
+                  <input
+                    type="text"
+                    value={invitationCode}
+                    onChange={(e) => setInvitationCode(e.target.value)}
+                  />
+                </label>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-around',
+                  }}
+                >
+                  <Button variant="contained" type="submit">
+                    Submit
+                  </Button>
+
+                  <Button variant="contained" type="button" onClick={closeForm}>
+                    Close
+                  </Button>
+                </div>
+              </form>
+            </div>
+          )}
+        </div>
         <DrawerHeader>
           <Typography
             noWrap
