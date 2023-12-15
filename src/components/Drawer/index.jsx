@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -21,10 +21,18 @@ import { useContext } from 'react';
 import { MenuContext } from '../../context/MenuContext.jsx';
 import ClientAxios from '../../utils/axiosConfig.js';
 import { Button } from '@mui/material';
-import SInput from '../Custom/SInput.jsx';
 import addMember from '../../api/class.js';
-
 const drawerWidth = 240;
+
+const BootstrapButton = styled(Button)({
+  backgroundColor: 'white',
+  color: "black",
+  '&:hover': {
+    backgroundColor: 'white',
+    color: "black",
+    // boxShadow: 'none',
+  },
+});
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -81,33 +89,30 @@ export default function PersistentDrawerLeft(props) {
   const [isOpen, setIsOpen] = React.useState(false);
   const [invitationCode, setInvitationCode] = React.useState('');
   const openForm = () => setIsOpen(true);
-  const closeForm = () => setIsOpen(false);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    // You can perform further actions with the invitation code, e.g., send it to a server
-    console.log('Submitted Invitation Code:', invitationCode);
-    // Close the form after submission
-    // closeForm();
+  const handleSubmit = React.useCallback(
+    async (event) => {
+      event.preventDefault();
+      const role = localStorage.getItem('role');
+      const userid = localStorage.getItem('userid');
 
-    const role = localStorage.getItem('role');
-    const userid = localStorage.getItem('userid');
-
-    if (!role || !userid) {
-      alert('You must login to access this page');
-      navigate('/login');
-    } else {
-      let params = { invitationCode };
-      if (role === 'teacher') {
-        params.teacherId = userid;
+      if (!role || !userid) {
+        alert('You must login to access this page');
+        navigate('/login');
+      } else {
+        let params = { invitationCode };
+        if (role === 'teacher') {
+          params.teacherId = userid;
+        }
+        if (role === 'student') {
+          params.studentId = userid;
+        }
+        addMember(params);
+        setIsOpen(false);
       }
-      if (role === 'student') {
-        params.studentId = userid;
-      }
-      addMember(params);
-      closeForm();
-    }
-  };
+    },
+    [invitationCode, navigate],
+  );
 
   React.useEffect(() => {
     const handleResize = () => {
@@ -227,33 +232,56 @@ export default function PersistentDrawerLeft(props) {
                 justifyContent: 'center',
               }}
             >
-              <form onSubmit={handleSubmit}>
-                {/* <SInput
-                  label={'Email'}
-                  value={'Email'}
-                  onInputChange={() => {}}
-                /> */}
-                <label>
-                  Invitation Code:
-                  <input
-                    type="text"
-                    value={invitationCode}
-                    onChange={(e) => setInvitationCode(e.target.value)}
-                  />
-                </label>
+              <form
+                style={{
+                  background: 'white',
+                  padding: '2rem 6rem',
+                  borderRadius: '1rem',
+                }}
+                onSubmit={handleSubmit}
+              >
+                <h4
+                  style={{
+                    marginBottom: '2rem',
+                  }}
+                >
+                  Input Invitation Code
+                </h4>
+
+                <input
+                  style={{
+                    border: '1px solid #ccc',
+                    borderRadius: '0.5rem',
+                    width: '80%',
+                    height: '2.5rem',
+                    fontSize: '1.5rem',
+                  }}
+                  type="text"
+                  value={invitationCode}
+                  onChange={(e) => setInvitationCode(e.target.value)}
+                />
                 <div
                   style={{
+                    margin: '2rem 1rem 0',
                     display: 'flex',
                     flexDirection: 'row',
                     justifyContent: 'space-around',
                   }}
                 >
+                  <BootstrapButton
+                    sx={{
+                      backgroundColor: 'white',
+                      color: 'black',
+                    }}
+                    variant="contained"
+                    type="button"
+                    onClick={(e) => setIsOpen(false)}
+                  >
+                    Close
+                  </BootstrapButton>
+
                   <Button variant="contained" type="submit">
                     Submit
-                  </Button>
-
-                  <Button variant="contained" type="button" onClick={closeForm}>
-                    Close
                   </Button>
                 </div>
               </form>
@@ -309,7 +337,7 @@ export default function PersistentDrawerLeft(props) {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        {props.children}
+        {props && props.children}
       </Main>
     </Box>
   );
