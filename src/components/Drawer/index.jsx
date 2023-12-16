@@ -73,6 +73,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export default function PersistentDrawerLeft(props) {
+
   const navigate = useNavigate();
   const menuContext = useContext(MenuContext);
 
@@ -102,20 +103,24 @@ export default function PersistentDrawerLeft(props) {
     navigate('/add_class');
   };
 
+  const handleClassChange = () => {
+    menuContext.handleClassTabChanges("stream")
+    navigate("/class")
+  }
+
+  const handleAddClassButton = () => {
+    
+    menuContext.handleTabChanges("add_class")
+    console.log(menuContext.tab)
+    navigate("/add_class")
+  }
+
   return (
     <Box sx={{ display: 'flex', position: 'relative' }}>
       <CssBaseline />
-      <AppBar
-        position="absolute"
-        open={open}
-        sx={{
-          backgroundColor: '#fff',
-          boxShadow: 'none',
-          borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
-        }}
-      >
-        <Box sx={{ display: 'flex' }}>
-          <Toolbar sx={{ minHeight: '48px !important', maxWidth: '50px' }}>
+      <AppBar position="absolute" open={open} sx={{ backgroundColor: '#fff', boxShadow: 'none', borderBottom: '1px solid rgba(0, 0, 0, 0.12)' }}>
+        <Box sx={{ display: 'flex', justifyContent: { sm: "unset", md: 'space-between' }, height:"48px" }}>
+          <Toolbar sx={{ maxWidth: '50px', minHeight:"48px !important" }}>
             <IconButton
               aria-label="open drawer"
               onClick={handleDrawer}
@@ -128,9 +133,7 @@ export default function PersistentDrawerLeft(props) {
           </Toolbar>
           <NavTabs />
 
-          <Box
-            sx={{ width: '140px', display: { sx: 'none', sm: 'block' } }}
-          ></Box>
+          <Box sx={{ width: "70px", display: { sm: "none", md: "block" } }}></Box>
         </Box>
       </AppBar>
       <Drawer
@@ -142,7 +145,7 @@ export default function PersistentDrawerLeft(props) {
             boxSizing: 'border-box',
             position: 'absolute',
           },
-          '& .MuiDrawer-paper div': { minHeight: '48px !important' },
+          '& .MuiDrawer-paper div': { minHeight: '48px !important' }
         }}
         variant="persistent"
         anchor="left"
@@ -153,11 +156,7 @@ export default function PersistentDrawerLeft(props) {
             noWrap
             component="div"
             sx={{
-              width: '100%',
-              paddingLeft: '10px',
-              paddingTop: '12px',
-              fontSize: '17px',
-              fontWeight: '500',
+              width: '100%', paddingLeft: '10px', paddingTop: '12px', fontSize: '16px', fontWeight: '500',
             }}
           >
             Class List
@@ -187,8 +186,8 @@ export default function PersistentDrawerLeft(props) {
           </IconButton>
         </Box>
       </Drawer>
-      <Main open={open}>
-        <DrawerHeader />
+      <Main open={open} sx={{paddingTop:"60px"}}>
+        {/* <DrawerHeader /> */}
         {props.children}
       </Main>
     </Box>

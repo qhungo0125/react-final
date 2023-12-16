@@ -1,0 +1,8 @@
+.G-input{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.G-input label{
+    width: 150px;
+}

@@ -62,7 +62,7 @@ function Login() {
           component="form"
           sx={{
             '& .MuiTextField-root': { marginBlock: 1 },
-            width: { xs: '100%', md: '50%' },
+            width: { xs: '100%', md: '50%' }
           }}
           noValidate
           autoComplete="off"
@@ -85,11 +85,11 @@ function Login() {
           <span style={{ color: 'red', fontSize: '12px', marginLeft: '15px' }}>
             {passwordError}
           </span>
-          <div style={{ textAlign: 'right' }}>
+          <div style={{ textAlign: 'right', fontSize: '10px' }}>
             <Link
               to={'/forgot-password'}
               color="inherit"
-              sx={{ fontSize: '10px' }}
+              sx={{ fontSize: 'inherit' }}
             >
               Forgot Password?
             </Link>

@@ -5,51 +5,61 @@ import DashBoard from './Dashboard';
 import Stream from './Stream';
 import People from './People';
 import Grade from './Grade';
-import General from './General';
 import AddClass from './AddClass';
-import PrimarySearchAppBar from '../components/Header';
+import PrimarySearchAppBar from '../components/Header'
+import Detail from './Grade/Detail';
+import Review from './Grade/Review';
+import Structure from './Grade/Structure';
 
 import { useContext } from 'react';
 import { MenuContext } from '../context/MenuContext';
 
-const Page = () => {
-  const menuContext = useContext(MenuContext);
+const identifyTabs = () => {
+  const menuContext = useContext(MenuContext)
 
   var tab;
   if (menuContext.displayClassTab) {
-    switch (menuContext.classTab) {
-      case 'stream':
-        tab = <Stream />;
+    var currentClassTab = menuContext.classTab
+    switch (currentClassTab) {
+      case ("stream"):
+        tab = <Stream />
         break;
-      case 'people':
-        tab = <People />;
+      case ("people"):
+        tab = <People />
         break;
-      case 'grade':
-        tab = <Grade />;
+      case ("grade_detail"):
+        tab = <Detail />
         break;
-      case 'general':
-        tab = <General />;
+      case ("grade_structure"):
+        tab = <Structure />
         break;
-      case 'add':
-        tab = <AddClass />;
+      case ("grade_review"):
+        tab = <Review />
         break;
       default:
-        tab = <Stream />;
+        tab = <Stream />
         break;
     }
   } else {
     switch (menuContext.tab) {
-      case 'home':
-        tab = <DashBoard />;
+      case ("home"):
+        tab = <DashBoard />
         break;
-      case 'add_class':
-        tab = <AddClass />;
+      case ("add_class"):
+        tab = <AddClass />
         break;
       default:
-        tab = <DashBoard />;
+        tab = <DashBoard />
         break;
     }
   }
+
+  return tab
+}
+
+const Page = () => {
+  const menuContext = useContext(MenuContext);
+
 
   return (
     <Container
@@ -57,13 +67,14 @@ const Page = () => {
         margin: 0,
         border: 'none',
         width: '100%',
+        marginBottom:'50px',
         '&.MuiContainer-root': {
           maxWidth: '100%',
           padding: 0,
         },
       }}
     >
-      <div style={{ position: 'relative' }}>
+      <div style={{ position: "relative" }}>
         <PrimarySearchAppBar />
       </div>
       <div>
@@ -77,12 +88,13 @@ const Page = () => {
                 paddingY: 2,
                 '&.MuiContainer-root': {
                   maxWidth: '100%',
+                  marginTop:'0 !important'
                 },
-                height: '80vh',
+                height: '80vh'
               }}
             >
               {/* <DashBoard /> */}
-              {tab}
+              {identifyTabs()}
             </Container>
           </ResponsiveDrawer>
         }
