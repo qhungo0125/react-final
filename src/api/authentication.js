@@ -2,9 +2,10 @@ import ClientAxios from '../utils/axiosConfig';
 
 export const AuthenticationAPI = {
   register: async (params) => {
-    const { name, email, password } = params;
+    const { name, email, password, role } = params;
     const response = await ClientAxios.post('/accounts/auth/register', {
       name,
+      role,
       email,
       password,
     });

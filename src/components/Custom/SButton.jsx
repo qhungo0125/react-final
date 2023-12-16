@@ -1,6 +1,6 @@
 import { Button, Icon } from '@mui/material';
 
-function SButton({styles, onButtonClick}) {
+function SButton({styles, onButtonClick, loading}) {
     return (
         <Button
             variant="contained"

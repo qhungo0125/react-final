@@ -25,13 +25,9 @@ const ConfirmPassword = () => {
     isError: false,
     errorMessage: '',
   });
-  console.log(data);
   const navigate = useNavigate();
 
   const handleSubmit = React.useCallback(async () => {
-    console.log(data);
-    console.log(data.password === '');
-    console.log(data.cfPassword === '');
 
     if (data.password === '' || data.cfPassword === '') {
       setData((current) => ({
@@ -54,7 +50,6 @@ const ConfirmPassword = () => {
     const res = await AuthenticationAPI.updatePassword({
       password: data.password,
     });
-    console.log('res>>>', res);
     setData((current) => ({ ...current, isLoading: false }));
     if (!res.success) {
       alert(res.error?.message);

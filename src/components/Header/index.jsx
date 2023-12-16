@@ -172,7 +172,7 @@ export default function PrimarySearchAppBar() {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar sx={{minHeight:"45px !important"}}>
-                    <Box sx={{ display: "flex" }}>
+                    <Box sx={{ display: "flex", cursor: 'pointer' }} onClick={handleHomeIconClick}>
                         <Typography
                             variant="h6"
                             noWrap

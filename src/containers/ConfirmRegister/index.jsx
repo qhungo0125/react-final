@@ -13,7 +13,6 @@ const ConfirmRegister = () => {
     const validateToken = async (token) => {
       setData({ isLoading: true });
       const res = await AuthenticationAPI.validateRegisterToken({ token });
-      console.log('res>>>', res);
       setData({ isLoading: false });
       if (!res.success) {
         alert(res.error?.message);
@@ -28,7 +27,6 @@ const ConfirmRegister = () => {
       alert('Invalid token');
       navigate('/');
     } else {
-      console.log('token>>>', token);
       validateToken(token);
     }
   }, []);

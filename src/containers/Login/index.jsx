@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { useGlobal } from '../../context';
 import ClientAxios from '../../utils/axiosConfig';
 
-const styles = {
+let styles = {
   login_btn: {
     text: 'Log in',
     bgColor: '#187b87',
@@ -35,14 +35,21 @@ const styles = {
 
 function Login() {
   const { loginState } = useGlobal();
-  console.log(loginState);
   const {
     formData,
     errors,
     handleEmailChange,
     handlePasswordChange,
     handleLogin,
+    loading,
   } = useLogin();
+
+
+  if (loading){
+    styles.login_btn.text = 'Loading...';
+  }else{
+    styles.login_btn.text = 'Log in';
+  }
 
   const { email, password } = formData;
   const { email: emailError, password: passwordError } = errors;
@@ -113,15 +120,18 @@ function Login() {
           </div> */}
           <div style={{ marginTop: '10px', fontSize: '11px' }}>
             <SButton
+              loading={loading}
               styles={styles.login_w_gg}
               onButtonClick={async (e) => {
                 const data = await ClientAxios.get('/accounts/auth/google');
-                console.log('data>>>', data);
               }}
             />
           </div>
         </Box>
-        <Box sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }} className="login_image">
+        <Box
+          sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}
+          className="login_image"
+        >
           <img src="./login_bg.jpg" />
         </Box>
       </div>

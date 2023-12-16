@@ -23,7 +23,7 @@ import { useNavigate } from 'react-router-dom';
 import NavTabs from './tabs.jsx';
 import { useContext } from 'react';
 import { MenuContext } from '../../context/MenuContext.jsx';
-
+import ClientAxios from '../../utils/axiosConfig.js';
 
 const drawerWidth = 240;
 
@@ -73,13 +73,34 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export default function PersistentDrawerLeft(props) {
-  const navigate = useNavigate()
-  const menuContext = useContext(MenuContext)
+
+  const navigate = useNavigate();
+  const menuContext = useContext(MenuContext);
 
   const [open, setOpen] = React.useState(true);
+  const [classList, setClassList] = React.useState([]);
+
+  React.useEffect(() => {
+    const getClassList = async () => {
+      const res = await ClientAxios.get('/classes');
+      setClassList(res.data);
+    };
+    getClassList();
+  }, []);
 
   const handleDrawer = () => {
-    setOpen(prev => !prev);
+    setOpen((prev) => !prev);
+  };
+
+  const handleClassChange = (classId) => {
+    menuContext.updateClassId(classId);
+    menuContext.handleClassTabChanges('stream');
+    navigate(`/class/stream?id=${classId}`);
+  };
+
+  const handleAddClassButton = () => {
+    menuContext.handleTabChanges('add_class');
+    navigate('/add_class');
   };
 
   const handleClassChange = () => {
@@ -143,20 +164,24 @@ export default function PersistentDrawerLeft(props) {
         </DrawerHeader>
         <Divider />
         <List>
-          {classes.map((class_item) => (
-            <ListItem key={class_item.id} disablePadding>
-              <ListItemButton onClick={handleClassChange}>
+          {classList.map((class_item) => (
+            <ListItem key={class_item._id} disablePadding>
+              <ListItemButton onClick={() => handleClassChange(class_item._id)}>
                 <ListItemIcon sx={{ minWidth: '37px' }}>
                   <InboxIcon />
                 </ListItemIcon>
-                <ListItemText primary={class_item.name} sx={{"& .MuiTypography-root ":{fontSize:"15px !important"}}}/>
+                <ListItemText primary={class_item.name} />
               </ListItemButton>
             </ListItem>
           ))}
         </List>
         <Divider />
-        <Box sx={{ width: "100%", textAlign: "center", marginTop: "10px" }}>
-          <IconButton color="primary" size='large' onClick={handleAddClassButton}>
+        <Box sx={{ width: '100%', textAlign: 'center', marginTop: '10px' }}>
+          <IconButton
+            color="primary"
+            size="large"
+            onClick={handleAddClassButton}
+          >
             <AddIcon />
           </IconButton>
         </Box>

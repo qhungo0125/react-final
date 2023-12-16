@@ -58,6 +58,9 @@ const identifyTabs = () => {
 }
 
 const Page = () => {
+  const menuContext = useContext(MenuContext);
+
+
   return (
     <Container
       sx={{
@@ -96,7 +99,6 @@ const Page = () => {
           </ResponsiveDrawer>
         }
       </div>
-
     </Container>
   );
 };
