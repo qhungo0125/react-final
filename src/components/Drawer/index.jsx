@@ -103,24 +103,13 @@ export default function PersistentDrawerLeft(props) {
     navigate('/add_class');
   };
 
-  const handleClassChange = () => {
-    menuContext.handleClassTabChanges("stream")
-    navigate("/class")
-  }
-
-  const handleAddClassButton = () => {
-    
-    menuContext.handleTabChanges("add_class")
-    console.log(menuContext.tab)
-    navigate("/add_class")
-  }
 
   return (
     <Box sx={{ display: 'flex', position: 'relative' }}>
       <CssBaseline />
       <AppBar position="absolute" open={open} sx={{ backgroundColor: '#fff', boxShadow: 'none', borderBottom: '1px solid rgba(0, 0, 0, 0.12)' }}>
-        <Box sx={{ display: 'flex', justifyContent: { sm: "unset", md: 'space-between' }, height:"48px" }}>
-          <Toolbar sx={{ maxWidth: '50px', minHeight:"48px !important" }}>
+        <Box sx={{ display: 'flex', justifyContent: { sm: "unset", md: 'space-between' }, height: "48px" }}>
+          <Toolbar sx={{ maxWidth: '50px', minHeight: "48px !important" }}>
             <IconButton
               aria-label="open drawer"
               onClick={handleDrawer}
@@ -186,7 +175,7 @@ export default function PersistentDrawerLeft(props) {
           </IconButton>
         </Box>
       </Drawer>
-      <Main open={open} sx={{paddingTop:"60px"}}>
+      <Main open={open} sx={{ paddingTop: "60px" }}>
         {/* <DrawerHeader /> */}
         {props.children}
       </Main>
