@@ -142,7 +142,12 @@ export default function PersistentDrawerLeft(props) {
 
   React.useEffect(() => {
     const getClassList = async () => {
-      const res = await ClientAxios.get('/classes');
+      const userId = localStorage.getItem('userid');
+      let url = '/classes';
+      if (userId) {
+        url += `?userId=${userId}`;
+      }
+      const res = await ClientAxios.get(url);
       setClassList(res.data);
     };
     getClassList();
