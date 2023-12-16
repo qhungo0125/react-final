@@ -10,24 +10,34 @@ import GlobalContext from './context';
 import ConfirmRegister from './containers/ConfirmRegister';
 import ForgotPassword from './containers/ForgotPassword';
 import ConfirmPassword from './containers/ConfirmPassword';
+import AddMember from './containers/AddMember';
+import { MenuProvider } from './context/MenuContext';
 
 const router = createBrowserRouter([
   { path: '/login', Component: () => <Login /> },
   { path: '/register', Component: () => <Register /> },
   { path: '/', Component: () => <Home /> },
+  { path: '/class/people', Component: () => <Page /> },
+  { path: '/class/general', Component: () => <Page /> },
+  { path: '/class/grade', Component: () => <Page /> },
+  { path: '/class/stream', Component: () => <Page /> },
+  { path: '/add_class', Component: () => <Page /> },
   { path: '/dashboard', Component: () => <Page /> },
   { path: '/class', Component: () => <Page /> },
   { path: '/add_class', Component: () => <Page /> },
   { path: '/confirm-register', Component: () => <ConfirmRegister /> },
   { path: '/forgot-password', Component: () => <ForgotPassword /> },
   { path: '/confirm-password', Component: () => <ConfirmPassword /> },
+  { path: '/class/add', Component: () => <AddMember /> },
   { path: '*', Component: () => <NotFound /> },
 ]);
 
 export default function App() {
   return (
     <GlobalContext>
-      <RouterProvider router={router} />
+      <MenuProvider>
+        <RouterProvider router={router} />
+      </MenuProvider>
     </GlobalContext>
   );
 }

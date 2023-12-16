@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 export function useLogin() {
   const navigate = useNavigate();
+  const [loading, setLoading] = React.useState(false);
   const { data, trigger } = useSWRMutation('/accounts/auth/login', postRequest);
 
   const [formData, setFormData] = React.useState({
@@ -63,26 +64,32 @@ export function useLogin() {
         return;
       }
       // trigger to registration
+      setLoading(true);
       const res = await trigger({
         email: email,
         password: password,
       });
 
-      console.log('res>>>', res);
+      setLoading(false);
 
       // save token to local storage
       if (res && res.data) {
-        const { access_token, _id: userId } = res.data;
+        const { access_token, _id: userId, role } = res.data;
         localStorage.setItem('token', access_token);
         localStorage.setItem('userid', userId);
+        localStorage.setItem('role', role);
         // alert('login successfully');
         // setTimeout()
-        setTimeout(()=> navigate('/dashboard'), 2000);;
+        setTimeout(() => navigate('/dashboard'), 2000);
       } else {
+        setLoading(false);
+
         alert('Error occurs');
         // res.error ? alert(res.error.message) : alert('Error occurs');
       }
     } catch (error) {
+      setLoading(false);
+
       localStorage.removeItem('token');
       localStorage.removeItem('userid');
       setErrors((data) => ({
@@ -93,6 +100,7 @@ export function useLogin() {
   };
 
   return {
+    loading,
     formData,
     errors,
     handlePasswordChange,
