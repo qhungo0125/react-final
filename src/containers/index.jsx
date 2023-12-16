@@ -56,7 +56,7 @@ const Page = () => {
       sx={{
         margin: 0,
         border: 'none',
-        width: '100%',
+        width: '100vw',
         '&.MuiContainer-root': {
           maxWidth: '100%',
           padding: 0,

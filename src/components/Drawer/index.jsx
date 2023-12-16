@@ -26,10 +26,10 @@ const drawerWidth = 240;
 
 const BootstrapButton = styled(Button)({
   backgroundColor: 'white',
-  color: "black",
+  color: 'black',
   '&:hover': {
     backgroundColor: 'white',
-    color: "black",
+    color: 'black',
     // boxShadow: 'none',
   },
 });
@@ -88,6 +88,8 @@ export default function PersistentDrawerLeft(props) {
 
   const [isOpen, setIsOpen] = React.useState(false);
   const [invitationCode, setInvitationCode] = React.useState('');
+  const [isValidatingCode, setValidatingCode] = React.useState(false);
+
   const openForm = () => setIsOpen(true);
 
   const handleSubmit = React.useCallback(
@@ -107,8 +109,16 @@ export default function PersistentDrawerLeft(props) {
         if (role === 'student') {
           params.studentId = userid;
         }
-        addMember(params);
-        setIsOpen(false);
+        try {
+          setValidatingCode(true);
+          const result = await addMember(params);
+          console.log(result);
+        } catch (error) {
+          alert(error.response.data.message);
+        } finally {
+          setValidatingCode(false);
+          setIsOpen(false);
+        }
       }
     },
     [invitationCode, navigate],
@@ -165,7 +175,11 @@ export default function PersistentDrawerLeft(props) {
           borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
         }}
       >
-        <Box sx={{ display: 'flex' }}>
+        <div
+          style={{
+            display: 'flex',
+          }}
+        >
           <Toolbar sx={{ minHeight: '48px !important', maxWidth: '50px' }}>
             <IconButton
               aria-label="open drawer"
@@ -175,12 +189,11 @@ export default function PersistentDrawerLeft(props) {
               <MenuIcon />
             </IconButton>
           </Toolbar>
-          <NavTabs />
-          {/* 
-          <Box
-            sx={{ width: '140px', display: { sx: 'none', sm: 'block' } }}
-          ></Box> */}
-        </Box>
+
+          <Box sx={{ justifyContent: 'center', display: 'flex' }}>
+            <NavTabs />
+          </Box>
+        </div>
       </AppBar>
       <Drawer
         sx={{

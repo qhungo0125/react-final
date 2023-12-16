@@ -5,7 +5,7 @@ import Tab from '@mui/material/Tab';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { MenuContext } from '../../context/MenuContext';
-import "./style.css"
+import './style.css';
 
 export default function NavTabs() {
   const navigate = useNavigate();
@@ -21,15 +21,13 @@ export default function NavTabs() {
   return (
     <Box
       sx={{
-        // width: '80%',
-        overflow: "scroll",
         display: menuContext.displayClassTab ? 'block' : 'none',
       }}
     >
       <Tabs
         value={menuContext.classTab}
         sx={{
-          marginLeft: "4px",
+          marginLeft: '4px',
           '& .MuiTabs-indicator': { display: 'none' },
           '& .MuiTabScrollButton-root': { color: 'black' },
           '& .MuiTabs-flexContainer': { justifyContent: 'center' },
@@ -38,10 +36,30 @@ export default function NavTabs() {
         scrollButtons="auto"
         // allowScrollButtonsMobile
       >
-        <Tab className='tab' value="stream" label="Stream" onClick={handleTabClick} />
-        <Tab className='tab' value="people" label="People" onClick={handleTabClick} />
-        <Tab className='tab' value="grade" label="Grade" onClick={handleTabClick} />
-        <Tab className='tab' value="general" label="General" onClick={handleTabClick} />
+        <Tab
+          className="tab"
+          value="stream"
+          label="Stream"
+          onClick={handleTabClick}
+        />
+        <Tab
+          className="tab"
+          value="people"
+          label="People"
+          onClick={handleTabClick}
+        />
+        <Tab
+          className="tab"
+          value="grade"
+          label="Grade"
+          onClick={handleTabClick}
+        />
+        <Tab
+          className="tab"
+          value="general"
+          label="General"
+          onClick={handleTabClick}
+        />
       </Tabs>
     </Box>
   );

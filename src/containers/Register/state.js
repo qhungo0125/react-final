@@ -2,7 +2,8 @@ import React from 'react';
 import useSWRMutation from 'swr/mutation';
 import axios from '../../utils/axiosConfig';
 import { AuthenticationAPI } from '../../api/authentication';
-
+import { useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 export const validateEmail = (email) => {
   const res = /\S+@\S+\.\S+/;
   return res.test(String(email).toLowerCase());
@@ -15,6 +16,8 @@ export async function postRequest(url, { arg }) {
 
 export default function useRegisterState() {
   const [loading, setLoading] = React.useState(false);
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const [formData, setFormData] = React.useState({
     name: '',
@@ -88,19 +91,24 @@ export default function useRegisterState() {
         name,
         email,
         password,
-        role
+        role,
       });
 
       setLoading(false);
-      // save token to local storage
-      // localStorage.setItem('token', res.headers['authorization']);
-      if(res.error && res.error.message){
+      if (res.error && res.error.message) {
         alert(res.error.message);
-      }else{
+      } else {
+        // case register success
         alert(res.message);
+
+        if (searchParams.get('r')) {
+          const url = searchParams.get('r');
+          const cbRole = searchParams.get('cbRole');
+          localStorage.setItem('callbackUrl', url);
+          localStorage.setItem('cbRole', cbRole);
+          navigate('/login');
+        }
       }
-      // redirect to dashboard
-      // handle code here
     } catch (error) {
       setLoading(false);
       alert('Error occues');
