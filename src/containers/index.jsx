@@ -8,7 +8,7 @@ import Grade from './Grade';
 import AddClass from './AddClass';
 import PrimarySearchAppBar from '../components/Header'
 import Detail from './Grade/Detail';
-import Review from './Grade/Review';
+import Reviews from './Grade/Review';
 import Structure from './Grade/Structure';
 
 import { useContext } from 'react';
@@ -34,7 +34,7 @@ const identifyTabs = () => {
         tab = <Structure />
         break;
       case ("grade_review"):
-        tab = <Review />
+        tab = <Reviews />
         break;
       default:
         tab = <Stream />

@@ -133,6 +133,8 @@ export default function PersistentDrawerLeft(props) {
             width: drawerWidth,
             boxSizing: 'border-box',
             position: 'absolute',
+            height:'auto',
+            overflowX:'hidden'
           },
           '& .MuiDrawer-paper div': { minHeight: '48px !important' }
         }}
