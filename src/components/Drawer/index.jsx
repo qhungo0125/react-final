@@ -80,6 +80,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export default function PersistentDrawerLeft(props) {
+
   const navigate = useNavigate();
   const menuContext = useContext(MenuContext);
 
@@ -168,6 +169,7 @@ export default function PersistentDrawerLeft(props) {
     navigate('/add_class');
   };
 
+
   return (
     <Box sx={{ display: 'flex', position: 'relative' }}>
       <CssBaseline />
@@ -194,7 +196,6 @@ export default function PersistentDrawerLeft(props) {
               <MenuIcon />
             </IconButton>
           </Toolbar>
-
           <Box sx={{ justifyContent: 'center', display: 'flex' }}>
             <NavTabs />
           </Box>
@@ -209,8 +210,10 @@ export default function PersistentDrawerLeft(props) {
             width: drawerWidth,
             boxSizing: 'border-box',
             position: 'absolute',
+            height:'auto',
+            overflowX:'hidden'
           },
-          '& .MuiDrawer-paper div': { minHeight: '48px !important' },
+          '& .MuiDrawer-paper div': { minHeight: '48px !important' }
         }}
         variant="persistent"
         anchor="left"
@@ -311,11 +314,7 @@ export default function PersistentDrawerLeft(props) {
             noWrap
             component="div"
             sx={{
-              width: '100%',
-              paddingLeft: '10px',
-              paddingTop: '12px',
-              fontSize: '17px',
-              fontWeight: '500',
+              width: '100%', paddingLeft: '10px', paddingTop: '12px', fontSize: '16px', fontWeight: '500',
             }}
           >
             Class List
@@ -353,8 +352,8 @@ export default function PersistentDrawerLeft(props) {
           </IconButton>
         </Box>
       </Drawer>
-      <Main open={open}>
-        <DrawerHeader />
+      <Main open={open} sx={{ paddingTop: "60px" }}>
+        {/* <DrawerHeader /> */}
         {props && props.children}
       </Main>
     </Box>
