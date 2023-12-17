@@ -66,8 +66,7 @@ const Page = () => {
       sx={{
         margin: 0,
         border: 'none',
-        width: '100%',
-        marginBottom:'50px',
+        width: '100vw',
         '&.MuiContainer-root': {
           maxWidth: '100%',
           padding: 0,
@@ -88,9 +87,10 @@ const Page = () => {
                 paddingY: 2,
                 '&.MuiContainer-root': {
                   maxWidth: '100%',
-                  marginTop:'0 !important'
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  justifyContent: 'center',
                 },
-                height: '80vh'
               }}
             >
               {/* <DashBoard /> */}

@@ -8,8 +8,8 @@ import { Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { MenuContext } from '../../context/MenuContext';
+import './style.css';
 import TabsName from '../../utils/tabsName';
-
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 export default function NavTabs() {
@@ -37,13 +37,14 @@ export default function NavTabs() {
 
   return (
     <Box sx={{
-      width: '82%',
+        display: menuContext.displayClassTab ? 'block' : 'none',
     }}>
       {
         menuContext.displayClassTab ?
           <Tabs
             value={menuContext.classTab}
             sx={{
+              marginLeft: '4px',
               '& .MuiTabs-indicator': { display: 'none' },
               "& .MuiTabScrollButton-root": { color: 'black' },
               "& .MuiTabs-flexContainer": { justifyContent: 'center' },
@@ -93,6 +94,12 @@ export default function NavTabs() {
                 Review
               </MenuItem>
             </Menu>
+              <Tab
+                className="tab"
+                value="general"
+                label="General"
+                onClick={handleTabClick}
+              />
           </Tabs>
           :
           <Typography

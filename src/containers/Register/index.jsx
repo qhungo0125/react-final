@@ -146,7 +146,7 @@ function Register() {
           </div>
         </Box>
         <Box
-          sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}
+          sx={{ display: { xs: 'none', sm: 'none', md: 'none', lg: "block" } }}
           className="login_image"
         >
           <img src="./login_bg.jpg" />

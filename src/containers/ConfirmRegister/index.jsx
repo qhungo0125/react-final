@@ -18,8 +18,16 @@ const ConfirmRegister = () => {
         alert(res.error?.message);
         navigate('/login');
       } else {
+        // case success
+
+        const callbackUrl = localStorage.getItem('callbackUrl');
         alert(res.message);
-        navigate('/login');
+        if (callbackUrl) {
+          localStorage.removeItem('callbackUrl');
+          navigate(`../${callbackUrl}`), { relative: 'path' };
+        } else {
+          navigate('/login');
+        }
       }
     };
 
@@ -30,7 +38,7 @@ const ConfirmRegister = () => {
       validateToken(token);
     }
   }, []);
-  return <div>ConfirmRegister</div>;
+  return <div></div>;
 };
 
 export default ConfirmRegister;

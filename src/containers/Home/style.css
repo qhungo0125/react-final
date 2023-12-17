@@ -16,9 +16,35 @@ img.background {
 }
 
 .welcome {
-  font-size: 40px;
+  text-align: center;
   color: white;
   font-weight: bold;
   margin-bottom: 50px;
   text-transform: capitalize;
+}
+
+
+@media screen and (max-width: 768px) and (min-width: 320px) {
+  .welcome {
+    font-size: 25px;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024) {
+  .welcome {
+    font-size: 30px;
+  }
+}
+
+
+@media screen and (min-width: 1024px) {
+  .welcome {
+    font-size: 38px;
+  }
+}
+
+
+.links {
+  display: flex;
+  justify-content: center;
 }

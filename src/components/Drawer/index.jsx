@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,22 +10,29 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import AddIcon from '@mui/icons-material/Add';
-import { classes } from '../../utils/sampleData';
 import { useNavigate } from 'react-router-dom';
 import NavTabs from './tabs.jsx';
 import { useContext } from 'react';
 import { MenuContext } from '../../context/MenuContext.jsx';
 import ClientAxios from '../../utils/axiosConfig.js';
-
+import { Button } from '@mui/material';
+import addMember from '../../api/class.js';
 const drawerWidth = 240;
+
+const BootstrapButton = styled(Button)({
+  backgroundColor: 'white',
+  color: 'black',
+  '&:hover': {
+    backgroundColor: 'white',
+    color: 'black',
+    // boxShadow: 'none',
+  },
+});
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -77,12 +84,71 @@ export default function PersistentDrawerLeft(props) {
   const navigate = useNavigate();
   const menuContext = useContext(MenuContext);
 
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const [classList, setClassList] = React.useState([]);
+
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [invitationCode, setInvitationCode] = React.useState('');
+  const [isValidatingCode, setValidatingCode] = React.useState(false);
+
+  const openForm = () => setIsOpen(true);
+
+  const handleSubmit = React.useCallback(
+    async (event) => {
+      event.preventDefault();
+      const role = localStorage.getItem('role');
+      const userid = localStorage.getItem('userid');
+
+      if (!role || !userid) {
+        alert('You must login to access this page');
+        navigate('/login');
+      } else {
+        let params = { invitationCode };
+        if (role === 'teacher') {
+          params.teacherId = userid;
+        }
+        if (role === 'student') {
+          params.studentId = userid;
+        }
+        try {
+          setValidatingCode(true);
+          const result = await addMember(params);
+          console.log(result);
+        } catch (error) {
+          alert(error.response.data.message);
+        } finally {
+          setValidatingCode(false);
+          setIsOpen(false);
+        }
+      }
+    },
+    [invitationCode, navigate],
+  );
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768) {
+        setOpen(true);
+      } else {
+        setOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []); //
 
   React.useEffect(() => {
     const getClassList = async () => {
-      const res = await ClientAxios.get('/classes');
+      const userId = localStorage.getItem('userid');
+      let url = '/classes';
+      if (userId) {
+        url += `?userId=${userId}`;
+      }
+      const res = await ClientAxios.get(url);
       setClassList(res.data);
     };
     getClassList();
@@ -107,26 +173,37 @@ export default function PersistentDrawerLeft(props) {
   return (
     <Box sx={{ display: 'flex', position: 'relative' }}>
       <CssBaseline />
-      <AppBar position="absolute" open={open} sx={{ backgroundColor: '#fff', boxShadow: 'none', borderBottom: '1px solid rgba(0, 0, 0, 0.12)' }}>
-        <Box sx={{ display: 'flex', justifyContent: { sm: "unset", md: 'space-between' }, height: "48px" }}>
-          <Toolbar sx={{ maxWidth: '50px', minHeight: "48px !important" }}>
+      <AppBar
+        position="absolute"
+        open={open}
+        sx={{
+          backgroundColor: '#fff',
+          boxShadow: 'none',
+          borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+          }}
+        >
+          <Toolbar sx={{ minHeight: '48px !important', maxWidth: '50px' }}>
             <IconButton
               aria-label="open drawer"
               onClick={handleDrawer}
               edge="start"
-              // sx={{ mr: 2, ...(open && { display: 'none' }) }}
-              sx={{ mr: 2 }}
             >
               <MenuIcon />
             </IconButton>
           </Toolbar>
-          <NavTabs />
-
-          <Box sx={{ width: "70px", display: { sm: "none", md: "block" } }}></Box>
-        </Box>
+          <Box sx={{ justifyContent: 'center', display: 'flex' }}>
+            <NavTabs />
+          </Box>
+        </div>
       </AppBar>
       <Drawer
         sx={{
+          height: '90vh',
           width: drawerWidth,
           flexShrink: 0,
           '& .MuiDrawer-paper': {
@@ -142,6 +219,96 @@ export default function PersistentDrawerLeft(props) {
         anchor="left"
         open={open}
       >
+        <div
+          style={{
+            marginTop: '1rem',
+            textAlign: 'center',
+          }}
+        >
+          <Button
+            variant="contained"
+            onClick={() => {
+              openForm();
+            }}
+          >
+            Join by Code
+          </Button>
+
+          {isOpen && (
+            <div
+              style={{
+                position: 'fixed',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                // backgroundColor: '#fff',
+                backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                padding: '20px',
+                boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
+                zIndex: 999,
+                height: '100vh',
+                width: '100vw',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <form
+                style={{
+                  background: 'white',
+                  padding: '2rem 6rem',
+                  borderRadius: '1rem',
+                }}
+                onSubmit={handleSubmit}
+              >
+                <h4
+                  style={{
+                    marginBottom: '2rem',
+                  }}
+                >
+                  Input Invitation Code
+                </h4>
+
+                <input
+                  style={{
+                    border: '1px solid #ccc',
+                    borderRadius: '0.5rem',
+                    width: '80%',
+                    height: '2.5rem',
+                    fontSize: '1.5rem',
+                  }}
+                  type="text"
+                  value={invitationCode}
+                  onChange={(e) => setInvitationCode(e.target.value)}
+                />
+                <div
+                  style={{
+                    margin: '2rem 1rem 0',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-around',
+                  }}
+                >
+                  <BootstrapButton
+                    sx={{
+                      backgroundColor: 'white',
+                      color: 'black',
+                    }}
+                    variant="contained"
+                    type="button"
+                    onClick={(e) => setIsOpen(false)}
+                  >
+                    Close
+                  </BootstrapButton>
+
+                  <Button variant="contained" type="submit">
+                    Submit
+                  </Button>
+                </div>
+              </form>
+            </div>
+          )}
+        </div>
         <DrawerHeader>
           <Typography
             noWrap
@@ -155,13 +322,21 @@ export default function PersistentDrawerLeft(props) {
         </DrawerHeader>
         <Divider />
         <List>
-          {classList.map((class_item) => (
-            <ListItem key={class_item._id} disablePadding>
-              <ListItemButton onClick={() => handleClassChange(class_item._id)}>
-                <ListItemIcon sx={{ minWidth: '37px' }}>
+          {classList.map((classInfor) => (
+            <ListItem key={classInfor._id} disablePadding>
+              <ListItemButton onClick={() => handleClassChange(classInfor._id)}>
+                <ListItemIcon>
                   <InboxIcon />
                 </ListItemIcon>
-                <ListItemText primary={class_item.name} />
+                <p
+                  style={{
+                    textOverflow: 'ellipsis',
+                    overflow: 'hidden',
+                  }}
+                >
+                  {classInfor.name}
+                </p>
+                {/* <ListItemText primary={classInfor.name} /> */}
               </ListItemButton>
             </ListItem>
           ))}
@@ -179,7 +354,7 @@ export default function PersistentDrawerLeft(props) {
       </Drawer>
       <Main open={open} sx={{ paddingTop: "60px" }}>
         {/* <DrawerHeader /> */}
-        {props.children}
+        {props && props.children}
       </Main>
     </Box>
   );
