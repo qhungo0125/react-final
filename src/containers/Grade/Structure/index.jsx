@@ -48,7 +48,8 @@ export default function Structure() {
                             "& .MuiDataGrid-footerContainer": { display: 'none' },
                             width: "500px",
                             marginLeft: "auto",
-                            marginRight: 'auto'
+                            marginRight: 'auto',
+                            boxShadow: 2
                         }}
                         pageSizeOptions={[0, 10]}
                         slots={{ toolbar: GridToolbar }}

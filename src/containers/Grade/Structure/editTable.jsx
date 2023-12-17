@@ -176,6 +176,7 @@ export default function EditingGrid({ _rows, handleEditMode }) {
                     '& .textPrimary': {
                         color: 'text.primary',
                     },
+                    
                 }}
             >
                 <DataGrid
@@ -197,7 +198,8 @@ export default function EditingGrid({ _rows, handleEditMode }) {
                         "& .MuiDataGrid-footerContainer": { display: 'none' },
                         width: "600px",
                         marginLeft: "auto",
-                        marginRight: 'auto'
+                        marginRight: 'auto',
+                        boxShadow: 2
                     }}
                 />
             </Box>
