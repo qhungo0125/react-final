@@ -6,6 +6,9 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Comment from './comment';
 import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import RateReviewIcon from '@mui/icons-material/RateReview';
+import DecisionDialog from './decisionDialog';
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -15,15 +18,26 @@ const Item = styled(Paper)(({ theme }) => ({
     lineHeight: '60px',
     marginBottom: '30px',
     paddingInline: '50px',
-    paddingBlock: '30px'
+    paddingBlock: '30px',
+    position: 'relative'
 }));
 
 
 export default function ReviewCard({ info }) {
+
+    const [openDialog, setOpenDialog] = React.useState(false);
+
+    const handleClickOpenDialog = () => {
+        setOpenDialog(true);
+    };
+
+    const handleCloseDialog = () => {
+        setOpenDialog(false);
+    };
     return (
         <Item elevation={2}>
             <Box sx={{ display: { xs: 'block', md: 'flex' }, gap: '70px', color: 'black' }}>
-                <Box sx={{ width: {xs:'100%',md:"200px"} }}>
+                <Box sx={{ width: { xs: '100%', md: "200px" } }}>
                     <Typography variant="subtitle2" gutterBottom sx={{ fontSize: '1.1rem' }}>
                         Student Info
                     </Typography>
@@ -41,7 +55,7 @@ export default function ReviewCard({ info }) {
                     </Typography>
 
                 </Box>
-                <Box sx={{ width: {xs:'100%',md:"500px"}}}>
+                <Box sx={{ width: { xs: '100%', md: "500px" } }}>
                     <div>
                         <Typography variant="subtitle2" sx={{ fontSize: '1.1rem' }} gutterBottom>
                             Explaination
@@ -51,12 +65,26 @@ export default function ReviewCard({ info }) {
                         </Typography>
                     </div>
                     <Divider variant="middle">Comments</Divider>
-                    <div sx={{width:'100%'}}>
+                    <div sx={{ width: '100%' }}>
                         <Comment />
                     </div>
                 </Box>
             </Box>
-
+            <IconButton
+                aria-label="close"
+                color="inherit"
+                size="normal"
+                sx={{ position: 'absolute', right: '15px', top: '15px' }}
+                onClick={handleClickOpenDialog}
+            >
+                <RateReviewIcon fontSize="inherit" />
+            </IconButton>
+            <DecisionDialog
+                open={openDialog}
+                handleCloseDialog={handleCloseDialog}
+                currentScore={"5"}
+                expectedScore={info.expectedScore}
+            />
         </Item>
     );
 }
