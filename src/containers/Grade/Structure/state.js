@@ -22,7 +22,11 @@ export default function useGradeStructure() {
         setLoading(true);
         // const userId = localStorage.getItem('userid');
         const getScoreTypes = async () => {
-            const { success, data } = await axios.post(`/score/mock/grade-structure`);
+            const { success, data } = await axios.post(`/score/mock/grade-structure`, {
+                teacherId: "",
+                subjectId: "",
+                semesterId: ""
+            });
             if (data) {
                 setGradeStructure(data)
                 console.log(data)
