@@ -1,4 +1,13 @@
 {
   "greeting": "Hello, world!",
-  "farewell": "Goodbye!"
+  "farewell": "Goodbye!",
+
+  "label.email": "Email",
+  "label.name": "Full name",
+  "label.address": "Address number",
+  "label.phone": "Phone number",
+  "label.role": "Role",
+  "label.goback": "Go back",
+  "label.submit": "Submit",
+  "label.loading": "Loading..."
 }

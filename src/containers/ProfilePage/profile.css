@@ -1,0 +1,17 @@
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .profileForm {
+    width: 30% !important;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .profileForm {
+    width: 50% !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .profileForm {
+    width: 100% !important;
+  }
+}

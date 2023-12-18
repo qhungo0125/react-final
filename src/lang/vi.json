@@ -1,4 +1,13 @@
 {
   "greeting": "Xin chao",
-  "farewell": "Tam biet"
+  "farewell": "Tam biet",
+
+  "label.email": "Email",
+  "label.name": "Ho Ten",
+  "label.address": "Dia chi",
+  "label.phone": "So dien thoai",
+  "label.role": "Vai tro",
+  "label.goback": "Quay lai",
+  "label.submit": "Xac nhan",
+  "label.loading": "Dang tai..."
 }

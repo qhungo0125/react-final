@@ -1,6 +1,24 @@
 import ClientAxios from '../utils/axiosConfig';
 
 export const AuthenticationAPI = {
+  getUser: async ({ userId }) => {
+    const response = await ClientAxios.get(`/accounts/auth/profile/${userId}`);
+    return response;
+  },
+
+  updateProfile: async (formData) => {
+    const response = await ClientAxios.patch(
+      `/accounts/auth/update`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      },
+    );
+    return response;
+  },
+
   register: async (params) => {
     const { name, email, password, role } = params;
     const response = await ClientAxios.post('/accounts/auth/register', {

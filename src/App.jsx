@@ -13,6 +13,10 @@ import ConfirmPassword from './containers/ConfirmPassword';
 import AddMember from './containers/AddMember';
 import { MenuProvider } from './context/MenuContext';
 import './lang/i18n';
+import ProfilePage from './containers/ProfilePage';
+// import bootstrap from 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/js/bootstrap.js';
 
 const router = createBrowserRouter([
   { path: '/login', Component: () => <Login /> },
@@ -25,11 +29,11 @@ const router = createBrowserRouter([
   { path: '/add_class', Component: () => <Page /> },
   { path: '/dashboard', Component: () => <Page /> },
   { path: '/class', Component: () => <Page /> },
-  { path: '/add_class', Component: () => <Page /> },
   { path: '/confirm-register', Component: () => <ConfirmRegister /> },
   { path: '/forgot-password', Component: () => <ForgotPassword /> },
   { path: '/confirm-password', Component: () => <ConfirmPassword /> },
   { path: '/class/add', Component: () => <AddMember /> },
+  { path: '/profile', Component: () => <ProfilePage /> },
   { path: '*', Component: () => <NotFound /> },
 ]);
 
