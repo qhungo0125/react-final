@@ -17,6 +17,7 @@ import ProfilePage from './containers/ProfilePage';
 // import bootstrap from 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
+import PageWithHeader from './components/PageWithHeader';
 
 const router = createBrowserRouter([
   { path: '/login', Component: () => <Login /> },
@@ -33,7 +34,14 @@ const router = createBrowserRouter([
   { path: '/forgot-password', Component: () => <ForgotPassword /> },
   { path: '/confirm-password', Component: () => <ConfirmPassword /> },
   { path: '/class/add', Component: () => <AddMember /> },
-  { path: '/profile', Component: () => <ProfilePage /> },
+  {
+    path: '/profile',
+    Component: () => (
+      <PageWithHeader>
+        <ProfilePage />
+      </PageWithHeader>
+    ),
+  },
   { path: '*', Component: () => <NotFound /> },
 ]);
 

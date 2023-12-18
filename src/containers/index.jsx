@@ -6,7 +6,7 @@ import Stream from './Stream';
 import People from './People';
 import Grade from './Grade';
 import AddClass from './AddClass';
-import PrimarySearchAppBar from '../components/Header'
+import PrimarySearchAppBar from '../components/Header';
 import Detail from './Grade/Detail';
 import Reviews from './Grade/Review';
 import Structure from './Grade/Structure';
@@ -15,52 +15,49 @@ import { useContext } from 'react';
 import { MenuContext } from '../context/MenuContext';
 
 const identifyTabs = () => {
-  const menuContext = useContext(MenuContext)
+  const menuContext = useContext(MenuContext);
 
   var tab;
   if (menuContext.displayClassTab) {
-    var currentClassTab = menuContext.classTab
+    var currentClassTab = menuContext.classTab;
     switch (currentClassTab) {
-      case ("stream"):
-        tab = <Stream />
+      case 'stream':
+        tab = <Stream />;
         break;
-      case ("people"):
-        tab = <People />
+      case 'people':
+        tab = <People />;
         break;
-      case ("grade_detail"):
-        tab = <Detail />
+      case 'grade_detail':
+        tab = <Detail />;
         break;
-      case ("grade_structure"):
-        tab = <Structure />
+      case 'grade_structure':
+        tab = <Structure />;
         break;
-      case ("grade_review"):
-        tab = <Reviews />
+      case 'grade_review':
+        tab = <Reviews />;
         break;
       default:
-        tab = <Stream />
+        tab = <Stream />;
         break;
     }
   } else {
     switch (menuContext.tab) {
-      case ("home"):
-        tab = <DashBoard />
+      case 'home':
+        tab = <DashBoard />;
         break;
-      case ("add_class"):
-        tab = <AddClass />
+      case 'add_class':
+        tab = <AddClass />;
         break;
       default:
-        tab = <DashBoard />
+        tab = <DashBoard />;
         break;
     }
   }
 
-  return tab
-}
+  return tab;
+};
 
 const Page = () => {
-  const menuContext = useContext(MenuContext);
-
-
   return (
     <Container
       sx={{
@@ -73,7 +70,7 @@ const Page = () => {
         },
       }}
     >
-      <div style={{ position: "relative" }}>
+      <div style={{ position: 'relative' }}>
         <PrimarySearchAppBar />
       </div>
       <div>
