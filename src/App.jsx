@@ -23,13 +23,62 @@ const router = createBrowserRouter([
   { path: '/login', Component: () => <Login /> },
   { path: '/register', Component: () => <Register /> },
   { path: '/', Component: () => <Home /> },
-  { path: '/class/people', Component: () => <Page /> },
-  { path: '/class/general', Component: () => <Page /> },
-  { path: '/class/grade', Component: () => <Page /> },
-  { path: '/class/stream', Component: () => <Page /> },
-  { path: '/add_class', Component: () => <Page /> },
-  { path: '/dashboard', Component: () => <Page /> },
-  { path: '/class', Component: () => <Page /> },
+  {
+    path: '/class/people',
+    Component: () => (
+      <PageWithHeader>
+        <Page />
+      </PageWithHeader>
+    ),
+  },
+  {
+    path: '/class/general',
+    Component: () => (
+      <PageWithHeader>
+        <Page />
+      </PageWithHeader>
+    ),
+  },
+  {
+    path: '/class/grade',
+    Component: () => (
+      <PageWithHeader>
+        <Page />
+      </PageWithHeader>
+    ),
+  },
+  {
+    path: '/class/stream',
+    Component: () => (
+      <PageWithHeader>
+        <Page />
+      </PageWithHeader>
+    ),
+  },
+  {
+    path: '/add_class',
+    Component: () => (
+      <PageWithHeader>
+        <Page />
+      </PageWithHeader>
+    ),
+  },
+  {
+    path: '/dashboard',
+    Component: () => (
+      <PageWithHeader>
+        <Page />
+      </PageWithHeader>
+    ),
+  },
+  {
+    path: '/class',
+    Component: () => (
+      <PageWithHeader>
+        <Page />
+      </PageWithHeader>
+    ),
+  },
   { path: '/confirm-register', Component: () => <ConfirmRegister /> },
   { path: '/forgot-password', Component: () => <ForgotPassword /> },
   { path: '/confirm-password', Component: () => <ConfirmPassword /> },

@@ -59,44 +59,29 @@ const identifyTabs = () => {
 
 const Page = () => {
   return (
-    <Container
-      sx={{
-        margin: 0,
-        border: 'none',
-        width: '100vw',
-        '&.MuiContainer-root': {
-          maxWidth: '100%',
-          padding: 0,
-        },
-      }}
-    >
-      <div style={{ position: 'relative' }}>
-        <PrimarySearchAppBar />
-      </div>
-      <div>
-        {
-          <ResponsiveDrawer>
-            <Container
-              sx={{
-                mt: { xs: 6, sm: 0 },
-                background: 'white',
-                borderRadius: 4,
-                paddingY: 2,
-                '&.MuiContainer-root': {
-                  maxWidth: '100%',
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  justifyContent: 'center',
-                },
-              }}
-            >
-              {/* <DashBoard /> */}
-              {identifyTabs()}
-            </Container>
-          </ResponsiveDrawer>
-        }
-      </div>
-    </Container>
+    <div>
+      {
+        <ResponsiveDrawer>
+          <Container
+            sx={{
+              mt: { xs: 6, sm: 0 },
+              background: 'white',
+              borderRadius: 4,
+              paddingY: 2,
+              '&.MuiContainer-root': {
+                maxWidth: '100%',
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+              },
+            }}
+          >
+            {/* <DashBoard /> */}
+            {identifyTabs()}
+          </Container>
+        </ResponsiveDrawer>
+      }
+    </div>
   );
 };
 
