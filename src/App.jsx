@@ -12,6 +12,7 @@ import ForgotPassword from './containers/ForgotPassword';
 import ConfirmPassword from './containers/ConfirmPassword';
 import AddMember from './containers/AddMember';
 import { MenuProvider } from './context/MenuContext';
+import './lang/i18n';
 
 const router = createBrowserRouter([
   { path: '/login', Component: () => <Login /> },
