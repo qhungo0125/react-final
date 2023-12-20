@@ -18,6 +18,8 @@ import ProfilePage from './containers/ProfilePage';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import PageWithHeader from './components/PageWithHeader';
+import React from 'react';
+import { socket } from './socket';
 
 const router = createBrowserRouter([
   { path: '/login', Component: () => <Login /> },
@@ -95,6 +97,35 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
+  console.log('effect run');
+  React.useEffect(() => {
+    const userId = localStorage.getItem('userid');
+    if (userId) {
+      // Emit 'userConnected' event with the user ID
+      socket.emit('userConnected', userId);
+    }
+
+    socket.on('connect', () => {
+      console.log('Connected to the server');
+    });
+
+    socket.on('welcome', (data) => {
+      console.log('Received welcome event:', data.message);
+      // Handle the welcome event as needed in your React component
+    });
+
+    socket.on('disconnect', () => {
+      console.log('Disconnected from the server');
+    });
+
+    // Additional custom events can be handled here
+
+    return () => {
+      // Clean up the socket connection when the component unmounts
+      socket.disconnect();
+    };
+  }, []);
+
   return (
     <GlobalContext>
       <MenuProvider>

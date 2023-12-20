@@ -1,14 +1,13 @@
 import axios from 'axios';
 import queryString from 'query-string';
 
-
 const ClientAxios = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
-  // withCredentials: true,
+  withCredentials: true,
   // mode: 'no-cors',
   // headers: {"Access-Control-Allow-Origin": "*"}
   headers: {
-    "Access-Control-Allow-Origin": "*",
+    'Access-Control-Allow-Origin': '*',
     'content-type': 'application/json',
     authorization: `Bearer ${localStorage.getItem('token')}`,
   },
@@ -16,11 +15,6 @@ const ClientAxios = axios.create({
     serialize: (params) => queryString.stringify(params),
     // indexes: false
   },
-});
-
-ClientAxios.interceptors.request.use(async (config) => {
-  // Handle token here ...
-  return config;
 });
 
 ClientAxios.interceptors.response.use(
