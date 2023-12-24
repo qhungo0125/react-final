@@ -1,7 +1,7 @@
 import React from 'react';
 import ResponsiveDrawer from './appBar';
 import { ADMIN_PAGES } from '../../constant';
-import Admin from './admin';
+import Admin from './pages';
 
 
 const AdminPage = () => {
