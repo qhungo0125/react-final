@@ -13,8 +13,8 @@
   "label.loading": "Dang tai...",
 
   "admin.nav.accounts": "Tai Khoan",
-  "admin.nav.classes": "Lop hoc",
   "admin.manage.accounts": "Quan ly Tai Khoan",
-  "admin.manage.classes": "Quan ly Lop Hoc",
-  "admin.mapping.students": "ID Sinh Vien"
+  "admin.mapping.students": "ID Sinh Vien",
+  "admin.nav.classes": "Lop hoc",
+  "admin.manage.classes": "Quan ly Lop Hoc"
 }

@@ -13,6 +13,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { useTranslation } from 'react-i18next';
+import { ADMIN_PAGES } from '../../constant';
 const drawerWidth = 240;
 
 // function DemandIcon(props) {
@@ -30,9 +31,9 @@ const drawerWidth = 240;
 // }
 
 function ListItemCustom(props) {
-  const { name = '' } = props;
+  const { name = '', handleItemClick = () => {} } = props;
   return (
-    <ListItem disablePadding>
+    <ListItem disablePadding onClick={(e) => handleItemClick()}>
       <ListItemButton>
         {/* <DemandIcon name={name} /> */}
         <ListItemText primary={name} />
@@ -42,7 +43,12 @@ function ListItemCustom(props) {
 }
 
 function ListCustom(props) {
-  const { header = '', itemsName = [] } = props;
+  const {
+    header = '',
+    items = [],
+    itemsName = [],
+    handleItemClick = () => {},
+  } = props;
   return (
     <>
       <Typography variant="h5" padding={1} noWrap component="div">
@@ -50,7 +56,11 @@ function ListCustom(props) {
       </Typography>
       <List>
         {itemsName.map((name, index) => (
-          <ListItemCustom key={index} name={name} />
+          <ListItemCustom
+            handleItemClick={() => handleItemClick(items[index])}
+            key={index}
+            name={name}
+          />
         ))}
       </List>
     </>
@@ -59,25 +69,34 @@ function ListCustom(props) {
 
 function ResponsiveDrawer(props) {
   const { t } = useTranslation();
-  const { children } = props;
+  const { children, handleItemClick } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
+  const handleClick = (value)=>{
+    handleItemClick(value);
+    handleDrawerToggle();
+  }
+
   const drawer = (
     <div>
       <Toolbar />
       <Divider />
       <ListCustom
+        handleItemClick={handleClick}
         header={t('admin.nav.accounts')}
+        items={[ADMIN_PAGES[0], ADMIN_PAGES[2]]}
         itemsName={[t('admin.manage.accounts'), t('admin.mapping.students')]}
       />
       <Divider />
       <ListCustom
+        handleItemClick={handleClick}
         header={t('admin.nav.classes')}
-        itemsName={[t('admin.manage.accounts')]}
+        items={[ADMIN_PAGES[1]]}
+        itemsName={[t('admin.manage.classes')]}
       />
     </div>
   );
