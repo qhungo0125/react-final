@@ -2,6 +2,7 @@ import { Button } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import './style.css';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const btnStyle = {
   minWidth: '100px',
@@ -18,8 +19,20 @@ export default function Home() {
     }
   }, []);
 
+  const { t, i18n } = useTranslation();
+
   return (
     <>
+      <button
+        onClick={(e) => {
+          i18n.language === 'vi'
+            ? i18n.changeLanguage('en')
+            : i18n.changeLanguage('vi');
+        }}
+      >
+        change language
+      </button>
+      <h2>{t('greeting')}</h2>
       <img className="background" loading="lazy" src="./login_bg.jpg" />
       <div className="items">
         <h1 className="welcome">Welcome to React-Mid-Term!</h1>

@@ -1,0 +1,20 @@
+{
+  "group.name": "Nhom 4",
+  "greeting": "Xin chao",
+  "farewell": "Tam biet",
+
+  "label.email": "Email",
+  "label.name": "Ho Ten",
+  "label.address": "Dia chi",
+  "label.phone": "So dien thoai",
+  "label.role": "Vai tro",
+  "label.goback": "Quay lai",
+  "label.submit": "Xac nhan",
+  "label.loading": "Dang tai...",
+
+  "admin.nav.accounts": "Tai Khoan",
+  "admin.manage.accounts": "Quan ly Tai Khoan",
+  "admin.mapping.students": "ID Sinh Vien",
+  "admin.nav.classes": "Lop hoc",
+  "admin.manage.classes": "Quan ly Lop Hoc"
+}

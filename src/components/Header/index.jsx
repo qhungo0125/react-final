@@ -108,7 +108,14 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem
+        onClick={(e) => {
+          handleMenuClose();
+          navigate('/profile');
+        }}
+      >
+        Profile
+      </MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
   );
@@ -236,7 +243,6 @@ export default function PrimarySearchAppBar() {
         {renderMobileMenu}
         {renderMenu}
       </Box>
-
     </div>
   );
 }
