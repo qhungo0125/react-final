@@ -16,6 +16,7 @@ import {
 } from '@mui/x-data-grid';
 import { randomId } from '@mui/x-data-grid-generator';
 import axios from '../../../utils/axiosConfig.js';
+import Notice from "../../../components/Alert"
 
 
 function EditToolbar(props) {
@@ -42,6 +43,13 @@ function EditToolbar(props) {
 export default function EditingGrid({ _rows, handleEditMode }) {
     const [rows, setRows] = React.useState(_rows);
     const [rowModesModel, setRowModesModel] = React.useState({});
+
+    //notice
+    const [openAlert, setOpenAlert] = React.useState(false)
+    const [alertContent, setAlertContent] = React.useState("")
+    const [alertSeverity, setAlertSeverity] = React.useState("")
+
+    console.log(openAlert)
 
     const handleRowEditStop = (params, event) => {
         if (params.reason === GridRowEditStopReasons.rowFocusOut) {
@@ -75,13 +83,42 @@ export default function EditingGrid({ _rows, handleEditMode }) {
 
     const processRowUpdate = (newRow) => {
         const updatedRow = { ...newRow, isNew: false };
+        updatedRow.type = updatedRow.type.trim()
+        updatedRow.percentage = updatedRow.percentage.trim()
+        if (updatedRow.type === '') {
+            throw new Error("Invalid Composition !")
+        }
+        if (updatedRow.percentage === '') {
+            updatedRow.percentage = '0'
+        }
+        if (!parseFloat(updatedRow.percentage)) {
+            throw new Error("Percentage must be a Float number !")
+        }
+        console.log(updatedRow)
         setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+
+        //notice
+        setAlertContent("Action success.")
+        setAlertSeverity("success")
+        setOpenAlert(true)
+
         return updatedRow;
     };
+
+    const onProcessRowUpdateError = (error) => {
+        setOpenAlert(true)
+        setAlertContent(error.message)
+        setAlertSeverity("error")
+        // setRowModesModel({});
+        // setRows(rows.filter((row) => row.id !== id));
+        // console.log(error.message)
+    }
 
     const handleRowModesModelChange = (newRowModesModel) => {
         setRowModesModel(newRowModesModel);
     };
+
+
 
     const columns = [
         { field: 'type', headerName: 'Composition', width: '249', editable: true },
@@ -154,21 +191,25 @@ export default function EditingGrid({ _rows, handleEditMode }) {
         }
     }
 
+    const handleCloseAlert = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpenAlert(false);
+    };
+
     return (
-        <div>
+        <div style={{ height: "100%" }}>
             <Box sx={{ width: '100%', marginBottom: '3px', textAlign: "right" }}>
                 <div>
-                    <Button startIcon={<DoneAllIcon />} sx={{ textTransform: 'none' }} onClick={handleSaveChangesClick}>
-                        Save
-                    </Button>
-                    <Button startIcon={<CancelIcon />} sx={{ textTransform: 'none' }} onClick={handleEditMode}>
-                        Cancel
+                    <Button startIcon={<DoneAllIcon />} sx={{ textTransform: 'none' }} onClick={handleEditMode}>
+                        Finish
                     </Button>
                 </div>
             </Box>
             <Box
                 sx={{
-                    height: 500,
                     width: '100%',
                     '& .actions': {
                         color: 'text.secondary',
@@ -176,7 +217,7 @@ export default function EditingGrid({ _rows, handleEditMode }) {
                     '& .textPrimary': {
                         color: 'text.primary',
                     },
-                    
+
                 }}
             >
                 <DataGrid
@@ -187,6 +228,7 @@ export default function EditingGrid({ _rows, handleEditMode }) {
                     onRowModesModelChange={handleRowModesModelChange}
                     onRowEditStop={handleRowEditStop}
                     processRowUpdate={processRowUpdate}
+                    onProcessRowUpdateError={onProcessRowUpdateError}
                     slots={{
                         toolbar: EditToolbar,
                     }}
@@ -196,13 +238,14 @@ export default function EditingGrid({ _rows, handleEditMode }) {
                     sx={{
                         fontSize: '14px',
                         "& .MuiDataGrid-footerContainer": { display: 'none' },
-                        width: "600px",
                         marginLeft: "auto",
                         marginRight: 'auto',
-                        boxShadow: 2
+                        boxShadow: 2,
+                        width: "100%"
                     }}
                 />
             </Box>
+            <Notice content={alertContent} severity={alertSeverity} open={openAlert} handleClose={handleCloseAlert} />
         </div>
 
     );
