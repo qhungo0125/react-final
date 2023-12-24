@@ -25,7 +25,7 @@ export default function Structure() {
     console.log(editMode)
 
     return (
-        <div style={{ height: 600, width: '100%' }}>
+        <div style={{ height: 600, maxWidth:'fit-content', width:"100%" }}>
             {loading && <Loader open={loading} />}
             {!loading && editMode && <EditingGrid _rows={structuredClone(rows)} handleEditMode={handleEditMode}/>}
             {!loading && editMode ||
@@ -46,7 +46,7 @@ export default function Structure() {
                         sx={{
                             fontSize: '14px',
                             "& .MuiDataGrid-footerContainer": { display: 'none' },
-                            width: "500px",
+                            width: "100%",
                             marginLeft: "auto",
                             marginRight: 'auto',
                             boxShadow: 2

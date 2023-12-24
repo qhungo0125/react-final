@@ -34,69 +34,80 @@ export default function Reviews() {
 
     return (
 
-        <div style={{ maxWidth: '900px', marginLeft: 'auto', marginRight: 'auto' }}>
+        <Box sx={{ maxWidth: '900px', marginLeft: 'auto', marginRight: 'auto', minWidth:{ sm:"500px", xs:"300px"} }}>
             {loading ?
                 <Loader open={loading} />
                 :
                 <div>
-                    <div style={{ display: 'flex', justifyContent: 'end' }}>
-                        <ButtonGroup variant="contained" ref={anchorRef} aria-label="split button">
-                            <Button variant='outlined' onClick={handleClick} sx={{ minWidth: '110px !important' }} >
-                                {gradeTypes[selectedIndex].scoreTypeName}
-                            </Button>
-                            <Button
-                                size="small"
-                                aria-controls={open ? 'split-button-menu' : undefined}
-                                aria-expanded={open ? 'true' : undefined}
-                                aria-label="select merge strategy"
-                                aria-haspopup="menu"
-                                onClick={handleToggle}
-                            >
-                                <ArrowDropDownIcon />
-                            </Button>
-                        </ButtonGroup>
-                        <Popper
-                            sx={{
-                                zIndex: 1,
-                                minWidth: '150px',
-                            }}
-                            open={open}
-                            anchorEl={anchorRef.current}
-                            role={undefined}
-                            transition
-                            disablePortal
-                        >
-                            {({ TransitionProps, placement }) => (
-                                <Grow
-                                    {...TransitionProps}
-                                    style={{
-                                        transformOrigin:
-                                            placement === 'bottom' ? 'center top' : 'center bottom',
-                                    }}
+                    <Box sx={{
+                        display: 'flex',
+                        justifyContent: { sm: "center", md: 'space-between' },
+                        marginBottom: "10px",
+                        flexFlow: { xs:"column-reverse", sm: "column-reverse", md: "row" },
+                        alignItems:"center"
+                    }}>
+                        <div>Grade composition: &nbsp;&nbsp;
+                            <span style={{ fontWeight: "600", fontSize: "130%" }}>
+                                {gradeTypes[selectedIndex].percentage}
+                            </span>
+                        </div>
+                        <Box>
+                            <ButtonGroup variant="contained" ref={anchorRef} aria-label="split button">
+                                <Button variant='outlined' onClick={handleClick} sx={{ minWidth: '110px !important' }} >
+                                    {gradeTypes[selectedIndex].scoreTypeName}
+                                </Button>
+                                <Button
+                                    size="small"
+                                    aria-controls={open ? 'split-button-menu' : undefined}
+                                    aria-expanded={open ? 'true' : undefined}
+                                    aria-label="select merge strategy"
+                                    aria-haspopup="menu"
+                                    onClick={handleToggle}
                                 >
-                                    <Paper>
-                                        <ClickAwayListener onClickAway={handleClose}>
-                                            <MenuList id="split-button-menu" autoFocusItem>
-                                                {gradeTypes.map((type, index) => (
-                                                    <MenuItem
-                                                        key={type.scoreTypeId}
-                                                        disabled={index === 2}
-                                                        selected={index === selectedIndex}
-                                                        onClick={(event) => handleMenuItemClick(event, index)}
-                                                    >
-                                                        {type.scoreTypeName}
-                                                    </MenuItem>
-                                                ))}
-                                            </MenuList>
-                                        </ClickAwayListener>
-                                    </Paper>
-                                </Grow>
-                            )}
-                        </Popper>
-                    </div>
-                    <p>Grade composition: &nbsp;&nbsp;
-                        <span style={{ fontWeight: "600", fontSize:"130%" }}>{gradeTypes[selectedIndex].percentage}</span>
-                    </p>
+                                    <ArrowDropDownIcon />
+                                </Button>
+                            </ButtonGroup>
+                            <Popper
+                                sx={{
+                                    zIndex: 1,
+                                    minWidth: '150px',
+                                }}
+                                open={open}
+                                anchorEl={anchorRef.current}
+                                role={undefined}
+                                transition
+                                disablePortal
+                            >
+                                {({ TransitionProps, placement }) => (
+                                    <Grow
+                                        {...TransitionProps}
+                                        style={{
+                                            transformOrigin:
+                                                placement === 'bottom' ? 'center top' : 'center bottom',
+                                        }}
+                                    >
+                                        <Paper>
+                                            <ClickAwayListener onClickAway={handleClose}>
+                                                <MenuList id="split-button-menu" autoFocusItem>
+                                                    {gradeTypes.map((type, index) => (
+                                                        <MenuItem
+                                                            key={type.scoreTypeId}
+                                                            disabled={index === 2}
+                                                            selected={index === selectedIndex}
+                                                            onClick={(event) => handleMenuItemClick(event, index)}
+                                                        >
+                                                            {type.scoreTypeName}
+                                                        </MenuItem>
+                                                    ))}
+                                                </MenuList>
+                                            </ClickAwayListener>
+                                        </Paper>
+                                    </Grow>
+                                )}
+                            </Popper>
+                        </Box>
+                    </Box>
+
                     <Box
                         sx={{
                             paddingBlock: '10px',
@@ -113,6 +124,6 @@ export default function Reviews() {
 
                 </div>
             }
-        </div>
+        </Box>
     );
 }

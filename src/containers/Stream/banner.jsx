@@ -17,6 +17,7 @@ export default function ClassBanner({ className }) {
         <Card sx={{
             maxWidth: "100%",
             height: "auto !important",
+            maxHeight: "200px"
         }}>
             <div style={{ position: "relative" }}>
                 <CardMedia
