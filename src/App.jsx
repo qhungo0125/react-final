@@ -3,7 +3,6 @@ import './App.css';
 import Register from './containers/Register';
 import Home from './containers/Home';
 import Page from './containers';
-import AddClass from './containers/AddClass';
 import NotFound from './components/NotFound';
 import Login from './containers/Login/index';
 import GlobalContext from './context';
@@ -20,6 +19,7 @@ import 'bootstrap/dist/js/bootstrap.js';
 import PageWithHeader from './components/PageWithHeader';
 import React from 'react';
 import { socket } from './socket';
+import AdminPage from './containers/AdminPage';
 
 const router = createBrowserRouter([
   { path: '/login', Component: () => <Login /> },
@@ -92,6 +92,10 @@ const router = createBrowserRouter([
         <ProfilePage />
       </PageWithHeader>
     ),
+  },
+  {
+    path: '/admin',
+    Component: () => <AdminPage />,
   },
   { path: '*', Component: () => <NotFound /> },
 ]);

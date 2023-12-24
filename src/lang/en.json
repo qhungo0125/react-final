@@ -1,4 +1,5 @@
 {
+  "group.name": "Nhom 4",
   "greeting": "Hello, world!",
   "farewell": "Goodbye!",
 
@@ -9,5 +10,11 @@
   "label.role": "Role",
   "label.goback": "Go back",
   "label.submit": "Submit",
-  "label.loading": "Loading..."
+  "label.loading": "Loading...",
+
+  "admin.nav.accounts": "Accounts",
+  "admin.nav.classes": "Classes",
+  "admin.manage.accounts": "Manage Accounts",
+  "admin.manage.classes": "Manage Classes",
+  "admin.mapping.students": "Mapping Students"
 }
