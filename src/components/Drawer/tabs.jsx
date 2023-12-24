@@ -37,7 +37,7 @@ export default function NavTabs() {
 
   return (
     <Box sx={{
-        display: menuContext.displayClassTab ? 'block' : 'none',
+      display: menuContext.displayClassTab ? 'block' : 'none',
     }}>
       {
         menuContext.displayClassTab ?
@@ -94,12 +94,12 @@ export default function NavTabs() {
                 Review
               </MenuItem>
             </Menu>
-              <Tab
-                className="tab"
-                value="general"
-                label="General"
-                onClick={handleTabClick}
-              />
+            {/* <Tab
+              className="tab"
+              value="general"
+              label="General"
+              onClick={handleTabClick}
+            /> */}
           </Tabs>
           :
           <Typography

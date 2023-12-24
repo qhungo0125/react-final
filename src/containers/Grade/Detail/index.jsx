@@ -24,7 +24,7 @@ export default function Detail() {
 
   return (
 
-    <div style={{ width: '100%' }}>
+    <div style={{ width: '100%', maxWidth:"1000px" }}>
       {loading && <Loader open={loading} />}
       {loading ||
         <div>

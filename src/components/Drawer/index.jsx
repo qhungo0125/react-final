@@ -182,9 +182,10 @@ export default function PersistentDrawerLeft(props) {
           borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
         }}
       >
-        <div
-          style={{
+        <Box
+          sx={{
             display: 'flex',
+            justifyContent:{xs:"left", sm:"space-between"},
           }}
         >
           <Toolbar sx={{ minHeight: '48px !important', maxWidth: '50px' }}>
@@ -199,7 +200,8 @@ export default function PersistentDrawerLeft(props) {
           <Box sx={{ justifyContent: 'center', display: 'flex' }}>
             <NavTabs />
           </Box>
-        </div>
+          <Box sx={{ width: "70px", display: { xs: "none", sm: "block" } }}></Box>
+        </Box>
       </AppBar>
       <Drawer
         sx={{
@@ -352,7 +354,7 @@ export default function PersistentDrawerLeft(props) {
           </IconButton>
         </Box>
       </Drawer>
-      <Main open={open} sx={{ paddingTop: "60px" }}>
+      <Main open={open} sx={{ paddingTop: {xs:"0px",sm:"60px"}, width:"100%", padding:{xs:"0px"} }}>
         {/* <DrawerHeader /> */}
         {props && props.children}
       </Main>
