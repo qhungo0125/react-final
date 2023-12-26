@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 const AccountsTable = (props) => {
   const {
-    selectedRole,
+    type: selectedRole,
     accounts = [],
     onBlock = () => {},
     onMapping: handleMapping = () => {},
@@ -15,6 +15,8 @@ const AccountsTable = (props) => {
 
   const { t } = useTranslation();
 
+  console.log('selectedRole ', selectedRole);
+
   return (
     <div className="position-relative">
       <div
@@ -23,7 +25,7 @@ const AccountsTable = (props) => {
         <table className="table table-striped">
           <thead>
             <tr>
-              {selectedRole === 'student' && <th>Mapcode</th>}
+              {selectedRole === t('label.student') && <th>Mapcode</th>}
               <th>{t('label.name')}</th>
               <th>{t('label.email')}</th>
               <th>{t('label.phone')}</th>

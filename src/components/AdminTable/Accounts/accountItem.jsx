@@ -28,7 +28,7 @@ const AccountItem = (props) => {
           role="group"
           aria-label="Basic mixed styles example"
         >
-          {role === t('label.student') && (
+          {selectedRole === t('label.student') && (
             <button
               onClick={(e) => {
                 setIsOpen(true);
