@@ -1,7 +1,30 @@
 import React from 'react';
+import AccountItem from './accountItem';
 
-const AccountItem = () => {
-  return <div>AccountItem</div>;
+const AccountsTable = (props) => {
+  const { accounts = [] } = props;
+  return (
+    <div className="table-responsive">
+      <table className="table table-striped">
+        <thead>
+          <tr>
+            <th>Mapcode</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>phone</th>
+            <th>Address</th>
+            <th>Role</th>
+            <th>actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {accounts.map((account, index) => (
+            <AccountItem key={index} account={account} />
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 };
 
-export default AccountItem;
+export default AccountsTable;

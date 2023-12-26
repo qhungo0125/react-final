@@ -1,7 +1,52 @@
 import React from 'react';
 
-const AccountItem = () => {
-  return <div>AccountItem</div>;
+const AccountItem = (props) => {
+  const {
+    account,
+    onMapping: handleMapping = () => {},
+    onBlock: handleBlock = () => {},
+  } = props;
+
+  const { name, phone, mapCode, isLocked, email, address, avatar, role } =
+    account;
+
+  return (
+    <tr className="align-items-center" style={{ verticalAlign: 'middle' }}>
+      <th scope="row">{mapCode}</th>
+      <td>{name}</td>
+      <td>{email}</td>
+      <td>{phone}</td>
+      <td>{address}</td>
+      <td>{role}</td>
+      <td>
+        <div
+          className="btn-group"
+          role="group"
+          aria-label="Basic mixed styles example"
+        >
+          <button
+            onClick={(e) => {
+              handleMapping();
+            }}
+            type="button"
+            className="btn btn-success"
+          >
+            Mapping
+          </button>
+
+          <button
+            onClick={(e) => {
+              handleBlock();
+            }}
+            type="button"
+            className={isLocked ? 'btn btn-warning' : 'btn btn-danger'}
+          >
+            {isLocked ? 'Unlock' : 'Block'}
+          </button>
+        </div>
+      </td>
+    </tr>
+  );
 };
 
 export default AccountItem;
