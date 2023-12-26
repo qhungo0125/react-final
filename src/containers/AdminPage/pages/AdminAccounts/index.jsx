@@ -47,8 +47,10 @@ const AdminAccounts = () => {
       console.log({ id, isLocked });
       if (isLocked) {
         const response = await unblockAccounts({ id });
+        alert(response.success ? 'success' : 'fail');
       } else {
         const response = await blockAccounts({ id });
+        alert(response.success ? 'success' : 'fail');
       }
     } catch (err) {
       console.error(err);
@@ -61,7 +63,10 @@ const AdminAccounts = () => {
   const onMapping = React.useCallback(async ({ studentId, mapCode }) => {
     try {
       console.log({ studentId, mapCode });
-      await mappingStudent({ studentId, mapCode });
+      const response = await mappingStudent({ studentId, mapCode });
+      if (response.error) {
+        alert(response.error.message);
+      }
     } catch (err) {
       console.error(err);
     } finally {

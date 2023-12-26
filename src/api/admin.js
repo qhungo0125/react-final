@@ -69,3 +69,38 @@ export async function mappingStudent(params) {
 
   return response;
 }
+
+export async function getClasses(params) {
+  const { page = 1, limit = 10 } = params;
+
+  let url = `/admin/classes?page=${page}&limit=${limit}`;
+
+  const response = await ClientAxios.get(url);
+
+  if (response.error && response.error.message) {
+    console.error(response.error.message);
+    return response;
+  }
+  return response;
+}
+
+export async function createInvitationCode(params) {
+  const { classId } = params;
+
+  if (!classId || classId === '') {
+    console.error('classId is required');
+    return;
+  }
+
+  let url = `/admin/class/invitationcode`;
+
+  const response = await ClientAxios.post(url, {
+    classId,
+  });
+
+  if (response.error && response.error.message) {
+    console.error(response.error.message);
+    return response;
+  }
+  return response;
+}

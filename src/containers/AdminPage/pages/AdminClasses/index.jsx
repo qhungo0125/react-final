@@ -1,55 +1,33 @@
-import React from 'react'
+import React from 'react';
+import Classes from '../../../../components/AdminTable/Classes/classes';
+import useClasses from './state/useClasses';
+import { createInvitationCode } from '../../../../api/admin';
 
 const AdminClasses = () => {
-  return (
-    <table className="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">Index</th>
-          <th scope="col">First</th>
-          <th scope="col">Last</th>
-          <th scope="col">Handle</th>
-          <th scope="col">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td>
-            <div
-              class="btn-group"
-              role="group"
-              aria-label="Basic mixed styles example"
-            >
-              <button type="button" class="btn btn-success">
-                Add member
-              </button>
-              <button type="button" class="btn btn-info">
-                Invite member
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-          <td>@twitter</td>
-        </tr>
-      </tbody>
-    </table>
-  );
-}
+  const [pagination, setPagination] = React.useState({
+    page: 1,
+    limit: 20,
+  });
+  const { classes, refetchClasses } = useClasses(pagination);
 
-export default AdminClasses
+  const onCreateCode = React.useCallback(async ({ classId }) => {
+    console.log('onCreateCode', classId);
+
+    try {
+      const response = await createInvitationCode({ classId });
+      console.log(response);
+      if (response.error) {
+        alert(response.error.message);
+        return;
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      refetchClasses();
+    }
+  }, []);
+
+  return <Classes classes={classes} onCreateCode={onCreateCode} />;
+};
+
+export default AdminClasses;
