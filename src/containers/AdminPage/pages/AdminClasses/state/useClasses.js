@@ -15,11 +15,11 @@ const useClasses = (props) => {
     } catch (error) {
     } finally {
     }
-  }, []);
+  }, [page, limit]);
 
   React.useEffect(() => {
-    getClassesData();
-  }, []);
+    getClassesData({ page, limit });
+  }, [page, limit]);
 
   return {
     classes,
