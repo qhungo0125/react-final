@@ -2,7 +2,7 @@ import React from 'react';
 import AccountItem from './accountItem';
 
 const AccountsTable = (props) => {
-  const { accounts = [] } = props;
+  const { accounts = [], onBlock = () => {} } = props;
   return (
     <div className="table-responsive">
       <table className="table table-striped">
@@ -19,7 +19,7 @@ const AccountsTable = (props) => {
         </thead>
         <tbody>
           {accounts.map((account, index) => (
-            <AccountItem key={index} account={account} />
+            <AccountItem onBlock={onBlock} key={index} account={account} />
           ))}
         </tbody>
       </table>

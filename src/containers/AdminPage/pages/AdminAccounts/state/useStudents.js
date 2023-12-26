@@ -26,10 +26,10 @@ const useStudents = (props) => {
       }
 
       if (response.data && response.data.accounts) {
-        setStudents((state) => ({
-          data: [...state.data, ...response.data.accounts],
+        setStudents({
+          data: response.data.accounts,
           isLoading: false,
-        }));
+        });
       }
     } catch (err) {
       console.error(err);

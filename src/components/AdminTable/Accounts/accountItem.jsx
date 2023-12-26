@@ -7,7 +7,7 @@ const AccountItem = (props) => {
     onBlock: handleBlock = () => {},
   } = props;
 
-  const { name, phone, mapCode, isLocked, email, address, avatar, role } =
+  const { _id, name, phone, mapCode, isLocked, email, address, avatar, role } =
     account;
 
   return (
@@ -36,7 +36,7 @@ const AccountItem = (props) => {
 
           <button
             onClick={(e) => {
-              handleBlock();
+              handleBlock({ id: _id, isLocked });
             }}
             type="button"
             className={isLocked ? 'btn btn-warning' : 'btn btn-danger'}

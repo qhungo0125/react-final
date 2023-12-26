@@ -12,3 +12,60 @@ export async function getAccounts(params) {
 
   return response;
 }
+
+export async function blockAccounts(params) {
+  const { id } = params;
+  if (!id || id === '') {
+    console.error('id is required');
+    return;
+  }
+  let url = `/admin/account/lock`;
+  const response = await ClientAxios.post(url, { id });
+
+  if (response.error && response.error.message) {
+    console.error(response.error.message);
+    return response;
+  }
+
+  return response;
+}
+
+export async function unblockAccounts(params) {
+  const { id } = params;
+  if (!id || id === '') {
+    console.error('id is required');
+    return;
+  }
+  let url = `/admin/account/unlock`;
+  const response = await ClientAxios.post(url, { id });
+
+  if (response.error && response.error.message) {
+    console.error(response.error.message);
+    return response;
+  }
+
+  return response;
+}
+
+export async function mappingStudent(params) {
+  const { studentId, mapCode } = params;
+  if (!studentId || studentId === '') {
+    console.error('studentId is required');
+    return;
+  }
+
+  if (!mapCode || mapCode === '' || mapCode.length !== 8) {
+    console.error('mapCode is required');
+    return;
+  }
+
+  let url = `/admin/account/map`;
+  const response = await ClientAxios.post(url, { studentId, mapCode });
+
+  if (response.error && response.error.message) {
+    console.error(response.error.message);
+    return response;
+  }
+
+  return response;
+}
