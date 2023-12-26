@@ -30,7 +30,6 @@ const AccountsTable = (props) => {
               <th>{t('label.email')}</th>
               <th>{t('label.phone')}</th>
               <th>{t('label.address')}</th>
-              <th>{t('label.role')}</th>
               <th>{t('label.actions')}</th>
             </tr>
           </thead>

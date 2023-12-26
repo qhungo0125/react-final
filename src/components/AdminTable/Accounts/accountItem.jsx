@@ -21,7 +21,6 @@ const AccountItem = (props) => {
       <td>{email}</td>
       <td>{phone}</td>
       <td>{address}</td>
-      <td>{role}</td>
       <td>
         <div
           className="btn-group"
