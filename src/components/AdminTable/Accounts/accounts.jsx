@@ -4,12 +4,14 @@ import MappingForm from './mappingForm';
 
 const AccountsTable = (props) => {
   const {
+    selectedRole,
     accounts = [],
     onBlock = () => {},
     onMapping: handleMapping = () => {},
   } = props;
   const [isShow, setIsShow] = React.useState(false);
   const [selectedStudent, setStudent] = React.useState({});
+  console.log(selectedRole);
 
   return (
     <div className="position-relative">
@@ -19,7 +21,7 @@ const AccountsTable = (props) => {
         <table className="table table-striped">
           <thead>
             <tr>
-              <th>Mapcode</th>
+              {selectedRole === 'student' && <th>Mapcode</th>}
               <th>Name</th>
               <th>Email</th>
               <th>phone</th>
@@ -31,6 +33,7 @@ const AccountsTable = (props) => {
           <tbody>
             {accounts.map((account, index) => (
               <AccountItem
+                selectedRole={selectedRole}
                 setIsOpen={() => {
                   setIsShow(true);
                   setStudent(account);
@@ -58,10 +61,6 @@ const AccountsTable = (props) => {
             isOpen={isShow}
             setIsOpen={setIsShow}
             onMapping={(mapcode) => {
-              console.log('mapcode ', {
-                studentId: selectedStudent._id,
-                mapcode,
-              });
               handleMapping({
                 studentId: selectedStudent._id,
                 mapCode: mapcode,

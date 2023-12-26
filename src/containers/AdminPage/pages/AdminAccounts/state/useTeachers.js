@@ -1,48 +1,52 @@
 import React from 'react';
 import { getAccounts } from '../../../../../api/admin';
 
-const useTeachers = () => {
+const useTeachers = (props) => {
+  const { page = 1, limit = 10 } = props;
+
   const [teachers, setTeachers] = React.useState({
     data: [],
     isLoading: true,
   });
-  React.useEffect(() => {
-    const getTeachers = async () => {
-      try {
-        setTeachers((state) => ({
-          ...state,
-          isLoading: true,
-        }));
 
-        const response = await getAccounts({
-          page: 1,
-          limit: 10,
-          role: 'teacher',
-        });
+  const getTeachers = async () => {
+    try {
+      setTeachers((state) => ({
+        ...state,
+        isLoading: true,
+      }));
 
-        if (response.error) {
-          console.log(response.error.message);
-          return;
-        }
+      const response = await getAccounts({
+        page,
+        limit,
+        role: 'teacher',
+      });
 
-        if (response.data && response.data.accounts) {
-          setTeachers({
-            data: response.data.accounts,
-            isLoading: false,
-          });
-        }
-      } catch (err) {
-        console.log(err);
-      } finally {
-        setTeachers((state) => ({
-          ...state,
-          isLoading: false,
-        }));
+      if (response.error) {
+        console.log(response.error.message);
+        return;
       }
-    };
+
+      if (response.data && response.data.accounts) {
+        setTeachers({
+          data: response.data.accounts,
+          isLoading: false,
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setTeachers((state) => ({
+        ...state,
+        isLoading: false,
+      }));
+    }
+  };
+
+  React.useEffect(() => {
     getTeachers();
   }, []);
-  return { teachers };
+  return { teachers, refetchTeachers: getTeachers };
 };
 
 export default useTeachers;

@@ -3,6 +3,7 @@ import MappingForm from './mappingForm';
 
 const AccountItem = (props) => {
   const {
+    selectedRole,
     setIsOpen = () => {},
     account,
     onBlock: handleBlock = () => {},
@@ -13,7 +14,7 @@ const AccountItem = (props) => {
 
   return (
     <tr className="align-items-center" style={{ verticalAlign: 'middle' }}>
-      <th scope="row">{mapCode}</th>
+      {selectedRole === 'student' && <th scope="row">{mapCode}</th>}
       <td>{name}</td>
       <td>{email}</td>
       <td>{phone}</td>
