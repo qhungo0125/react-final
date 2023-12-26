@@ -1,9 +1,10 @@
 import React from 'react';
+import MappingForm from './mappingForm';
 
 const AccountItem = (props) => {
   const {
+    setIsOpen = () => {},
     account,
-    onMapping: handleMapping = () => {},
     onBlock: handleBlock = () => {},
   } = props;
 
@@ -24,15 +25,17 @@ const AccountItem = (props) => {
           role="group"
           aria-label="Basic mixed styles example"
         >
-          <button
-            onClick={(e) => {
-              handleMapping();
-            }}
-            type="button"
-            className="btn btn-success"
-          >
-            Mapping
-          </button>
+          {role === 'student' && (
+            <button
+              onClick={(e) => {
+                setIsOpen(true);
+              }}
+              type="button"
+              className="btn btn-success"
+            >
+              Mapping
+            </button>
+          )}
 
           <button
             onClick={(e) => {

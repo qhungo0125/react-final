@@ -1,28 +1,76 @@
 import React from 'react';
 import AccountItem from './accountItem';
+import MappingForm from './mappingForm';
 
 const AccountsTable = (props) => {
-  const { accounts = [], onBlock = () => {} } = props;
+  const {
+    accounts = [],
+    onBlock = () => {},
+    onMapping: handleMapping = () => {},
+  } = props;
+  const [isShow, setIsShow] = React.useState(false);
+  const [selectedStudent, setStudent] = React.useState({});
+
   return (
-    <div className="table-responsive">
-      <table className="table table-striped">
-        <thead>
-          <tr>
-            <th>Mapcode</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>phone</th>
-            <th>Address</th>
-            <th>Role</th>
-            <th>actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {accounts.map((account, index) => (
-            <AccountItem onBlock={onBlock} key={index} account={account} />
-          ))}
-        </tbody>
-      </table>
+    <div className="position-relative">
+      <div
+        className={isShow ? 'table-responsive opacity-50' : 'table-responsive'}
+      >
+        <table className="table table-striped">
+          <thead>
+            <tr>
+              <th>Mapcode</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>phone</th>
+              <th>Address</th>
+              <th>Role</th>
+              <th>actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {accounts.map((account, index) => (
+              <AccountItem
+                setIsOpen={() => {
+                  setIsShow(true);
+                  setStudent(account);
+                }}
+                onBlock={onBlock}
+                key={index}
+                account={account}
+              />
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {isShow && (
+        <div
+          className="rounded position-absolute top-50 start-50 translate-middle"
+          style={{
+            zIndex: 100,
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            boxShadow: '0 0 4px rgba(0, 0, 0, 0.2)',
+            padding: '4px', // optional: add padding for a better visual
+          }}
+        >
+          <MappingForm
+            initMapcode={selectedStudent.mapCode || ''}
+            isOpen={isShow}
+            setIsOpen={setIsShow}
+            onMapping={(mapcode) => {
+              console.log('mapcode ', {
+                studentId: selectedStudent._id,
+                mapcode,
+              });
+              handleMapping({
+                studentId: selectedStudent._id,
+                mapCode: mapcode,
+              });
+              setIsShow(false);
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 };
