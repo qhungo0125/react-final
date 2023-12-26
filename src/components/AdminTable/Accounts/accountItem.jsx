@@ -1,5 +1,6 @@
 import React from 'react';
 import MappingForm from './mappingForm';
+import { useTranslation } from 'react-i18next';
 
 const AccountItem = (props) => {
   const {
@@ -8,13 +9,14 @@ const AccountItem = (props) => {
     account,
     onBlock: handleBlock = () => {},
   } = props;
+  const { t } = useTranslation();
 
   const { _id, name, phone, mapCode, isLocked, email, address, avatar, role } =
     account;
 
   return (
     <tr className="align-items-center" style={{ verticalAlign: 'middle' }}>
-      {selectedRole === 'student' && <th scope="row">{mapCode}</th>}
+      {selectedRole === t('label.student') && <th scope="row">{mapCode}</th>}
       <td>{name}</td>
       <td>{email}</td>
       <td>{phone}</td>
@@ -26,7 +28,7 @@ const AccountItem = (props) => {
           role="group"
           aria-label="Basic mixed styles example"
         >
-          {role === 'student' && (
+          {role === t('label.student') && (
             <button
               onClick={(e) => {
                 setIsOpen(true);

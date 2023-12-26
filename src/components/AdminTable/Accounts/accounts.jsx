@@ -1,6 +1,7 @@
 import React from 'react';
 import AccountItem from './accountItem';
 import MappingForm from './mappingForm';
+import { useTranslation } from 'react-i18next';
 
 const AccountsTable = (props) => {
   const {
@@ -11,7 +12,8 @@ const AccountsTable = (props) => {
   } = props;
   const [isShow, setIsShow] = React.useState(false);
   const [selectedStudent, setStudent] = React.useState({});
-  console.log(selectedRole);
+
+  const { t } = useTranslation();
 
   return (
     <div className="position-relative">
@@ -22,12 +24,12 @@ const AccountsTable = (props) => {
           <thead>
             <tr>
               {selectedRole === 'student' && <th>Mapcode</th>}
-              <th>Name</th>
-              <th>Email</th>
-              <th>phone</th>
-              <th>Address</th>
-              <th>Role</th>
-              <th>actions</th>
+              <th>{t('label.name')}</th>
+              <th>{t('label.email')}</th>
+              <th>{t('label.phone')}</th>
+              <th>{t('label.address')}</th>
+              <th>{t('label.role')}</th>
+              <th>{t('label.actions')}</th>
             </tr>
           </thead>
           <tbody>

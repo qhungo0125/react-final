@@ -9,8 +9,10 @@ import {
 } from '../../../../api/admin';
 
 import { Dropdown } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 const MyComboBox = ({ selectedRole, onSelectRole }) => {
+  const { t } = useTranslation();
   return (
     <Dropdown onSelect={onSelectRole}>
       <Dropdown.Toggle variant="primary" id="dropdown-basic">
@@ -18,8 +20,12 @@ const MyComboBox = ({ selectedRole, onSelectRole }) => {
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
-        <Dropdown.Item eventKey="student">Student</Dropdown.Item>
-        <Dropdown.Item eventKey="teacher">Teacher</Dropdown.Item>
+        <Dropdown.Item eventKey={t('label.student')}>
+          {t('label.student')}
+        </Dropdown.Item>
+        <Dropdown.Item eventKey={t('label.teacher')}>
+          {t('label.teacher')}
+        </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
   );
@@ -30,9 +36,10 @@ const AdminAccounts = () => {
     page: 1,
     limit: 10,
   });
+  const { t } = useTranslation();
   const { students, refetchStudents } = useStudents(pagination);
   const { teachers, refetchTeachers } = useTeachers(pagination);
-  const [selectedRole, setSelectedRole] = React.useState('student');
+  const [selectedRole, setSelectedRole] = React.useState(t('label.student'));
 
   // this func can be use to lock account for both teacher and student
   const onBlock = React.useCallback(async ({ id, isLocked }) => {
@@ -77,7 +84,9 @@ const AdminAccounts = () => {
         onMapping={onMapping}
         onBlock={onBlock}
         accounts={
-          selectedRole === 'student' ? students.data || [] : teachers.data || []
+          selectedRole === t('label.student')
+            ? students.data || []
+            : teachers.data || []
         }
       />
     </>
