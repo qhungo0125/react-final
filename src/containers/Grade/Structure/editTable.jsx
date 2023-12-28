@@ -91,7 +91,7 @@ export default function EditingGrid({ _rows, handleEditMode }) {
         if (updatedRow.percentage === '') {
             updatedRow.percentage = '0'
         }
-        if (!parseFloat(updatedRow.percentage)) {
+        else if (parseFloat(updatedRow.percentage).toString() != updatedRow.percentage) {
             throw new Error("Percentage must be a Float number !")
         }
         console.log(updatedRow)
@@ -238,6 +238,7 @@ export default function EditingGrid({ _rows, handleEditMode }) {
                     sx={{
                         fontSize: '14px',
                         "& .MuiDataGrid-footerContainer": { display: 'none' },
+                        "& .MuiDataGrid-virtualScroller": { minHeight: '300px' },
                         marginLeft: "auto",
                         marginRight: 'auto',
                         boxShadow: 2,
