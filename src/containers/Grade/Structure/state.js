@@ -25,11 +25,10 @@ export default function useGradeStructure() {
     const fetchData = () => {
         //fetch data
         setLoading(true);
-        console.log(menuContext.teacherId, menuContext.classId)
         // const userId = localStorage.getItem('userid');
         const getScoreTypes = async () => {
             const { data } = await axios.post('/score/grade-structure', {
-                teacherId: menuContext.teacherId,
+                teacherId: localStorage.getItem('userid'),
                 subjectId: menuContext.classId,
                 semesterId: "1"
             })
