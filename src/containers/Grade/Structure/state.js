@@ -27,33 +27,28 @@ export default function useGradeStructure() {
         setLoading(true);
         // const userId = localStorage.getItem('userid');
         const getScoreTypes = async () => {
-            const { data } = await axios.post('/score/grade-structure', {
-                teacherId: localStorage.getItem('userid'),
-                subjectId: menuContext.classId,
-                semesterId: "1"
-            })
-                .then(data => {
-                    if (data) {
-                        setGradeStructure(data)
-                        console.log(data)
-                        getRows(data)
-                        setLoading(false)
+            await axios.get('/score/types')
+                .then(res => {
+                    console.log(res.success)
+                    if (res.success) {
+                        setGradeStructure(res.data)
+                        getRows(res.data)
+                    } else {
+                        throw new Error("Error")
                     }
                 })
                 .catch(error => console.log(error))
+                .finally(() => setLoading(false))
         }
 
         getScoreTypes();
-
-
-
     }
 
     const getRows = (data) => {
         let temp_rows = []
         for (var i = 0; i < data.length; i++) {
             temp_rows = [...temp_rows, {
-                id: `${data[i].scoreTypeId}`, type: data[i].scoreTypeName, percentage: data[i].percentage
+                id: `${data[i]._id}`, type: data[i].name, percentage: data[i].percentage
             }]
         }
         setRows(temp_rows)

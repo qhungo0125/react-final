@@ -20,7 +20,7 @@ export default function Structure() {
 
     React.useEffect(() => {
         fetchData()
-    }, [])
+    }, [editMode])
 
     console.log(editMode)
 

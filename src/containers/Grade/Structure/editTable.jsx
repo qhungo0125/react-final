@@ -17,6 +17,7 @@ import {
 import { randomId } from '@mui/x-data-grid-generator';
 import axios from '../../../utils/axiosConfig.js';
 import Notice from "../../../components/Alert"
+import { MenuContext } from '../../../context/MenuContext';
 
 
 function EditToolbar(props) {
@@ -24,6 +25,7 @@ function EditToolbar(props) {
 
     const handleClick = () => {
         const id = randomId();
+        console.log('Generated id:', id);
         setRows((oldRows) => [...oldRows, { id: id, type: '', percentage: '', isNew: true }]);
         setRowModesModel((oldModel) => ({
             ...oldModel,
@@ -49,7 +51,8 @@ export default function EditingGrid({ _rows, handleEditMode }) {
     const [alertContent, setAlertContent] = React.useState("")
     const [alertSeverity, setAlertSeverity] = React.useState("")
 
-    console.log(openAlert)
+    const menuContext = React.useContext(MenuContext);
+
 
     const handleRowEditStop = (params, event) => {
         if (params.reason === GridRowEditStopReasons.rowFocusOut) {
@@ -61,12 +64,27 @@ export default function EditingGrid({ _rows, handleEditMode }) {
         setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
     };
 
-    const handleSaveClick = (id) => () => {
+    const handleSaveClick = (id) => async () => {
         setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
     };
 
-    const handleDeleteClick = (id) => () => {
+    const handleDeleteClick = (id) => async () => {
         setRows(rows.filter((row) => row.id !== id));
+
+        //handle delete 
+        await axios.post('/score/delete-type', {
+            typeId: id
+        })
+            .then(res => {
+                console.log(res.success)
+                if (res.success) {
+                    setGradeStructure(res.data)
+                    getRows(res.data)
+                } else {
+                    throw new Error("Error")
+                }
+            })
+            .catch(error => console.log(error))
     };
 
     const handleCancelClick = (id) => () => {
@@ -81,10 +99,17 @@ export default function EditingGrid({ _rows, handleEditMode }) {
         }
     };
 
-    const processRowUpdate = (newRow) => {
-        const updatedRow = { ...newRow, isNew: false };
+    const processRowUpdate = async (newRow) => {
+        const updatedRow = { ...newRow };
         updatedRow.type = updatedRow.type.trim()
-        updatedRow.percentage = updatedRow.percentage.trim()
+        if (typeof (updatedRow) === "string") {
+            updatedRow.percentage = updatedRow.percentage.trim()
+        }
+
+
+        console.log(updatedRow)
+
+        //validation
         if (updatedRow.type === '') {
             throw new Error("Invalid Composition !")
         }
@@ -94,7 +119,46 @@ export default function EditingGrid({ _rows, handleEditMode }) {
         else if (parseFloat(updatedRow.percentage).toString() != updatedRow.percentage) {
             throw new Error("Percentage must be a Float number !")
         }
-        console.log(updatedRow)
+
+        //handle save
+        if (updatedRow.isNew) {//true -> create new
+            await axios.post('/score/create-type', {
+                classId: menuContext.classId,
+                name: updatedRow.type,
+                percentage: updatedRow.percentage,
+            })
+                .then(res => {
+                    console.log(res)
+                    if (res.success) {
+                        //set new id for new row
+                        updatedRow.id=res.data._id
+                        console.log(updatedRow)
+                    } else {
+                        throw new Error("Error")
+                    }
+                    
+                })
+                .catch(error => console.log(error))
+        } else {//false -> update
+            await axios.post('/score/update-type',
+                {
+                    name: updatedRow.type,
+                    percentage: updatedRow.percentage,
+                },
+                {
+                    params: { typeId: updatedRow.id }
+                })
+                .then(res => {
+                    console.log(res.success)
+                    if (res.success) {
+
+                    } else {
+                        throw new Error("Error")
+                    }
+                })
+                .catch(error => console.log(error))
+        }
+
         setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
 
         //notice
@@ -102,7 +166,7 @@ export default function EditingGrid({ _rows, handleEditMode }) {
         setAlertSeverity("success")
         setOpenAlert(true)
 
-        return updatedRow;
+        return { ...updatedRow, isNew: false };
     };
 
     const onProcessRowUpdateError = (error) => {
@@ -117,8 +181,6 @@ export default function EditingGrid({ _rows, handleEditMode }) {
     const handleRowModesModelChange = (newRowModesModel) => {
         setRowModesModel(newRowModesModel);
     };
-
-
 
     const columns = [
         { field: 'type', headerName: 'Composition', width: '249', editable: true },
@@ -171,26 +233,6 @@ export default function EditingGrid({ _rows, handleEditMode }) {
         }
     ]
 
-    const handleSaveChangesClick = async () => {
-        // send changes
-        handleEditMode()
-        console.log("edit click")
-
-        // sua lai gui rows, khong gui tung dong
-        const { success, data } = await axios.post(`/score/mock/update-grade-composition`,
-            {
-                subjectId: "",
-                teacherId: "",
-                semesterId: "",
-                scoreTypeId: "",
-                newScoreTypeName: "",
-                isPublish: ""
-            });
-        if (data) {
-            console.log(data)
-        }
-    }
-
     const handleCloseAlert = (event, reason) => {
         if (reason === 'clickaway') {
             return;
@@ -198,6 +240,8 @@ export default function EditingGrid({ _rows, handleEditMode }) {
 
         setOpenAlert(false);
     };
+
+
 
     return (
         <div style={{ height: "100%" }}>
@@ -244,6 +288,7 @@ export default function EditingGrid({ _rows, handleEditMode }) {
                         boxShadow: 2,
                         width: "100%"
                     }}
+                    getRowId={(row) => row.id}
                 />
             </Box>
             <Notice content={alertContent} severity={alertSeverity} open={openAlert} handleClose={handleCloseAlert} />

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from '../../../utils/axiosConfig';
 import { infoField } from './gradeConfig.js'
 import { useState } from 'react';
+import { MenuContext } from '../../../context/MenuContext';
 
 const GRADE_COLUMN_WIDTH = 150;
 
@@ -16,6 +17,8 @@ export default function useGradeDetail() {
     const [loading, setLoading] = useState(false)
     const [editMode, setEditMode] = React.useState(false);
 
+    const menuContext = React.useContext(MenuContext);
+
     let check = 0;
 
     const fetchGradeDetail = () => {
@@ -23,27 +26,39 @@ export default function useGradeDetail() {
         setLoading(true);
         // const userId = localStorage.getItem('userid');
         const getScoreTypes = async () => {
-            const { success, data } = await axios.get(`/score/mock/scoretypes`);
-            if (data) {
-                setScoreTypes(data)
-                console.log(data)
-                getColumns(data)
-                check++;
-                if (check == 2) setLoading(false)
-            }
+            await axios.get('/score/scoretypes')
+                .then(data => {
+                    if (data) {
+                        setScoreTypes(data)
+                        console.log(data)
+                        getColumns(data)
+                        check++;
+                        if (check == 2) setLoading(false)
+                    }
+                })
+                .catch((error) => console.log(error));
         }
 
         const getScore = async () => {
-            const { success, data } = await axios.get(`/score/mock/scores`)
-            if (data) {
-                setScores(data)
-                console.log(data)
-                getRows(data.studentsScores)
-                check++
-                if (check == 2) setLoading(false)
-            }
+            await axios.get('/score/scores', {
+                params: {
+                    subjectId: menuContext.classId,
+                    teacherId: localStorage.getItem('userid'),
+                    semesterId: "1"
+                }
+            })
+                .then(data => {
+                    console.log(data)
+                    if (data != []) {
+                        setScores(data)
+                        console.log(data)
+                        getRows(data.studentsScores)
+                        check++
+                        if (check == 2) setLoading(false)
+                    }
+                })
+                .catch((error) => console.log(error))
         }
-
 
         getScoreTypes();
         getScore();
