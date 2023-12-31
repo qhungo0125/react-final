@@ -14,7 +14,7 @@ export default function Detail() {
     columns,
     rows,
     editMode,
-    handleEditClick,
+    handleEditMode,
     fetchGradeDetail
   } = useGradeDetail();
 
@@ -24,42 +24,44 @@ export default function Detail() {
 
   return (
 
-    <div style={{ width: '100%', maxWidth:"1000px" }}>
+    <div style={{ width: '100%', maxWidth: "1000px" }}>
       {loading && <Loader open={loading} />}
       {loading ||
         <div>
-          <Box sx={{ width: '100%', marginBottom: '3px', textAlign: "right" }}>
-            <Button startIcon={<EditIcon />} sx={{ textTransform: 'none' }} onClick={handleEditClick}>
-              Edit
-            </Button>
-          </Box>
           {editMode ||
-            <DataGrid
-              rows={rows}
-              columns={columns}
-              initialState={{
-                pagination: {
-                  paginationModel: { page: 0, pageSize: 10 },
-                },
-              }}
-              sx={{
-                fontSize: '14px',
-                "& .MuiDataGrid-footerContainer": { display: 'none' },
-                "& .MuiDataGrid-virtualScroller": { minHeight: '400px' }
-              }}
-              pageSizeOptions={[0, 10]}
-              slots={{ toolbar: GridToolbar }}
-              slotProps={{
-                toolbar: {
-                  showQuickFilter: true,
-                },
-              }}
-              disableColumnMenu
-              disableDensitySelector
-              disableColumnFilter
-            />
+            <div>
+              <Box sx={{ width: '100%', marginBottom: '3px', textAlign: "right" }}>
+                <Button startIcon={<EditIcon />} sx={{ textTransform: 'none' }} onClick={handleEditMode}>
+                  Edit
+                </Button>
+              </Box>
+              <DataGrid
+                rows={rows}
+                columns={columns}
+                initialState={{
+                  pagination: {
+                    paginationModel: { page: 0, pageSize: 10 },
+                  },
+                }}
+                sx={{
+                  fontSize: '14px',
+                  "& .MuiDataGrid-footerContainer": { display: 'none' },
+                  "& .MuiDataGrid-virtualScroller": { minHeight: '400px' }
+                }}
+                pageSizeOptions={[0, 10]}
+                slots={{ toolbar: GridToolbar }}
+                slotProps={{
+                  toolbar: {
+                    showQuickFilter: true,
+                  },
+                }}
+                disableColumnMenu
+                disableDensitySelector
+                disableColumnFilter
+              />
+            </div>
           }
-          {editMode && <EditingGrid _rows={structuredClone(rows)} _columns={(columns)} />}
+          {editMode && <EditingGrid _rows={structuredClone(rows)} _columns={(columns)} handleEditMode={handleEditMode} />}
         </div>
       }
     </div>

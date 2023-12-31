@@ -59,13 +59,6 @@ export default function useGradeStructure() {
         setEditMode(prev => !prev)
     }
 
-    function handleSaveChanges(isSave, _rows) {
-        if (isSave) {//is save
-            setRows(_rows)
-        }
-        handleEditMode()
-    }
-
     return {
         loading,
         gradeStructure,
@@ -73,7 +66,6 @@ export default function useGradeStructure() {
         rows,
         editMode,
         handleEditMode,
-        handleSaveChanges,
         fetchData
     };
 }

@@ -106,9 +106,6 @@ export default function EditingGrid({ _rows, handleEditMode }) {
             updatedRow.percentage = updatedRow.percentage.trim()
         }
 
-
-        console.log(updatedRow)
-
         //validation
         if (updatedRow.type === '') {
             throw new Error("Invalid Composition !")

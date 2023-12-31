@@ -111,7 +111,7 @@ export default function useGradeDetail() {
         console.log(_rows)
     }
 
-    const handleEditClick = () => {
+    const handleEditMode = () => {
         setEditMode(prev => !prev)
     }
 
@@ -122,7 +122,7 @@ export default function useGradeDetail() {
         columns,
         rows,
         editMode,
-        handleEditClick,
+        handleEditMode,
         fetchGradeDetail
     };
 }

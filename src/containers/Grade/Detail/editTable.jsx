@@ -4,8 +4,11 @@ import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
-import SaveIcon from '@mui/icons-material/Save';
+import DoneIcon from '@mui/icons-material/Done';
 import CancelIcon from '@mui/icons-material/Close';
+import DoneAllIcon from '@mui/icons-material/DoneAll'
+import { randomId } from '@mui/x-data-grid-generator';
+
 import {
     GridRowModes,
     DataGrid,
@@ -15,11 +18,16 @@ import {
 } from '@mui/x-data-grid';
 
 function EditToolbar(props) {
-    const { setRows, setRowModesModel } = props;
+    const { setRows, setRowModesModel, _columns } = props;
+
+    let new_rows = {}
+    for (var i = 0; i < _columns.length; i++) {
+        new_rows = { ...new_rows, [_columns[i].headerName]: '' }
+    }
 
     const handleClick = () => {
         const id = randomId();
-        setRows((oldRows) => [...oldRows, { id, name: '', age: '', isNew: true }]);
+        setRows((oldRows) => [...oldRows, { id: id, ...new_rows, isNew: true }]);
         setRowModesModel((oldModel) => ({
             ...oldModel,
             [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
@@ -35,9 +43,13 @@ function EditToolbar(props) {
     );
 }
 
-export default function EditingGrid({ _columns, _rows }) {
+export default function EditingGrid({ _columns, _rows, handleEditMode }) {
     const [rows, setRows] = React.useState(_rows);
     const [rowModesModel, setRowModesModel] = React.useState({});
+
+    React.useEffect(() => {
+
+    })
 
     const handleRowEditStop = (params, event) => {
         if (params.reason === GridRowEditStopReasons.rowFocusOut) {
@@ -79,84 +91,96 @@ export default function EditingGrid({ _columns, _rows }) {
         setRowModesModel(newRowModesModel);
     };
 
-    const columns = [..._columns,
-    {
-        field: 'actions',
-        type: 'actions',
-        headerName: 'Actions',
-        width: 100,
-        cellClassName: 'actions',
-        getActions: ({ id }) => {
-            const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
+    const columns = [
+        ...(_columns.map(column => (
+            { ...column, editable: true }
+        ))),
+        {
+            field: 'actions',
+            type: 'actions',
+            headerName: 'Actions',
+            width: 100,
+            cellClassName: 'actions',
+            getActions: ({ id }) => {
+                const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
 
-            if (isInEditMode) {
+                if (isInEditMode) {
+                    return [
+                        <GridActionsCellItem
+                            icon={<DoneIcon />}
+                            label="Save"
+                            sx={{
+                                color: 'primary.main',
+                            }}
+                            onClick={handleSaveClick(id)}
+                        />,
+                        <GridActionsCellItem
+                            icon={<CancelIcon />}
+                            label="Cancel"
+                            className="textPrimary"
+                            onClick={handleCancelClick(id)}
+                            color="inherit"
+                        />,
+                    ];
+                }
+
                 return [
                     <GridActionsCellItem
-                        icon={<SaveIcon />}
-                        label="Save"
-                        sx={{
-                            color: 'primary.main',
-                        }}
-                        onClick={handleSaveClick(id)}
+                        icon={<EditIcon />}
+                        label="Edit"
+                        className="textPrimary"
+                        onClick={handleEditClick(id)}
+                        color="inherit"
                     />,
                     <GridActionsCellItem
-                        icon={<CancelIcon />}
-                        label="Cancel"
-                        className="textPrimary"
-                        onClick={handleCancelClick(id)}
+                        icon={<DeleteIcon />}
+                        label="Delete"
+                        onClick={handleDeleteClick(id)}
                         color="inherit"
                     />,
                 ];
-            }
-
-            return [
-                <GridActionsCellItem
-                    icon={<EditIcon />}
-                    label="Edit"
-                    className="textPrimary"
-                    onClick={handleEditClick(id)}
-                    color="inherit"
-                />,
-                <GridActionsCellItem
-                    icon={<DeleteIcon />}
-                    label="Delete"
-                    onClick={handleDeleteClick(id)}
-                    color="inherit"
-                />,
-            ];
-        },
-    }
+            },
+        }
     ]
 
     return (
-        <Box
-            sx={{
-                height: 500,
-                width: '100%',
-                '& .actions': {
-                    color: 'text.secondary',
-                },
-                '& .textPrimary': {
-                    color: 'text.primary',
-                },
-            }}
-        >
-            <DataGrid
-                rows={rows}
-                columns={columns}
-                editMode="row"
-                rowModesModel={rowModesModel}
-                onRowModesModelChange={handleRowModesModelChange}
-                onRowEditStop={handleRowEditStop}
-                processRowUpdate={processRowUpdate}
-                slots={{
-                    toolbar: EditToolbar,
+        <div style={{ height: "100%" }}>
+            <Box sx={{ width: '100%', marginBottom: '3px', textAlign: "right" }}>
+                <div>
+                    <Button startIcon={<DoneAllIcon />} sx={{ textTransform: 'none' }} onClick={handleEditMode}>
+                        Finish
+                    </Button>
+                </div>
+            </Box>
+            <Box
+                sx={{
+                    height: 500,
+                    width: '100%',
+                    '& .actions': {
+                        color: 'text.secondary',
+                    },
+                    '& .textPrimary': {
+                        color: 'text.primary',
+                    },
                 }}
-                slotProps={{
-                    toolbar: { setRows, setRowModesModel },
-                }}
-                sx={{"& .MuiDataGrid-footerContainer":{display:'none'}}}
-            />
-        </Box>
+            >
+                <DataGrid
+                    rows={rows}
+                    columns={columns}
+                    editMode="row"
+                    rowModesModel={rowModesModel}
+                    onRowModesModelChange={handleRowModesModelChange}
+                    onRowEditStop={handleRowEditStop}
+                    processRowUpdate={processRowUpdate}
+                    slots={{
+                        toolbar: EditToolbar,
+                    }}
+                    slotProps={{
+                        toolbar: { setRows, setRowModesModel, _columns },
+                    }}
+                    sx={{ "& .MuiDataGrid-footerContainer": { display: 'none' } }}
+                />
+            </Box>
+        </div>
     );
 }
