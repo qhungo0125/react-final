@@ -10,8 +10,6 @@ const MenuContext = createContext({
   handleTabChanges: () => { },
   handleClassTabChanges: () => { },
   updateClassId: () => { },
-  updateSemester: () => { },
-  updateTeacherId: () => { },
 });
 
 function MenuProvider({ children }) {
@@ -19,8 +17,6 @@ function MenuProvider({ children }) {
   const [classTab, setClassTab] = useState('stream');
   const [displayClassTab, setDisplayClassTab] = useState(false);
   const [classId, setClassId] = useState("");
-  const [semester, setSemester] = useState("1");
-  const [teacherId, setTeacherId] = useState("");
 
   const handleTabChanges = (value) => {
     setDisplayClassTab(false);
@@ -37,24 +33,11 @@ function MenuProvider({ children }) {
     setClassId(value);
   };
 
-  const updateSemester = (value) => {
-    setSemester(value)
-  }
-
-
-  const updateTeacherId = (value) => {
-    setTeacherId(value)
-  }
-
   const value = {
     tab,
     classTab,
     displayClassTab,
     classId,
-    semester,
-    teacherId,
-    updateSemester,
-    updateTeacherId,
     handleTabChanges,
     handleClassTabChanges,
     updateClassId,

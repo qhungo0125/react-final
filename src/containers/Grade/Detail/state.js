@@ -26,38 +26,41 @@ export default function useGradeDetail() {
         setLoading(true);
         // const userId = localStorage.getItem('userid');
         const getScoreTypes = async () => {
-            await axios.get('/score/scoretypes')
-                .then(data => {
-                    if (data) {
-                        setScoreTypes(data)
-                        console.log(data)
-                        getColumns(data)
+            await axios.get('/score/types')
+                .then(res => {
+                    if (res.success) {
+                        setScoreTypes(res.data)
+                        getColumns(res.data)
                         check++;
                         if (check == 2) setLoading(false)
                     }
                 })
-                .catch((error) => console.log(error));
+                .catch((error) => {
+                    setLoading(false)
+                    console.log(error)
+                })
+
         }
 
         const getScore = async () => {
-            await axios.get('/score/scores', {
+            await axios.get('/score/class-scores', {
                 params: {
-                    subjectId: menuContext.classId,
-                    teacherId: localStorage.getItem('userid'),
-                    semesterId: "1"
+                    classId: menuContext.classId,
                 }
             })
-                .then(data => {
-                    console.log(data)
-                    if (data != []) {
-                        setScores(data)
-                        console.log(data)
-                        getRows(data.studentsScores)
+                .then(res => {
+                    console.log(res.data)
+                    if (res.success) {
+                        setScores(res.data)
+                        getRows(res.data)
                         check++
                         if (check == 2) setLoading(false)
                     }
                 })
-                .catch((error) => console.log(error))
+                .catch((error) => {
+                    setLoading(false)
+                    console.log(error)
+                })
         }
 
         getScoreTypes();
@@ -69,7 +72,7 @@ export default function useGradeDetail() {
         let _columns = []
         for (var i = 0; i < data.length; i++) {
             _columns = [..._columns, {
-                field: `score${data[i].scoreTypeId}`, headerName: data[i].scoreTypeName, width: GRADE_COLUMN_WIDTH
+                field: `score${data[i]._id}`, headerName: data[i].name, width: GRADE_COLUMN_WIDTH
             }]
         }
         setColumns([...infoField, ..._columns])
@@ -77,15 +80,32 @@ export default function useGradeDetail() {
     }
 
     const getRows = (data) => {
+        //set table rows
         let _rows = []
         for (var i = 0; i < data.length; i++) {
-            let _scores = {}
-            for (var j = 0; j < data[i].scores.length; j++) {
-                _scores = { ..._scores, [`score${data[i].scores[j].scoreTypeId}`]: data[i].scores[j].scoreValue }
+            // let _scores = {}
+            // for (var j = 0; j < data[i].scores.length; j++) {
+            //     _scores = { ..._scores, [`score${data[i].scores[j].scoreTypeId}`]: data[i].scores[j].scoreValue }
+            // }
+            // _rows = [..._rows, {
+            //     'id': data[i].student._id, 'name': data[i].student.name, ..._scores
+            // }]
+
+            //check if existed student
+            let isExisted = false
+            for (var j = 0; j < _rows.length; j++) {
+                if (_rows[j].id === data[i].student._id) {
+                    _rows[j] = { ..._rows[j], [`score${data[i].type._id}`]: data[i].value }
+                    isExisted = true
+                    break
+                }
             }
-            _rows = [..._rows, {
-                'id': data[i].studentId, 'name': data[i].studentName, ..._scores
-            }]
+            if (!isExisted) {
+                _rows = [..._rows, {
+                    'id': data[i].student._id, 'name': data[i].student.name, [`score${data[i].type._id}`]: data[i].value
+                }]
+            }
+
         }
         setRows(_rows)
         console.log(_rows)
