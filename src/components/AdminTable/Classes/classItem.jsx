@@ -22,12 +22,6 @@ const ClassItem = (props) => {
           role="group"
           aria-label="Basic mixed styles example"
         >
-          <button type="button" className="btn btn-success">
-            Add member
-          </button>
-          <button type="button" className="btn btn-info">
-            Invite member
-          </button>
           <button
             type="button"
             className={
