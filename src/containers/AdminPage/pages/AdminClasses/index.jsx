@@ -24,7 +24,7 @@ const AdminClasses = () => {
       page: searchParams.get('page') || 1,
       limit: searchParams.get('limit') || 10,
     }));
-  }, [searchParams]);
+  }, [searchParams.get('page'), searchParams.get('limit')]);
 
   const onCreateCode = React.useCallback(async ({ classId }) => {
     console.log('onCreateCode', classId);
