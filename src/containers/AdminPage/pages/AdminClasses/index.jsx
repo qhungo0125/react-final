@@ -8,21 +8,16 @@ const AdminClasses = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [pagination, setPagination] = React.useState({
-    page: searchParams.get('page') || 1,
-    limit: searchParams.get('limit') || 10,
+    page: 1,
+    limit: 10,
   });
   const { classes, refetchClasses } = useClasses(pagination);
 
   React.useEffect(() => {
-    console.log(
-      'searchParams',
-      searchParams.get('page'),
-      searchParams.get('limit'),
-    );
     setPagination((current) => ({
       ...current,
-      page: searchParams.get('page'),
-      limit: searchParams.get('limit'),
+      page: searchParams.get('page') || 1,
+      limit: searchParams.get('limit') || 10,
     }));
   }, [searchParams]);
 
