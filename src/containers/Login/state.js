@@ -2,11 +2,16 @@ import React from 'react';
 import { postRequest, validateEmail } from '../Register/state';
 import useSWRMutation from 'swr/mutation';
 import { useNavigate } from 'react-router-dom';
+import { MenuContext } from '../../context/MenuContext';
+
 
 export function useLogin() {
   const navigate = useNavigate();
   const [loading, setLoading] = React.useState(false);
   const { data, trigger } = useSWRMutation('/accounts/auth/login', postRequest);
+  const menuContext = React.useContext(MenuContext);
+  const { updateTeacherId } = menuContext
+
 
   const [formData, setFormData] = React.useState({
     email: '',
@@ -39,6 +44,7 @@ export function useLogin() {
 
   const handleLogin = async () => {
     const { email, password } = formData;
+
 
     try {
       //validation
@@ -80,6 +86,7 @@ export function useLogin() {
         localStorage.setItem('role', role);
         // alert('login successfully');
         // setTimeout()
+
         setTimeout(() => navigate('/dashboard'), 2000);
       } else {
         setLoading(false);

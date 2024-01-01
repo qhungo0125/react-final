@@ -5,16 +5,18 @@ const MenuContext = createContext({
   classTab: 'stream',
   displayClassTab: false,
   classId: null,
-  handleTabChanges: () => {},
-  handleClassTabChanges: () => {},
-  updateClassId: () => {},
+  teacherId: null,
+  semester: null,
+  handleTabChanges: () => { },
+  handleClassTabChanges: () => { },
+  updateClassId: () => { },
 });
 
 function MenuProvider({ children }) {
   const [tab, setTab] = useState('home');
   const [classTab, setClassTab] = useState('stream');
   const [displayClassTab, setDisplayClassTab] = useState(false);
-  const [classId, setClassId] = useState(null);
+  const [classId, setClassId] = useState("");
 
   const handleTabChanges = (value) => {
     setDisplayClassTab(false);

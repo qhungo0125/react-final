@@ -20,14 +20,14 @@ export default function Structure() {
 
     React.useEffect(() => {
         fetchData()
-    }, [])
+    }, [editMode])
 
     console.log(editMode)
 
     return (
-        <div style={{ height: 600, maxWidth:'fit-content', width:"100%" }}>
+        <div style={{ height: 600, maxWidth: 'fit-content', width: "100%" }}>
             {loading && <Loader open={loading} />}
-            {!loading && editMode && <EditingGrid _rows={structuredClone(rows)} handleEditMode={handleEditMode}/>}
+            {!loading && editMode && <EditingGrid _rows={structuredClone(rows)} handleEditMode={handleEditMode} />}
             {!loading && editMode ||
                 <div>
                     <Box sx={{ width: '100%', marginBottom: '3px', textAlign: "right" }}>
@@ -46,6 +46,7 @@ export default function Structure() {
                         sx={{
                             fontSize: '14px',
                             "& .MuiDataGrid-footerContainer": { display: 'none' },
+                            "& .MuiDataGrid-virtualScroller": { minHeight: '300px' },
                             width: "100%",
                             marginLeft: "auto",
                             marginRight: 'auto',
