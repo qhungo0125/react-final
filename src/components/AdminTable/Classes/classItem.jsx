@@ -1,7 +1,12 @@
 import React from 'react';
 
 const ClassItem = (props) => {
-  const { item, index, onCreateCode: handleCreateCode = () => {} } = props;
+  const {
+    item,
+    index,
+    onCreateCode: handleCreateCode = () => {},
+    onRemoveCode: handleRemoveCode = () => {},
+  } = props;
   const { _id, name, description, invitationCode } = item;
   return (
     <tr>
@@ -23,12 +28,20 @@ const ClassItem = (props) => {
           </button>
           <button
             type="button"
-            className="btn btn-success"
+            className={
+              invitationCode && invitationCode !== ''
+                ? 'btn btn-danger'
+                : 'btn btn-primary'
+            }
             onClick={(e) => {
-              handleCreateCode({ classId: _id });
+              if (!invitationCode || invitationCode === '') {
+                handleCreateCode({ classId: _id });
+              } else {
+                handleRemoveCode({ classId: _id });
+              }
             }}
           >
-            Create invitationCode
+            {invitationCode ? 'Reset Code' : 'Create Code'}
           </button>
         </div>
       </td>

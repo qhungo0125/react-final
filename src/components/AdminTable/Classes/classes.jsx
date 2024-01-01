@@ -2,7 +2,11 @@ import React from 'react';
 import ClassItem from './classItem';
 
 const Classes = (props) => {
-  const { classes = [], onCreateCode = () => {} } = props;
+  const {
+    classes = [],
+    onCreateCode = () => {},
+    onRemoveCode = () => {},
+  } = props;
   return (
     <table className="table table-striped">
       <thead>
@@ -21,6 +25,7 @@ const Classes = (props) => {
             index={index}
             item={item}
             onCreateCode={onCreateCode}
+            onRemoveCode={onRemoveCode}
           />
         ))}
       </tbody>

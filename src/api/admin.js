@@ -121,3 +121,22 @@ export async function createInvitationCode(params) {
   }
   return response;
 }
+
+export async function removeInvitationCode(params) {
+  const { classId } = params;
+
+  if (!classId || classId === '') {
+    console.error('classId is required');
+    return;
+  }
+  let url = `/admin/class/invitationcode/remove`;
+  const response = await ClientAxios.post(url, {
+    classId,
+  });
+
+  if (response.error && response.error.message) {
+    console.error(response.error.message);
+    return response;
+  }
+  return response;
+}
