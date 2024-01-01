@@ -16,7 +16,7 @@ const AdminClasses = () => {
     page: 1,
     limit: 10,
   });
-  const { classes, refetchClasses } = useClasses(pagination);
+  const { classes, refetchClasses, pages } = useClasses(pagination);
 
   React.useEffect(() => {
     setPagination((current) => ({
@@ -101,39 +101,33 @@ const AdminClasses = () => {
             <li className="page-item">
               <Link
                 className="page-link"
-                to={`?page=${pagination.page - 1}&limit=${pagination.limit}`}
+                to={`?page=${
+                  pagination.page - 1 > 0 ? pagination.page - 1 : 1
+                }&limit=${pagination.limit}`}
               >
                 Previous
               </Link>
             </li>
+            {pages.map((pageIndex) => {
+              return (
+                <li key={pageIndex} className="page-item">
+                  <Link
+                    className="page-link"
+                    to={`?page=${pageIndex}&limit=${pagination.limit}`}
+                  >
+                    {pageIndex}
+                  </Link>
+                </li>
+              );
+            })}
             <li className="page-item">
               <Link
                 className="page-link"
-                to={`?page=1&limit=${pagination.limit}`}
-              >
-                1
-              </Link>
-            </li>
-            <li className="page-item">
-              <Link
-                className="page-link"
-                to={`?page=2&limit=${pagination.limit}`}
-              >
-                2
-              </Link>
-            </li>
-            <li className="page-item">
-              <Link
-                className="page-link"
-                to={`?page=3&limit=${pagination.limit}`}
-              >
-                3
-              </Link>
-            </li>
-            <li className="page-item">
-              <Link
-                className="page-link"
-                href={`?page=${pagination.page + 1}&limit=${pagination.limit}`}
+                to={`?page=${
+                  +pagination.page + 1 > pages.length
+                    ? pages.length
+                    : +pagination.page + 1
+                }&limit=${pagination.limit}`}
               >
                 Next
               </Link>
