@@ -140,3 +140,41 @@ export async function removeInvitationCode(params) {
   }
   return response;
 }
+
+export async function activeClass(params) {
+  const { classId } = params;
+
+  if (!classId || classId === '') {
+    console.error('classId is required');
+    return;
+  }
+  let url = `/admin/class/active`;
+  const response = await ClientAxios.post(url, {
+    classId,
+  });
+
+  if (response.error && response.error.message) {
+    console.error(response.error.message);
+    return response;
+  }
+  return response;
+}
+
+export async function deactiveClass(params) {
+  const { classId } = params;
+
+  if (!classId || classId === '') {
+    console.error('classId is required');
+    return;
+  }
+  let url = `/admin/class/inactive`;
+  const response = await ClientAxios.post(url, {
+    classId,
+  });
+
+  if (response.error && response.error.message) {
+    console.error(response.error.message);
+    return response;
+  }
+  return response;
+}

@@ -6,6 +6,7 @@ const Classes = (props) => {
     classes = [],
     onCreateCode = () => {},
     onRemoveCode = () => {},
+    updateClassStatus = () => {},
   } = props;
   return (
     <table className="table table-striped">
@@ -15,6 +16,7 @@ const Classes = (props) => {
           <th scope="col">name</th>
           <th scope="col">code</th>
           <th scope="col">description</th>
+          <th scope="col">Status</th>
           <th scope="col">Actions</th>
         </tr>
       </thead>
@@ -26,6 +28,7 @@ const Classes = (props) => {
             item={item}
             onCreateCode={onCreateCode}
             onRemoveCode={onRemoveCode}
+            updateClassStatus={updateClassStatus}
           />
         ))}
       </tbody>

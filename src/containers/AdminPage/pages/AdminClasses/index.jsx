@@ -2,7 +2,9 @@ import React from 'react';
 import Classes from '../../../../components/AdminTable/Classes/classes';
 import useClasses from './state/useClasses';
 import {
+  activeClass,
   createInvitationCode,
+  deactiveClass,
   removeInvitationCode,
 } from '../../../../api/admin';
 import { Link, useSearchParams } from 'react-router-dom';
@@ -58,12 +60,40 @@ const AdminClasses = () => {
     }
   }, []);
 
+  const updateClassStatus = React.useCallback(
+    async ({ classId, isActived }) => {
+      if (!classId) {
+        console.error('classId is required');
+      }
+
+      try {
+        let response;
+        if (isActived) {
+          response = await activeClass({ classId });
+        } else {
+          response = await deactiveClass({ classId });
+        }
+
+        if (response.error) {
+          alert(response.error.message);
+          return;
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        refetchClasses();
+      }
+    },
+    [],
+  );
+
   return (
     <>
       <Classes
         classes={classes}
         onRemoveCode={onRemoveCode}
         onCreateCode={onCreateCode}
+        updateClassStatus={updateClassStatus}
       />
       <div className="d-flex justify-content-center">
         <nav aria-label="Page navigation example">
