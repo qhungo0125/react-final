@@ -21,8 +21,8 @@ const AdminClasses = () => {
   React.useEffect(() => {
     setPagination((current) => ({
       ...current,
-      page: searchParams.get('page') || 1,
-      limit: searchParams.get('limit') || 10,
+      page: +searchParams.get('page') || 1,
+      limit: +searchParams.get('limit') || 10,
     }));
   }, [searchParams.get('page'), searchParams.get('limit')]);
 
@@ -112,7 +112,11 @@ const AdminClasses = () => {
               return (
                 <li key={pageIndex} className="page-item">
                   <Link
-                    className="page-link"
+                    className={
+                      pagination.page === pageIndex
+                        ? 'page-link active'
+                        : 'page-link'
+                    }
                     to={`?page=${pageIndex}&limit=${pagination.limit}`}
                   >
                     {pageIndex}

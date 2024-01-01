@@ -26,7 +26,7 @@ const ClassItem = (props) => {
             type="button"
             className={
               invitationCode && invitationCode !== ''
-                ? 'btn btn-danger'
+                ? 'btn btn-warning'
                 : 'btn btn-primary'
             }
             onClick={(e) => {
@@ -42,7 +42,7 @@ const ClassItem = (props) => {
 
           <button
             type="button"
-            className={isActived ? 'btn btn-danger' : 'btn btn-primary'}
+            className={isActived ? 'btn btn-danger' : 'btn btn-success'}
             onClick={(e) => {
               handleUpdateClassStatus({ classId: _id, isActived: !isActived });
             }}
