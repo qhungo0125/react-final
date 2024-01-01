@@ -16,8 +16,6 @@ const AccountsTable = (props) => {
 
   const { t } = useTranslation();
 
-  console.log('selectedRole ', selectedRole);
-
   return (
     <div className="position-relative">
       <div

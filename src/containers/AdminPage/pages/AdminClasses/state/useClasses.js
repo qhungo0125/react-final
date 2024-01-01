@@ -1,5 +1,6 @@
 import React from 'react';
 import { getClasses } from '../../../../../api/admin';
+import { createArrayFrom1ToN } from '../../../../../utils/format';
 
 const useClasses = (props) => {
   const { page = 1, limit = 10 } = props;
@@ -7,13 +8,6 @@ const useClasses = (props) => {
   const [pages, setPages] = React.useState([]);
 
   const getClassesData = React.useCallback(async () => {
-    function createArrayFrom1ToN(n) {
-      let result = [];
-      for (let i = 1; i <= n; i++) {
-        result.push(i);
-      }
-      return result;
-    }
     try {
       const response = await getClasses({ page, limit });
       if (response && response.data && response.data.classes) {

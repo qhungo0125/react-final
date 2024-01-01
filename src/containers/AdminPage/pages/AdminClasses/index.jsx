@@ -19,6 +19,13 @@ const AdminClasses = () => {
   const { classes, refetchClasses, pages } = useClasses(pagination);
 
   React.useEffect(() => {
+    setSearchParams({
+      page: 1,
+      limit: 10,
+    });
+  }, []);
+
+  React.useEffect(() => {
     setPagination((current) => ({
       ...current,
       page: +searchParams.get('page') || 1,
