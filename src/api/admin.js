@@ -70,6 +70,23 @@ export async function mappingStudent(params) {
   return response;
 }
 
+export async function unMappingStudent(params) {
+  const { studentId } = params;
+  if (!studentId || studentId === '') {
+    console.error('studentId is required');
+    return;
+  }
+
+  let url = `/admin/account/unmap`;
+  const response = await ClientAxios.post(url, { studentId });
+
+  if (response.error && response.error.message) {
+    console.error(response.error.message);
+    return response;
+  }
+  return response;
+}
+
 export async function getClasses(params) {
   const { page = 1, limit = 10 } = params;
 

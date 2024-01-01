@@ -9,6 +9,7 @@ const AccountsTable = (props) => {
     accounts = [],
     onBlock = () => {},
     onMapping: handleMapping = () => {},
+    onUnMapping = () => {},
   } = props;
   const [isShow, setIsShow] = React.useState(false);
   const [selectedStudent, setStudent] = React.useState({});
@@ -42,6 +43,7 @@ const AccountsTable = (props) => {
                   setStudent(account);
                 }}
                 onBlock={onBlock}
+                onUnMapping={onUnMapping}
                 key={index}
                 account={account}
               />

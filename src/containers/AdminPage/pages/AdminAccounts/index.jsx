@@ -5,6 +5,7 @@ import AccountsTable from '../../../../components/AdminTable/Accounts/accounts';
 import {
   blockAccounts,
   mappingStudent,
+  unMappingStudent,
   unblockAccounts,
 } from '../../../../api/admin';
 
@@ -74,6 +75,19 @@ const AdminAccounts = () => {
     }
   }, []);
 
+  const onUnMapping = React.useCallback(async ({ studentId }) => {
+    try {
+      const response = await unMappingStudent({ studentId });
+      if (response.error) {
+        alert(response.error.message);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      refetchStudents();
+    }
+  }, []);
+
   return (
     <>
       <MyComboBox
@@ -87,6 +101,7 @@ const AdminAccounts = () => {
       <AccountsTable
         type={selectedRole}
         onMapping={onMapping}
+        onUnMapping={onUnMapping}
         onBlock={onBlock}
         accounts={
           selectedRole === t('label.student')

@@ -1,5 +1,4 @@
 import React from 'react';
-import MappingForm from './mappingForm';
 import { useTranslation } from 'react-i18next';
 
 const AccountItem = (props) => {
@@ -8,11 +7,11 @@ const AccountItem = (props) => {
     setIsOpen = () => {},
     account,
     onBlock: handleBlock = () => {},
+    onUnMapping: handleUnMap = () => {},
   } = props;
   const { t } = useTranslation();
 
-  const { _id, name, phone, mapCode, isLocked, email, address, avatar, role } =
-    account;
+  const { _id, name, phone, mapCode, isLocked, email, address } = account;
 
   return (
     <tr className="align-items-center" style={{ verticalAlign: 'middle' }}>
@@ -30,12 +29,16 @@ const AccountItem = (props) => {
           {selectedRole === t('label.student') && (
             <button
               onClick={(e) => {
-                setIsOpen(true);
+                if (mapCode && mapCode.length) {
+                  handleUnMap({ studentId: _id });
+                } else {
+                  setIsOpen(true);
+                }
               }}
               type="button"
               className="btn btn-success"
             >
-              Mapping
+              {mapCode && mapCode.length ? 'Unmap' : 'Map'}
             </button>
           )}
 
