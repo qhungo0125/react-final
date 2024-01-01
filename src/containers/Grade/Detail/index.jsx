@@ -13,14 +13,16 @@ export default function Detail() {
     loading,
     columns,
     rows,
+    scores,
     editMode,
+    scoresTypes,
     handleEditMode,
     fetchGradeDetail
   } = useGradeDetail();
 
   React.useEffect(() => {
     fetchGradeDetail()
-  }, [])
+  }, [editMode])
 
   return (
 
@@ -61,7 +63,15 @@ export default function Detail() {
               />
             </div>
           }
-          {editMode && <EditingGrid _rows={structuredClone(rows)} _columns={(columns)} handleEditMode={handleEditMode} />}
+          {editMode &&
+            <EditingGrid
+              _rows={structuredClone(rows)}
+              _columns={(columns)}
+              scoreTypes={scoresTypes}
+              rawScores = {scores}
+              handleEditMode={handleEditMode}
+            />
+          }
         </div>
       }
     </div>

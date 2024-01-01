@@ -7,6 +7,7 @@ import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import DoneIcon from '@mui/icons-material/Done';
 import CancelIcon from '@mui/icons-material/Close';
 import DoneAllIcon from '@mui/icons-material/DoneAll'
+import axios from '../../../utils/axiosConfig.js';
 import { randomId } from '@mui/x-data-grid-generator';
 
 import {
@@ -43,13 +44,9 @@ function EditToolbar(props) {
     );
 }
 
-export default function EditingGrid({ _columns, _rows, handleEditMode }) {
+export default function EditingGrid({ _columns, _rows, scoreTypes, rawScores, handleEditMode }) {
     const [rows, setRows] = React.useState(_rows);
     const [rowModesModel, setRowModesModel] = React.useState({});
-
-    React.useEffect(() => {
-
-    })
 
     const handleRowEditStop = (params, event) => {
         if (params.reason === GridRowEditStopReasons.rowFocusOut) {
@@ -65,8 +62,20 @@ export default function EditingGrid({ _columns, _rows, handleEditMode }) {
         setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
     };
 
-    const handleDeleteClick = (id) => () => {
+    const handleDeleteClick = (id, scoresTypes, rawScores) => async () => {
         setRows(rows.filter((row) => row.id !== id));
+
+        //handle delete 
+        const deleteScore = async (scoreId) => {
+            await axios.post('/score/delete-score', {
+                scoreId: scoreId
+            })
+        }
+
+        const score_delete = rawScores.filter(score => score.student._id === id)
+        console.log(score_delete)
+        score_delete.map(score => deleteScore(score._id))
+
     };
 
     const handleCancelClick = (id) => () => {
@@ -81,15 +90,81 @@ export default function EditingGrid({ _columns, _rows, handleEditMode }) {
         }
     };
 
-    const processRowUpdate = (newRow) => {
-        const updatedRow = { ...newRow, isNew: false };
+
+    const processRowUpdate = (scoreTypes) => async (newRow) => {
+        const updatedRow = { ...newRow };
+        console.log(updatedRow)
+
+        //handle save
+
+        if (updatedRow.isNew) {//true -> create new
+            const createScore = async (typeId, value) => {
+                await axios.post('/score/create-score', {
+                    teacherId: localStorage.getItem("userid"),
+                    studentId: updatedRow.id,
+                    typeId: typeId,
+                    value: value
+                    //gui them 1 mang score
+                })
+                    .then(res => {
+                        console.log(res)
+                        if (res.success) {
+                            //set new id for new row
+                            updatedRow.id = res.data._id
+                        } else {
+                            throw new Error("Error")
+                        }
+
+                    })
+                    .catch(error => console.log(error))
+            }
+            console.log(scoreTypes)
+            scoreTypes.map(type => {
+                createScore(type._id, updatedRow[type._id])
+            })
+
+
+        } else {//false -> update
+            const updateScore = async (typeId, value) => {
+                await axios.post('/score/update-score', {
+                    teacherId: localStorage.getItem("userid"),
+                    studentId: updatedRow.id,
+                    typeId: typeId,
+                    value: parseFloat(value)
+                    //gui them 1 mang score
+                })
+                    .then(res => {
+                        console.log(res)
+                        if (res.success) {
+                            //set new id for new row
+                        } else {
+                            throw new Error("Error")
+                        }
+
+                    })
+                    .catch(error => console.log(error))
+            }
+            console.log(scoreTypes)
+            scoreTypes.map(type => {
+                updateScore(type._id, updatedRow[type._id])
+            })
+        }
+
         setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
-        return updatedRow;
+
+        return { ...updatedRow, isNew: false };
     };
 
     const handleRowModesModelChange = (newRowModesModel) => {
         setRowModesModel(newRowModesModel);
     };
+
+    const onProcessRowUpdateError = (error) => {
+        // setOpenAlert(true)
+        // setAlertContent(error.message)
+        // setAlertSeverity("error")
+        alert(error)
+    }
 
     const columns = [
         ...(_columns.map(column => (
@@ -135,7 +210,7 @@ export default function EditingGrid({ _columns, _rows, handleEditMode }) {
                     <GridActionsCellItem
                         icon={<DeleteIcon />}
                         label="Delete"
-                        onClick={handleDeleteClick(id)}
+                        onClick={handleDeleteClick(id, scoreTypes, rawScores)}
                         color="inherit"
                     />,
                 ];
@@ -171,7 +246,8 @@ export default function EditingGrid({ _columns, _rows, handleEditMode }) {
                     rowModesModel={rowModesModel}
                     onRowModesModelChange={handleRowModesModelChange}
                     onRowEditStop={handleRowEditStop}
-                    processRowUpdate={processRowUpdate}
+                    processRowUpdate={processRowUpdate(scoreTypes)}
+                    onProcessRowUpdateError={onProcessRowUpdateError}
                     slots={{
                         toolbar: EditToolbar,
                     }}
