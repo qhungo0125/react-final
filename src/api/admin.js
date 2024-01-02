@@ -88,9 +88,21 @@ export async function unMappingStudent(params) {
 }
 
 export async function getClasses(params) {
-  const { page = 1, limit = 10 } = params;
+  const { page = 1, limit = 10, sort, filter } = params;
 
-  let url = `/admin/classes?page=${page}&limit=${limit}`;
+  let url = '/admin/classes?';
+
+  const query = [`page=${page}`, `limit=${limit}`];
+
+  if (sort) {
+    query.push(`sort=${encodeURIComponent(JSON.stringify(sort))}`);
+  }
+
+  if (filter) {
+    query.push(`filter=${encodeURIComponent(JSON.stringify(filter))}`);
+  }
+
+  url = url + query.join('&');
 
   const response = await ClientAxios.get(url);
 

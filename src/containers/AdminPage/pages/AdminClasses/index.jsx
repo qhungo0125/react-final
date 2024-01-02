@@ -68,26 +68,35 @@ const NameCombobox = ({ selected, onSelect }) => {
 };
 
 const AdminClasses = () => {
+  // support pagination
   const [searchParams, setSearchParams] = useSearchParams();
   const [pagination, setPagination] = React.useState({
     page: 1,
     limit: 10,
   });
+
+  // sort state
   const [openSort, setOpenSort] = React.useState(false);
   const [sort, setSort] = React.useState({
     name: 'asc',
     status: 'asc',
   });
+
+  // filter state
+  const [openFilter, setOpenFilter] = React.useState(false);
   const [filter, setFilter] = React.useState({
     name: '',
     status: 'all',
   });
-  console.log(filter);
 
-  const [openFilter, setOpenFilter] = React.useState(false);
+  // classes state
+  const { classes, refetchClasses, pages } = useClasses({
+    pagination,
+    sort,
+    filter,
+  });
 
-  const { classes, refetchClasses, pages } = useClasses(pagination);
-
+  // get first data
   React.useEffect(() => {
     setSearchParams({
       page: 1,
@@ -95,6 +104,7 @@ const AdminClasses = () => {
     });
   }, []);
 
+  // update pagination state
   React.useEffect(() => {
     setPagination((current) => ({
       ...current,
@@ -103,6 +113,7 @@ const AdminClasses = () => {
     }));
   }, [searchParams.get('page'), searchParams.get('limit')]);
 
+  // functions handlers
   const onCreateCode = React.useCallback(async ({ classId }) => {
     console.log('onCreateCode', classId);
 
@@ -217,7 +228,14 @@ const AdminClasses = () => {
               >
                 Close
               </button>
-              <button className='btn btn-success'>Apply</button>
+              <button
+                onClick={async (e) => {
+                  await refetchClasses({ sort, filter });
+                }}
+                className='btn btn-success'
+              >
+                Apply
+              </button>
             </div>
           </div>
         </div>
@@ -272,7 +290,14 @@ const AdminClasses = () => {
               >
                 Close
               </button>
-              <button className='btn btn-success'>Apply</button>
+              <button
+                onClick={async (e) => {
+                  await refetchClasses({ sort, filter });
+                }}
+                className='btn btn-success'
+              >
+                Apply
+              </button>
             </div>
           </div>
         </div>
