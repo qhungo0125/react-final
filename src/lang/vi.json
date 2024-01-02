@@ -19,5 +19,10 @@
   "admin.manage.accounts": "Quan ly Tai Khoan",
   "admin.mapping.students": "ID Sinh Vien",
   "admin.nav.classes": "Lop hoc",
-  "admin.manage.classes": "Quan ly Lop Hoc"
+  "admin.manage.classes": "Quan ly Lop Hoc",
+  "admin.asc": "Tang dan",
+  "admin.desc": "Giam dan",
+  "admin.status.active": "Hoat dong",
+  "admin.status.inactive": "Vo hieu hoa",
+  "admin.status.all": "Tat ca"
 }

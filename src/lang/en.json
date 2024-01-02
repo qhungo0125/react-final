@@ -19,5 +19,10 @@
   "admin.nav.classes": "Classes",
   "admin.manage.accounts": "Manage Accounts",
   "admin.manage.classes": "Manage Classes",
-  "admin.mapping.students": "Mapping Students"
+  "admin.mapping.students": "Mapping Students",
+  "admin.asc": "Ascending",
+  "admin.desc": "Descending",
+  "admin.status.active": "Active",
+  "admin.status.inactive": "Inactive",
+  "admin.status.all": "All"
 }

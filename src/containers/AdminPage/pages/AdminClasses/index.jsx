@@ -12,42 +12,43 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import SortIcon from '@mui/icons-material/Sort';
 import { Dropdown } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
-const StatusCombobox = ({ selectedRole, onSelectRole }) => {
+const StatusCombobox = ({ selected, onSelect }) => {
   const { t } = useTranslation();
   return (
-    <Dropdown onSelect={onSelectRole}>
-      <Dropdown.Toggle variant='primary' id='dropdown-basic'>
-        {selectedRole || 'Select Role'}
-      </Dropdown.Toggle>
-      <Dropdown.Menu>
-        <Dropdown.Item eventKey={t('label.student')}>
-          {t('label.student')}
-        </Dropdown.Item>
-        <Dropdown.Item eventKey={t('label.teacher')}>
-          {t('label.teacher')}
-        </Dropdown.Item>
-      </Dropdown.Menu>
-    </Dropdown>
+    <FormControl fullWidth>
+      <Select
+        value={selected}
+        onChange={(e) => {
+          onSelect(e.target.value);
+        }}
+      >
+        <MenuItem value={'active'}>{t('admin.status.active')}</MenuItem>
+        <MenuItem value={'inactive'}>{t('admin.status.inactive')}</MenuItem>
+        <MenuItem value={'all'}>{t('admin.status.all')}</MenuItem>
+      </Select>
+    </FormControl>
   );
 };
 
-const NameCombobox = ({ selectedRole, onSelectRole }) => {
+const NameCombobox = ({ selected, onSelect }) => {
   const { t } = useTranslation();
   return (
-    <Dropdown onSelect={onSelectRole}>
-      <Dropdown.Toggle variant='primary' id='dropdown-basic'>
-        {selectedRole || 'Select Role'}
-      </Dropdown.Toggle>
-      <Dropdown.Menu>
-        <Dropdown.Item eventKey={t('label.student')}>
-          {t('label.student')}
-        </Dropdown.Item>
-        <Dropdown.Item eventKey={t('label.teacher')}>
-          {t('label.teacher')}
-        </Dropdown.Item>
-      </Dropdown.Menu>
-    </Dropdown>
+    <FormControl fullWidth>
+      <Select
+        value={selected}
+        onChange={(e) => {
+          onSelect(e.target.value);
+        }}
+      >
+        <MenuItem value={'asc'}>{t('admin.asc')}</MenuItem>
+        <MenuItem value={'desc'}>{t('admin.desc')}</MenuItem>
+      </Select>
+    </FormControl>
   );
 };
 
@@ -58,6 +59,15 @@ const AdminClasses = () => {
     limit: 10,
   });
   const [openSort, setOpenSort] = React.useState(false);
+  const [sort, setSort] = React.useState({
+    name: 'asc',
+    status: 'all',
+  });
+  console.log(sort);
+  const [filter, setFilter] = React.useState({
+    name: '',
+    status: '',
+  });
   const [openFilter, setOpenFilter] = React.useState(false);
 
   const { classes, refetchClasses, pages } = useClasses(pagination);
@@ -213,11 +223,21 @@ const AdminClasses = () => {
             <h5 className='text-center'>Sort</h5>
             <div className='mb-4'>
               <label className='form-label'>Name</label>
-              <NameCombobox />
+              <NameCombobox
+                selected={sort.name}
+                onSelect={(value) => {
+                  setSort((c) => ({ ...c, name: value }));
+                }}
+              />
             </div>
             <div className='mb-4'>
               <label className='form-label'>Status</label>
-              <StatusCombobox />
+              <StatusCombobox
+                selected={sort.status}
+                onSelect={(value) => {
+                  setSort((c) => ({ ...c, status: value }));
+                }}
+              />
             </div>
             <div className='d-flex justify-content-center gap-4'>
               <button
