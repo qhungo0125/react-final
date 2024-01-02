@@ -19,7 +19,6 @@ const MyComboBox = ({ selectedRole, onSelectRole }) => {
       <Dropdown.Toggle variant="primary" id="dropdown-basic">
         {selectedRole || 'Select Role'}
       </Dropdown.Toggle>
-
       <Dropdown.Menu>
         <Dropdown.Item eventKey={t('label.student')}>
           {t('label.student')}
