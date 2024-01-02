@@ -24,5 +24,7 @@
   "admin.desc": "Giam dan",
   "admin.status.active": "Hoat dong",
   "admin.status.inactive": "Vo hieu hoa",
-  "admin.status.all": "Tat ca"
+  "admin.status.all": "Tat ca",
+  "admin.status.asc": "Hoat dong truoc",
+  "admin.status.desc": "Vo hieu hoa truoc"
 }
