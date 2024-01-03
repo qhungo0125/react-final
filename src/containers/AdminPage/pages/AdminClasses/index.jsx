@@ -25,8 +25,8 @@ const FilterStatus = ({ selected, onSelect }) => {
           onSelect(e.target.value);
         }}
       >
-        <MenuItem value={'active'}>{t('admin.status.active')}</MenuItem>
-        <MenuItem value={'inactive'}>{t('admin.status.inactive')}</MenuItem>
+        <MenuItem value={true}>{t('admin.status.active')}</MenuItem>
+        <MenuItem value={false}>{t('admin.status.inactive')}</MenuItem>
         <MenuItem value={'all'}>{t('admin.status.all')}</MenuItem>
       </Select>
     </FormControl>
@@ -192,6 +192,7 @@ const AdminClasses = () => {
                 className='form-control'
                 type='text'
                 placeholder='advanced web...'
+                value={filter.name}
                 onChange={(e) => {
                   setFilter((c) => ({ ...c, name: e.target.value }));
                 }}

@@ -35,7 +35,8 @@ const useClasses = (props) => {
       const params = {
         page: pagination.page,
         limit: pagination.limit,
-        // filter,
+        filter: {},
+        sort: {},
       };
 
       if (sort) {
@@ -43,6 +44,17 @@ const useClasses = (props) => {
           isActived: sort.status,
           name: sort.name,
         };
+      }
+
+      if (filter) {
+        if (filter.name.trim() !== '') {
+          params.filter = {
+            name: filter.name,
+          };
+        }
+        if (filter.status !== 'all') {
+          params.filter.isActived = filter.status;
+        }
       }
 
       const response = await getClasses(params);
