@@ -21,7 +21,7 @@ import { useContext } from 'react';
 import { MenuContext } from '../../context/MenuContext.jsx';
 import ClientAxios from '../../utils/axiosConfig.js';
 import { Button } from '@mui/material';
-import addMember from '../../api/class.js';
+import {addMember} from '../../api/class.js';
 const drawerWidth = 240;
 
 const BootstrapButton = styled(Button)({

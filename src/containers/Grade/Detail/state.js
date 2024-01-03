@@ -6,6 +6,7 @@ import { infoField } from './gradeConfig.js'
 import { useState } from 'react';
 import { MenuContext } from '../../../context/MenuContext';
 
+
 const GRADE_COLUMN_WIDTH = 150;
 
 export default function useGradeDetail() {
@@ -43,16 +44,15 @@ export default function useGradeDetail() {
         }
 
         const getScore = async () => {
-            await axios.get('/score/class-scores', {
+            await axios.get('/score/scores-final', {
                 params: {
                     classId: menuContext.classId,
                 }
             })
                 .then(res => {
-                    console.log(res.data)
                     if (res.success) {
                         setScores(res.data)
-                        getRows(res.data)
+                        getRows(res.data[0]["scoreBoard"])
                         check++
                         if (check == 2) setLoading(false)
                     }
@@ -76,27 +76,20 @@ export default function useGradeDetail() {
             }]
         }
         setColumns([...infoField, ..._columns])
-        console.log(_columns)
     }
 
     const getRows = (data) => {
+        console.log(data)
         //set table rows
         let _rows = []
         for (var i = 0; i < data.length; i++) {
-            //check if existed student
-            let isExisted = false
-            for (var j = 0; j < _rows.length; j++) {
-                if (_rows[j].id === data[i].student._id) {
-                    _rows[j] = { ..._rows[j], [`${data[i].type._id}`]: data[i].value }
-                    isExisted = true
-                    break
-                }
+            let _scores = {}
+            for (var j = 0; j < data[i].scores.length; j++) {
+                _scores = { ..._scores, [`${data[i].scores[j].typeId}`]: data[i].scores[j].value }
             }
-            if (!isExisted) {
-                _rows = [..._rows, {
-                    'id': data[i].student._id, 'name': data[i].student.name, [`${data[i].type._id}`]: data[i].value
-                }]
-            }
+            _rows = [..._rows, {
+                'id': data[i].student._id, 'name': data[i].student.name, ..._scores
+            }]
         }
         setRows(_rows)
         console.log(_rows)

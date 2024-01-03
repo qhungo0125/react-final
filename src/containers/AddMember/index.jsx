@@ -2,7 +2,7 @@ import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import ClientAxios from '../../utils/axiosConfig';
-import addMember from '../../api/class';
+import {addMember} from '../../api/class';
 
 const AddMember = () => {
   const [searchParams, setSearchParams] = useSearchParams();
