@@ -25,6 +25,6 @@
   "admin.status.active": "Active",
   "admin.status.inactive": "Inactive",
   "admin.status.all": "All",
-  "admin.status.asc": "Active first",
-  "admin.status.desc": "Inactive first"
+  "admin.status.asc": "Inactive first",
+  "admin.status.desc": "Active first"
 }

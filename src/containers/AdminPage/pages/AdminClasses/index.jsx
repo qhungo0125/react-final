@@ -43,8 +43,8 @@ const SortStatus = ({ selected, onSelect }) => {
           onSelect(e.target.value);
         }}
       >
-        <MenuItem value={'asc'}>{t('admin.status.asc')}</MenuItem>
         <MenuItem value={'desc'}>{t('admin.status.desc')}</MenuItem>
+        <MenuItem value={'asc'}>{t('admin.status.asc')}</MenuItem>
       </Select>
     </FormControl>
   );
@@ -68,17 +68,16 @@ const NameCombobox = ({ selected, onSelect }) => {
 };
 
 const AdminClasses = () => {
-  // support pagination
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [pagination, setPagination] = React.useState({
-    page: 1,
-    limit: 10,
-  });
-
+  React.useEffect(() => {
+    console.log('mount');
+    return () => {
+      console.log('unmount');
+    };
+  }, []);
   // sort state
   const [openSort, setOpenSort] = React.useState(false);
   const [sort, setSort] = React.useState({
-    name: 'asc',
+    name: 'desc',
     status: 'asc',
   });
 
@@ -90,63 +89,51 @@ const AdminClasses = () => {
   });
 
   // classes state
-  const { classes, refetchClasses, pages } = useClasses({
-    pagination,
+  const { classes, refetchClasses, pages, pagination } = useClasses({
     sort,
     filter,
   });
 
-  // get first data
-  React.useEffect(() => {
-    setSearchParams({
-      page: 1,
-      limit: 10,
-    });
-  }, []);
-
-  // update pagination state
-  React.useEffect(() => {
-    setPagination((current) => ({
-      ...current,
-      page: +searchParams.get('page') || 1,
-      limit: +searchParams.get('limit') || 10,
-    }));
-  }, [searchParams.get('page'), searchParams.get('limit')]);
-
   // functions handlers
-  const onCreateCode = React.useCallback(async ({ classId }) => {
-    console.log('onCreateCode', classId);
+  const onCreateCode = React.useCallback(
+    async ({ classId }) => {
+      console.log('onCreateCode', classId);
 
-    try {
-      const response = await createInvitationCode({ classId });
-      console.log(response);
-      if (response.error) {
-        alert(response.error.message);
-        return;
+      try {
+        const response = await createInvitationCode({ classId });
+        console.log(response);
+        if (response.error) {
+          alert(response.error.message);
+          return;
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        await refetchClasses();
       }
-    } catch (error) {
-      console.error(error);
-    } finally {
-      refetchClasses();
-    }
-  }, []);
+    },
+    [refetchClasses],
+  );
 
-  const onRemoveCode = React.useCallback(async ({ classId }) => {
-    console.log('onCreateCode', classId);
+  const onRemoveCode = React.useCallback(
+    async ({ classId }) => {
+      console.log('onCreateCode', classId);
 
-    try {
-      const response = await removeInvitationCode({ classId });
-      console.log(response);
-      if (response.error) {
-        alert(response.error.message);
-        return;
+      try {
+        const response = await removeInvitationCode({ classId });
+        console.log(response);
+        if (response.error) {
+          alert(response.error.message);
+          return;
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        await refetchClasses();
       }
-    } catch (error) {
-      console.error(error);
-    } finally {
-      refetchClasses();
-    }
-  }, []);
+    },
+    [refetchClasses],
+  );
 
   const updateClassStatus = React.useCallback(
     async ({ classId, isActived }) => {
@@ -169,10 +156,10 @@ const AdminClasses = () => {
       } catch (error) {
         console.error(error);
       } finally {
-        refetchClasses();
+        await refetchClasses();
       }
     },
-    [],
+    [refetchClasses],
   );
 
   return (
@@ -230,7 +217,7 @@ const AdminClasses = () => {
               </button>
               <button
                 onClick={async (e) => {
-                  await refetchClasses({ sort, filter });
+                  await refetchClasses();
                 }}
                 className='btn btn-success'
               >
@@ -292,7 +279,8 @@ const AdminClasses = () => {
               </button>
               <button
                 onClick={async (e) => {
-                  await refetchClasses({ sort, filter });
+                  console.log(sort);
+                  await refetchClasses();
                 }}
                 className='btn btn-success'
               >
