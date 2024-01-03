@@ -5,6 +5,7 @@ import axios from '../../../utils/axiosConfig';
 import { infoField } from './gradeConfig.js'
 import { useState } from 'react';
 import { MenuContext } from '../../../context/MenuContext';
+import { getClass } from '../../../api/class.js';
 
 
 const GRADE_COLUMN_WIDTH = 150;
@@ -63,10 +64,10 @@ export default function useGradeDetail() {
                 })
         }
 
-        getScoreTypes();
         getScore();
-
+        getScoreTypes();
     }
+
 
     const getColumns = (data) => {
         let _columns = []
@@ -88,7 +89,7 @@ export default function useGradeDetail() {
                 _scores = { ..._scores, [`${data[i].scores[j].typeId}`]: data[i].scores[j].value }
             }
             _rows = [..._rows, {
-                'id': data[i].student._id, 'name': data[i].student.name, ..._scores
+                'id': data[i].student._id, 'student_id': "", 'name': data[i].student.name, ..._scores
             }]
         }
         setRows(_rows)
