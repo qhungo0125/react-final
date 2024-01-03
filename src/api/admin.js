@@ -209,3 +209,22 @@ export async function deactiveClass(params) {
   }
   return response;
 }
+
+export async function mapStudents(params) {
+  const { students } = params;
+  if (!students || students.length === 0) {
+    console.error('students is required');
+    return;
+  }
+
+  let url = `/admin/students/map`;
+  const response = await ClientAxios.post(url, {
+    students,
+  });
+
+  if (response.error && response.error.message) {
+    console.error(response.error.message);
+    return response;
+  }
+  return response;
+}

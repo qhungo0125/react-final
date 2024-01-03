@@ -6,6 +6,7 @@ import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import { useTranslation } from 'react-i18next';
 import { downloadExcel, getDatafromUploadExcel } from '../../../../utils/excel';
+import { mapStudents } from '../../../../api/admin';
 
 const ClassNameCombobox = ({ selected, onSelect, values }) => {
   const { t } = useTranslation();
@@ -50,6 +51,16 @@ const MappingStudents = () => {
     setStudents(data);
   };
 
+  const mapStudentsFromExcel = async (students) => {
+    try {
+      const data = await mapStudents({ students });
+      console.log(data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+    }
+  };
+
   return (
     <div>
       <h5>Download template</h5>
@@ -76,7 +87,13 @@ const MappingStudents = () => {
             className='form-control me-2'
             onChange={handleFileChange}
           />
-          <button className='rounded btn btn-success' onClick={(e) => {}}>
+          <button
+            className='rounded btn btn-success'
+            onClick={async (e) => {
+              console.log('studentsExcel ', studentsExcel);
+              await mapStudentsFromExcel(studentsExcel);
+            }}
+          >
             Submit
           </button>
         </div>
