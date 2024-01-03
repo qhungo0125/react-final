@@ -26,5 +26,6 @@
   "admin.status.inactive": "Vo hieu hoa",
   "admin.status.all": "Tat ca",
   "admin.status.asc": "Vo hieu hoa truoc",
-  "admin.status.desc": "Hoat dong truoc"
+  "admin.status.desc": "Hoat dong truoc",
+  "admin.map.selectClass": "Chon lop hoc"
 }

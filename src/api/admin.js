@@ -113,6 +113,25 @@ export async function getClasses(params) {
   return response;
 }
 
+export async function getClass({ id, fields = [] }) {
+  if (!id) {
+    console.error('id is required');
+    return;
+  }
+  let url = `/class?id=${id}`;
+
+  if (fields.length > 0) {
+    url = url + '&fields=' + fields.join(',');
+  }
+
+  const response = await ClientAxios.get(url);
+  if (response.error && response.error.message) {
+    console.error(response.error.message);
+    return response;
+  }
+  return response;
+}
+
 export async function createInvitationCode(params) {
   const { classId } = params;
 

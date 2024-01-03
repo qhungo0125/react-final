@@ -26,5 +26,6 @@
   "admin.status.inactive": "Inactive",
   "admin.status.all": "All",
   "admin.status.asc": "Inactive first",
-  "admin.status.desc": "Active first"
+  "admin.status.desc": "Active first",
+  "admin.map.selectClass": "Select class"
 }
