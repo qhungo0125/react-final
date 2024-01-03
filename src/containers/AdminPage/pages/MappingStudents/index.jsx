@@ -11,9 +11,12 @@ const ClassNameCombobox = ({ selected, onSelect, values }) => {
   const { t } = useTranslation();
   if (values.length === 0) return null;
   return (
-    <FormControl className='w-50'>
+    <FormControl className='w-25'>
       <InputLabel>{t('admin.map.selectClass')}</InputLabel>
       <Select
+        style={{
+          height: '2.5rem',
+        }}
         value={selected}
         label={t('admin.map.selectClass')}
         onChange={(e) => {
@@ -48,33 +51,37 @@ const MappingStudents = () => {
   };
 
   return (
-    <>
-      <ClassNameCombobox
-        onSelect={(value) => {
-          setSelectedClass(value);
-        }}
-        selected={selectedClass}
-        values={classes}
-      />
-      <div className='mt-4'>
+    <div>
+      <h5>Download template</h5>
+      <div className='mt-4 d-flex gap-4 w-50'>
+        <ClassNameCombobox
+          onSelect={(value) => {
+            setSelectedClass(value);
+          }}
+          selected={selectedClass}
+          values={classes}
+        />
         <button
           className='btn btn-success'
           onClick={(e) => downloadExcel(students)}
         >
           Download Excel Template
         </button>
-
-        <div className='input-group mt-3'>
-          <div className='custom-file'>
-            <input
-              type='file'
-              className='custom-file-input'
-              onChange={handleFileChange}
-            />
-          </div>
+      </div>
+      <h5 className='mt-5'>Upload</h5>
+      <div className='d-flex w-50 flex-column'>
+        <div className='input-group'>
+          <input
+            type='file'
+            className='form-control me-2'
+            onChange={handleFileChange}
+          />
+          <button className='rounded btn btn-success' onClick={(e) => {}}>
+            Submit
+          </button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
