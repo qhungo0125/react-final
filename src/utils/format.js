@@ -14,3 +14,11 @@ export function formatPhoneNumber(phoneNumber) {
   )}-${cleaned.slice(6, 10)}`;
   return formatted;
 }
+
+export function createArrayFrom1ToN(n) {
+  let result = [];
+  for (let i = 1; i <= n; i++) {
+    result.push(i);
+  }
+  return result;
+}

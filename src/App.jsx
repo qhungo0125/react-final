@@ -13,7 +13,6 @@ import AddMember from './containers/AddMember';
 import { MenuProvider } from './context/MenuContext';
 import './lang/i18n';
 import ProfilePage from './containers/ProfilePage';
-// import bootstrap from 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import PageWithHeader from './components/PageWithHeader';

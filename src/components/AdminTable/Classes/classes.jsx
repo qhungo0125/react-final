@@ -2,7 +2,12 @@ import React from 'react';
 import ClassItem from './classItem';
 
 const Classes = (props) => {
-  const { classes = [], onCreateCode = () => {} } = props;
+  const {
+    classes = [],
+    onCreateCode = () => {},
+    onRemoveCode = () => {},
+    updateClassStatus = () => {},
+  } = props;
   return (
     <table className="table table-striped">
       <thead>
@@ -11,6 +16,7 @@ const Classes = (props) => {
           <th scope="col">name</th>
           <th scope="col">code</th>
           <th scope="col">description</th>
+          <th scope="col">Status</th>
           <th scope="col">Actions</th>
         </tr>
       </thead>
@@ -21,6 +27,8 @@ const Classes = (props) => {
             index={index}
             item={item}
             onCreateCode={onCreateCode}
+            onRemoveCode={onRemoveCode}
+            updateClassStatus={updateClassStatus}
           />
         ))}
       </tbody>

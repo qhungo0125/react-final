@@ -1,15 +1,16 @@
 import React from 'react';
-import useStudents from './state/useStudents';
-import useTeachers from './state/useTeachers';
 import AccountsTable from '../../../../components/AdminTable/Accounts/accounts';
 import {
   blockAccounts,
   mappingStudent,
+  unMappingStudent,
   unblockAccounts,
 } from '../../../../api/admin';
 
 import { Dropdown } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { Link, useSearchParams } from 'react-router-dom';
+import useAccounts from './state/useAccounts';
 
 const MyComboBox = ({ selectedRole, onSelectRole }) => {
   const { t } = useTranslation();
@@ -18,7 +19,6 @@ const MyComboBox = ({ selectedRole, onSelectRole }) => {
       <Dropdown.Toggle variant="primary" id="dropdown-basic">
         {selectedRole || 'Select Role'}
       </Dropdown.Toggle>
-
       <Dropdown.Menu>
         <Dropdown.Item eventKey={t('label.student')}>
           {t('label.student')}
@@ -32,14 +32,33 @@ const MyComboBox = ({ selectedRole, onSelectRole }) => {
 };
 
 const AdminAccounts = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { t } = useTranslation();
+  const [selectedRole, setSelectedRole] = React.useState(t('label.student'));
   const [pagination, setPagination] = React.useState({
     page: 1,
     limit: 10,
   });
-  const { t } = useTranslation();
-  const { students, refetchStudents } = useStudents(pagination);
-  const { teachers, refetchTeachers } = useTeachers(pagination);
-  const [selectedRole, setSelectedRole] = React.useState(t('label.student'));
+
+  const { accounts, pages, refetchAccounts } = useAccounts({
+    ...pagination,
+    role: selectedRole,
+  });
+
+  React.useEffect(() => {
+    setSearchParams({
+      page: 1,
+      limit: 10,
+    });
+  }, []);
+
+  React.useEffect(() => {
+    setPagination((current) => ({
+      ...current,
+      page: +searchParams.get('page') || 1,
+      limit: +searchParams.get('limit') || 10,
+    }));
+  }, [searchParams.get('page'), searchParams.get('limit')]);
 
   // this func can be use to lock account for both teacher and student
   const onBlock = React.useCallback(async ({ id, isLocked }) => {
@@ -55,8 +74,7 @@ const AdminAccounts = () => {
     } catch (err) {
       console.error(err);
     } finally {
-      refetchStudents();
-      refetchTeachers();
+      refetchAccounts();
     }
   }, []);
 
@@ -70,7 +88,20 @@ const AdminAccounts = () => {
     } catch (err) {
       console.error(err);
     } finally {
-      refetchStudents();
+      refetchAccounts();
+    }
+  }, []);
+
+  const onUnMapping = React.useCallback(async ({ studentId }) => {
+    try {
+      const response = await unMappingStudent({ studentId });
+      if (response.error) {
+        alert(response.error.message);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      refetchAccounts();
     }
   }, []);
 
@@ -79,21 +110,69 @@ const AdminAccounts = () => {
       <MyComboBox
         selectedRole={selectedRole}
         onSelectRole={(eventKey) => {
-          console.log('run set ', eventKey);
           setSelectedRole(eventKey);
+          setPagination({
+            page: 1,
+            limit: 10,
+          });
+          setSearchParams({
+            page: 1,
+            limit: 10,
+          });
         }}
       />
 
       <AccountsTable
         type={selectedRole}
         onMapping={onMapping}
+        onUnMapping={onUnMapping}
         onBlock={onBlock}
-        accounts={
-          selectedRole === t('label.student')
-            ? students.data || []
-            : teachers.data || []
-        }
+        accounts={accounts.data || []}
       />
+      <div className="d-flex justify-content-center">
+        <nav aria-label="Page navigation example">
+          <ul className="pagination">
+            <li className="page-item">
+              <Link
+                className="page-link"
+                to={`?page=${
+                  pagination.page - 1 > 0 ? pagination.page - 1 : 1
+                }&limit=${pagination.limit}`}
+              >
+                Previous
+              </Link>
+            </li>
+            {pages.map((pageIndex) => {
+              return (
+                <li key={pageIndex} className="page-item">
+                  <Link
+                    className={
+                      pagination.page === pageIndex
+                        ? 'page-link active'
+                        : 'page-link'
+                    }
+                    to={`?page=${pageIndex}&limit=${pagination.limit}`}
+                  >
+                    {pageIndex}
+                  </Link>
+                </li>
+              );
+            })}
+            <li className="page-item">
+              <Link
+                className="page-link"
+                to={`?page=${
+                  +pagination.page + 1 > pages.length
+                    ? pages.length
+                    : +pagination.page + 1
+                }&limit=${pagination.limit}`}
+              >
+                Next
+              </Link>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </>
   );
 };

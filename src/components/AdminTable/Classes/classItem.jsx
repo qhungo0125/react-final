@@ -1,34 +1,53 @@
 import React from 'react';
 
 const ClassItem = (props) => {
-  const { item, index, onCreateCode: handleCreateCode = () => {} } = props;
-  const { _id, name, description, invitationCode } = item;
+  const {
+    item,
+    index,
+    onCreateCode: handleCreateCode = () => {},
+    onRemoveCode: handleRemoveCode = () => {},
+    updateClassStatus: handleUpdateClassStatus = () => {},
+  } = props;
+  const { _id, name, description, invitationCode, isActived } = item;
   return (
     <tr>
       <th scope="row">{index}</th>
       <td>{name}</td>
       <td>{invitationCode}</td>
       <td>{description}</td>
+      <td>{isActived ? 'Actived' : 'Inactive'}</td>
       <td>
         <div
           className="btn-group"
           role="group"
           aria-label="Basic mixed styles example"
         >
-          <button type="button" className="btn btn-success">
-            Add member
-          </button>
-          <button type="button" className="btn btn-info">
-            Invite member
-          </button>
           <button
             type="button"
-            className="btn btn-success"
+            className={
+              invitationCode && invitationCode !== ''
+                ? 'btn btn-warning'
+                : 'btn btn-primary'
+            }
             onClick={(e) => {
-              handleCreateCode({ classId: _id });
+              if (!invitationCode || invitationCode === '') {
+                handleCreateCode({ classId: _id });
+              } else {
+                handleRemoveCode({ classId: _id });
+              }
             }}
           >
-            Create invitationCode
+            {invitationCode ? 'Reset Code' : 'Create Code'}
+          </button>
+
+          <button
+            type="button"
+            className={isActived ? 'btn btn-danger' : 'btn btn-success'}
+            onClick={(e) => {
+              handleUpdateClassStatus({ classId: _id, isActived: !isActived });
+            }}
+          >
+            {isActived ? 'InActive' : 'Acrtive'}
           </button>
         </div>
       </td>
