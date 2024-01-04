@@ -13,6 +13,7 @@ import Structure from './Grade/Structure';
 
 import { useContext } from 'react';
 import { MenuContext } from '../context/MenuContext';
+import GradeStructure from './Grade/Structure/v2';
 
 const identifyTabs = () => {
   const menuContext = useContext(MenuContext);
@@ -31,7 +32,7 @@ const identifyTabs = () => {
         tab = <Detail />;
         break;
       case 'grade_structure':
-        tab = <Structure />;
+        tab = <GradeStructure />;
         break;
       case 'grade_review':
         tab = <Reviews />;
