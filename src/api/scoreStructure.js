@@ -58,3 +58,21 @@ export async function removeType(params) {
   }
   return response;
 }
+
+export async function updateType(params) {
+  const { name, percentage, typeId } = params;
+  if (!typeId || !name || !percentage) {
+    console.error('typeId, name and percentage are required');
+    return;
+  }
+  const response = await ClientAxios.post(`/score/update-type`, {
+    name,
+    percentage,
+    typeId,
+  });
+  if (response.error && response.error.message) {
+    console.error(response.error.message);
+    return response;
+  }
+  return response;
+}

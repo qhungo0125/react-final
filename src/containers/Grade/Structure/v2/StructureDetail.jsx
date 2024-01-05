@@ -3,7 +3,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import ScoreStructureItem from './ScoreStructureItem';
 
 const DraggableList = (props) => {
-  const { data, onChange, onRemove } = props;
+  const { data, onChange, onRemove, setOpenEditForm, setSelectedType } = props;
   // State to manage the order of items
 
   // Function to handle the drag-and-drop reordering
@@ -34,6 +34,8 @@ const DraggableList = (props) => {
                 <Draggable key={item._id} draggableId={item._id} index={index}>
                   {(provided) => (
                     <ScoreStructureItem
+                      setSelectedType={setSelectedType}
+                      setOpenEditForm={setOpenEditForm}
                       provided={provided}
                       data={item}
                       index={index}

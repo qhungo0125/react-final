@@ -1,7 +1,14 @@
 import React from 'react';
 
 const ScoreStructureItem = (props) => {
-  const { data, index, provided, onRemove: handleRemove = () => {} } = props;
+  const {
+    data,
+    index,
+    provided,
+    onRemove: handleRemove = () => {},
+    setOpenEditForm,
+    setSelectedType = () => {},
+  } = props;
   const { name, percentage, _id } = data;
   return (
     <tr
@@ -22,11 +29,8 @@ const ScoreStructureItem = (props) => {
             type='button'
             className={'btn btn-warning'}
             onClick={(e) => {
-              // if (!invitationCode || invitationCode === '') {
-              //   handleCreateCode({ classId: _id });
-              // } else {
-              //   handleRemoveCode({ classId: _id });
-              // }
+              setOpenEditForm(true);
+              setSelectedType(data);
             }}
           >
             Edit

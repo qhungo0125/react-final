@@ -97,7 +97,7 @@ const AddForm = (props) => {
           </button>
           <button
             onClick={async (e) => {
-              handleSubmit({ name: typeName, percentage });
+              await handleSubmit({ name: typeName, percentage });
             }}
             className='btn btn-success'
           >

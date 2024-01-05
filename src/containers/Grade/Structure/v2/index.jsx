@@ -1,22 +1,27 @@
 import React from 'react';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 import {
   getClassScoreTypes,
   getScoreTypes,
   removeType,
   setScoreStructure,
+  updateType,
 } from '../../../../api/scoreStructure';
 import { useSearchParams } from 'react-router-dom';
 import AddForm from './AddForm';
 import DraggableList from './StructureDetail';
+import EditForm from './EditForm';
 
 const GradeStructure = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [types, setTypes] = React.useState([]);
   const [classTypes, setClassTypes] = React.useState([]);
   const [openAddForm, setOpenAddForm] = React.useState(false);
+  const [openEditForm, setOpenEditForm] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+  const [selectedType, setSelectedType] = React.useState({});
+
+  console.log(openEditForm);
 
   const fetchData = async () => {
     const classId = searchParams.get('id');
@@ -84,10 +89,30 @@ const GradeStructure = () => {
     }
   };
 
+  const updateScoreStructure = async ({ name, percentage, typeId }) => {
+    try {
+      setLoading(true);
+      const response = await updateType({ name, percentage, typeId });
+      if (response.success) {
+        alert('Update structure successfully');
+        await fetchData();
+      } else {
+        alert('Update structure failed');
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+      setOpenEditForm(false);
+    }
+  };
+
   return (
     <>
-      <div className={openAddForm ? 'w-50 opacity-25' : 'w-50'}>
+      <div className={openAddForm || openEditForm ? 'w-50 opacity-25' : 'w-50'}>
         <DraggableList
+          setSelectedType={setSelectedType}
+          setOpenEditForm={setOpenEditForm}
           data={classTypes}
           onRemove={removeScoreStructure}
           onChange={setClassTypes}
@@ -108,6 +133,15 @@ const GradeStructure = () => {
           }}
           scoreTypes={types}
           onSubmit={addGradeStructure}
+        />
+      )}
+      {openEditForm && (
+        <EditForm
+          onSubmit={updateScoreStructure}
+          selectedType={selectedType}
+          onClose={() => {
+            setOpenEditForm(false);
+          }}
         />
       )}
     </>
