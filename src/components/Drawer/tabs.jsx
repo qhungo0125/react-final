@@ -30,10 +30,8 @@ export default function NavTabs() {
     setAnchorEl(null);
   };
 
-  const handleMenuItemClose = (event) => {
-    menuContext.handleClassTabChanges(
-      `grade_${event.target.innerText.toLowerCase()}`,
-    );
+  const handleMenuItemClose = (eventName) => {
+    menuContext.handleClassTabChanges(eventName);
     setAnchorEl(null);
   };
 
@@ -85,7 +83,7 @@ export default function NavTabs() {
             sx={{ '& .MuiPaper-root': { minWidth: '110px' } }}
           >
             <MenuItem
-              onClick={handleMenuItemClose}
+              onClick={(e) => handleMenuItemClose('grade_detail')}
               sx={
                 menuContext.classTab === 'grade_detail'
                   ? { backgroundColor: 'aliceblue' }
@@ -95,7 +93,7 @@ export default function NavTabs() {
               Detail
             </MenuItem>
             <MenuItem
-              onClick={handleMenuItemClose}
+              onClick={(e) => handleMenuItemClose('grade_upload')}
               sx={
                 menuContext.classTab === 'grade_upload'
                   ? { backgroundColor: 'aliceblue' }
@@ -105,7 +103,17 @@ export default function NavTabs() {
               upload
             </MenuItem>
             <MenuItem
-              onClick={handleMenuItemClose}
+              onClick={(e) => handleMenuItemClose('grade_students')}
+              sx={
+                menuContext.classTab === 'grade_students'
+                  ? { backgroundColor: 'aliceblue' }
+                  : {}
+              }
+            >
+              Students x Grade
+            </MenuItem>
+            <MenuItem
+              onClick={(e) => handleMenuItemClose('grade_structure')}
               sx={
                 menuContext.classTab === 'grade_structure'
                   ? { backgroundColor: 'aliceblue' }
@@ -115,7 +123,7 @@ export default function NavTabs() {
               Structure
             </MenuItem>
             <MenuItem
-              onClick={handleMenuItemClose}
+              onClick={(e) => handleMenuItemClose('grade_review')}
               sx={
                 menuContext.classTab === 'grade_review'
                   ? { backgroundColor: 'aliceblue' }

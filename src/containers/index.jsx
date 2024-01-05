@@ -12,6 +12,7 @@ import { useContext } from 'react';
 import { MenuContext } from '../context/MenuContext';
 import GradeStructure from './Grade/Structure/v2';
 import GradeUpload from './Grade/Upload/GradeUpload';
+import GradeStudents from './Grade/GradeStudents/GradeStudents';
 
 const identifyTabs = () => {
   const menuContext = useContext(MenuContext);
@@ -37,6 +38,8 @@ const identifyTabs = () => {
         break;
       case 'grade_upload':
         tab = <GradeUpload />;
+      case 'grade_students':
+        tab = <GradeStudents />;
         break;
       default:
         tab = <Stream />;
