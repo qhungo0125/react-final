@@ -6,6 +6,7 @@ import { useSearchParams } from 'react-router-dom';
 import ScoreBoard from './ScoreBoard';
 import EditScore from './EditScore';
 import MappingForm from '../../../components/AdminTable/Accounts/mappingForm';
+import { downloadExcel } from '../../../utils/excel';
 
 const GradeStudents = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -118,6 +119,29 @@ const GradeStudents = () => {
   return (
     <>
       <div className={openEditForm || openMapForm ? 'w-75 opacity-25' : 'w-75'}>
+        <div>
+          <button
+            className='btn btn-success'
+            onClick={(e) => {
+              const data = students.map((student) => {
+                const extractedStudent = {
+                  id: student._id,
+                  mapCode: student.mapCode,
+                  name: student.name,
+                };
+                student.scoreTypes.forEach((scoreType) => {
+                  extractedStudent[scoreType.name] = scoreType.value;
+                });
+
+                return extractedStudent;
+                // return student;
+              });
+              downloadExcel(data);
+            }}
+          >
+            Export to Excel
+          </button>
+        </div>
         <ScoreBoard
           students={students}
           scoreTypes={scoreTypes}

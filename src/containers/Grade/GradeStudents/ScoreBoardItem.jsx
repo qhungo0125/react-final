@@ -26,15 +26,17 @@ const ScoreBoardItem = (props) => {
           >
             Edit
           </button>
-          <button
-            type='button'
-            className={'btn btn-warning'}
-            onClick={(e) => {
-              onMapClick({ student: item });
-            }}
-          >
-            Map
-          </button>
+          {!mapCode && (
+            <button
+              type='button'
+              className={'btn btn-warning'}
+              onClick={(e) => {
+                onMapClick({ student: item });
+              }}
+            >
+              Map
+            </button>
+          )}
         </div>
       </td>
     </tr>

@@ -17,6 +17,7 @@ const ScoreBoard = (props) => {
               })`}</th>
             );
           })}
+          <th scope='col'>actions</th>
         </tr>
       </thead>
       <tbody>
