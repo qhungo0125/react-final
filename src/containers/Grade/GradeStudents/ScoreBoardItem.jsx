@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ScoreBoardItem = (props) => {
-  const { item, index, onEditClick: handleEdit = () => {} } = props;
+  const { item, index, onEditClick: handleEdit = () => {}, onMapClick } = props;
   const { _id, name, mapCode, scoreTypes } = item;
   return (
     <tr>
@@ -25,6 +25,15 @@ const ScoreBoardItem = (props) => {
             }}
           >
             Edit
+          </button>
+          <button
+            type='button'
+            className={'btn btn-warning'}
+            onClick={(e) => {
+              onMapClick({ student: item });
+            }}
+          >
+            Map
           </button>
         </div>
       </td>

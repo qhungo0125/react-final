@@ -2,7 +2,7 @@ import React from 'react';
 import ScoreBoardItem from './ScoreBoardItem';
 
 const ScoreBoard = (props) => {
-  const { students, scoreTypes, onEditClick } = props;
+  const { students, scoreTypes, onEditClick, onMapClick } = props;
   return (
     <table className='table table-striped'>
       <thead>
@@ -26,6 +26,7 @@ const ScoreBoard = (props) => {
             index={index}
             item={item}
             onEditClick={onEditClick}
+            onMapClick={onMapClick}
           />
         ))}
       </tbody>
