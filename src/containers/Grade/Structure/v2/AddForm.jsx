@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 
 const StructuresCombobox = ({ values, selected, onSelect }) => {
   return (
-    <FormControl fullWidth>
+    <FormControl className='w-50'>
       <Select
         value={selected.name}
         onChange={(e) => {
@@ -25,7 +25,7 @@ const StructuresCombobox = ({ values, selected, onSelect }) => {
 };
 
 const AddForm = (props) => {
-  const { onClose, scoreTypes } = props;
+  const { onClose, scoreTypes, onSubmit: handleSubmit = () => {} } = props;
   const [typeName, setTypeName] = React.useState('');
   const [percentage, setPercentage] = React.useState(0);
 
@@ -39,36 +39,72 @@ const AddForm = (props) => {
     return null;
   }
 
-  console.log('typeName', typeName);
-
   return (
-    <div>
-      <StructuresCombobox
-        values={scoreTypes}
-        selected={typeName}
-        onSelect={(value) => {
-          setTypeName(value);
-        }}
-      />
-      <input
+    <div
+      style={{
+        position: 'fixed',
+        zIndex: 999,
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+      }}
+    >
+      <div
+        className='rounded position-absolute p-4 border border-2 bg-white'
         style={{
-          border: '1px solid #ccc',
-          borderRadius: '0.5rem',
-          height: '2.5rem',
-          fontSize: '1.5rem',
+          width: '25%',
+          top: '40%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          opacity: 1,
+          textAlign: 'center',
         }}
-        min={0}
-        max={100}
-        type='number'
-        value={percentage}
-        onChange={(e) => setPercentage(e.target.value)}
-      />
-      <button onClick={onClose} className='btn btn-danger'>
-        close
-      </button>
-      <button onClick={async () => {}} className='btn btn-success'>
-        add
-      </button>
+      >
+        <h5>Add new score structure</h5>
+
+        <div className='d-flex justify-content-between align-items-center mt-4 mb-4'>
+          <h6>Name</h6>
+          <StructuresCombobox
+            values={scoreTypes}
+            selected={typeName}
+            onSelect={(value) => {
+              setTypeName(value);
+            }}
+          />
+        </div>
+
+        <div className='d-flex justify-content-between align-items-center mb-4'>
+          <h6>Percentage</h6>
+          <input
+            style={{
+              border: '1px solid #ccc',
+              borderRadius: '0.5rem',
+              height: '2.5rem',
+              fontSize: '1.5rem',
+            }}
+            min={0}
+            max={100}
+            type='number'
+            value={percentage}
+            onChange={(e) => setPercentage(e.target.value)}
+          />
+        </div>
+
+        <div className='d-flex justify-content-center gap-4'>
+          <button onClick={onClose} className='btn btn-danger'>
+            close
+          </button>
+          <button
+            onClick={async (e) => {
+              handleSubmit({ name: typeName, percentage });
+            }}
+            className='btn btn-success'
+          >
+            add
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

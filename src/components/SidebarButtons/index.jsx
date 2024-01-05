@@ -17,8 +17,8 @@ const SidebarButtons = () => {
       <Box>
         {['home', 'personal account'].map((text) => (
           <Button
-            fullwidth
-            variant="contained"
+            // fullwidth
+            variant='contained'
             key={text}
             onClick={() => {
               if (text === 'home') {
@@ -41,7 +41,7 @@ const SidebarButtons = () => {
 
       <Button
         fullwsidth
-        variant="contained"
+        variant='contained'
         key={'Logout'}
         onClick={() => handleLogout()}
         sx={{
