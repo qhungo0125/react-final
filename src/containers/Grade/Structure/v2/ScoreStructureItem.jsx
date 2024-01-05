@@ -1,8 +1,8 @@
 import React from 'react';
 
 const ScoreStructureItem = (props) => {
-  const { data, index, provided } = props;
-  const { name, percentage } = data;
+  const { data, index, provided, onRemove: handleRemove = () => {} } = props;
+  const { name, percentage, _id } = data;
   return (
     <tr
       ref={provided.innerRef}
@@ -30,6 +30,16 @@ const ScoreStructureItem = (props) => {
             }}
           >
             Edit
+          </button>
+
+          <button
+            type='button'
+            className={'btn btn-danger'}
+            onClick={async (e) => {
+              await handleRemove({ typeId: _id });
+            }}
+          >
+            Remove
           </button>
         </div>
       </td>

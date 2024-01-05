@@ -42,3 +42,19 @@ export async function setScoreStructure(params) {
   }
   return response;
 }
+
+export async function removeType(params) {
+  const { typeId } = params;
+  if (!typeId) {
+    console.error('typeId is required');
+    return;
+  }
+  const response = await ClientAxios.post(`/score/delete-type`, {
+    typeId,
+  });
+  if (response.error && response.error.message) {
+    console.error(response.error.message);
+    return response;
+  }
+  return response;
+}
