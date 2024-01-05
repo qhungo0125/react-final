@@ -12,9 +12,9 @@ const ScoreBoard = (props) => {
           <th scope='col'>name</th>
           {scoreTypes.map((scoreType, index) => {
             return (
-              <th key={`header-${index}`} scope='col'>{`${scoreType.name} (${
-                scoreType.isPublish ? 'Published' : 'Hidden'
-              })`}</th>
+              <th key={`header-${index}`} scope='col'>{`${scoreType.name} - ${
+                scoreType.percentage
+              }% - (${scoreType.isPublish ? 'Published' : 'Hidden'})`}</th>
             );
           })}
           <th scope='col'>actions</th>
