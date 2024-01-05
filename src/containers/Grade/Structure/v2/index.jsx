@@ -14,7 +14,6 @@ import EditForm from './EditForm';
 
 const GradeStructure = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [types, setTypes] = React.useState([]);
   const [classTypes, setClassTypes] = React.useState([]);
   const [openAddForm, setOpenAddForm] = React.useState(false);
   const [openEditForm, setOpenEditForm] = React.useState(false);
@@ -28,23 +27,6 @@ const GradeStructure = () => {
     const classTypes = await getClassScoreTypes({ classId });
     console.log('classTypes', classTypes);
     setClassTypes(classTypes.data);
-
-    const types = await getScoreTypes();
-
-    const filtered = types.data.filter((type) => {
-      return !classTypes.data.find((classType) => {
-        return classType.name === type.name;
-      });
-    });
-
-    const validTypes = [];
-    filtered.forEach((type) => {
-      if (!validTypes.find((validType) => validType.name === type.name)) {
-        validTypes.push(type);
-      }
-    });
-
-    setTypes(validTypes);
   };
 
   React.useEffect(() => {
@@ -131,7 +113,6 @@ const GradeStructure = () => {
           onClose={(e) => {
             setOpenAddForm(false);
           }}
-          scoreTypes={types}
           onSubmit={addGradeStructure}
         />
       )}

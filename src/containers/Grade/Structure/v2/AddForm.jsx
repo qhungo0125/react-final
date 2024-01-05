@@ -25,19 +25,9 @@ const StructuresCombobox = ({ values, selected, onSelect }) => {
 };
 
 const AddForm = (props) => {
-  const { onClose, scoreTypes, onSubmit: handleSubmit = () => {} } = props;
+  const { onClose, onSubmit: handleSubmit = () => {} } = props;
   const [typeName, setTypeName] = React.useState('');
-  const [percentage, setPercentage] = React.useState(0);
-
-  if (!scoreTypes || scoreTypes.length === 0) {
-    return null;
-  }
-
-  if (scoreTypes && scoreTypes.length > 0 && typeName === '') {
-    setTypeName(scoreTypes[0].name);
-    console.log('setTypeName', scoreTypes[0].name);
-    return null;
-  }
+  const [percentage, setPercentage] = React.useState();
 
   return (
     <div
@@ -65,12 +55,16 @@ const AddForm = (props) => {
 
         <div className='d-flex justify-content-between align-items-center mt-4 mb-4'>
           <h6>Name</h6>
-          <StructuresCombobox
-            values={scoreTypes}
-            selected={typeName}
-            onSelect={(value) => {
-              setTypeName(value);
+          <input
+            style={{
+              border: '1px solid #ccc',
+              borderRadius: '0.5rem',
+              height: '2.5rem',
+              fontSize: '1.5rem',
             }}
+            type='text'
+            placeholder='Type name'
+            onChange={(e) => setTypeName(e.target.value)}
           />
         </div>
 
