@@ -13,13 +13,13 @@ import TabsName from '../../utils/tabsName';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 export default function NavTabs() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const menuContext = useContext(MenuContext)
+  const menuContext = useContext(MenuContext);
 
   const handleTabClick = (e) => {
-    menuContext.handleClassTabChanges((e.target.innerText).toLowerCase())
-  }
+    menuContext.handleClassTabChanges(e.target.innerText.toLowerCase());
+  };
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -31,92 +31,123 @@ export default function NavTabs() {
   };
 
   const handleMenuItemClose = (event) => {
-    menuContext.handleClassTabChanges(`grade_${event.target.innerText.toLowerCase()}`)
+    menuContext.handleClassTabChanges(
+      `grade_${event.target.innerText.toLowerCase()}`,
+    );
     setAnchorEl(null);
-  }
+  };
 
   return (
-    <Box sx={{
-      display: menuContext.displayClassTab ? 'block' : 'none',
-    }}>
-      {
-        menuContext.displayClassTab ?
-          <Tabs
-            value={menuContext.classTab}
-            sx={{
-              marginLeft: '4px',
-              '& .MuiTabs-indicator': { display: 'none' },
-              "& .MuiTabScrollButton-root": { color: 'black' },
-              "& .MuiTabs-flexContainer": { justifyContent: 'center' },
-              "& .MuiButtonBase-root": { minHeight: 'inherit' },
-              "& .MuiTabs-scroller": { marginTop: 'auto', marginBottom: 'auto !important' }
+    <Box
+      sx={{
+        display: menuContext.displayClassTab ? 'block' : 'none',
+      }}
+    >
+      {menuContext.displayClassTab ? (
+        <Tabs
+          value={menuContext.classTab}
+          sx={{
+            marginLeft: '4px',
+            '& .MuiTabs-indicator': { display: 'none' },
+            '& .MuiTabScrollButton-root': { color: 'black' },
+            '& .MuiTabs-flexContainer': { justifyContent: 'center' },
+            '& .MuiButtonBase-root': { minHeight: 'inherit' },
+            '& .MuiTabs-scroller': {
+              marginTop: 'auto',
+              marginBottom: 'auto !important',
+            },
+          }}
+          variant='scrollable'
+          scrollButtons='auto'
+          allowScrollButtonsMobile
+        >
+          <Tab value='stream' label='Stream' onClick={handleTabClick} />
+          <Tab value='people' label='People' onClick={handleTabClick} />
+          <Tab
+            value={
+              menuContext.classTab.includes('grade')
+                ? menuContext.classTab
+                : 'grade'
+            }
+            label='Grade'
+            icon={<KeyboardArrowDownIcon />}
+            iconPosition='end'
+            onClick={handleMenuClick}
+          ></Tab>
+          <Menu
+            id='demo-customized-menu'
+            MenuListProps={{
+              'aria-labelledby': 'demo-customized-button',
             }}
-            variant='scrollable'
-            scrollButtons='auto'
-            allowScrollButtonsMobile
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleMenuClose}
+            sx={{ '& .MuiPaper-root': { minWidth: '110px' } }}
           >
-            <Tab value="stream" label="Stream" onClick={handleTabClick} />
-            <Tab value="people" label="People" onClick={handleTabClick} />
-            <Tab
-              value={menuContext.classTab.includes("grade") ? menuContext.classTab : "grade"}
-              label="Grade"
-              icon={<KeyboardArrowDownIcon />}
-              iconPosition="end"
-              onClick={handleMenuClick}
+            <MenuItem
+              onClick={handleMenuItemClose}
+              sx={
+                menuContext.classTab === 'grade_detail'
+                  ? { backgroundColor: 'aliceblue' }
+                  : {}
+              }
             >
-            </Tab>
-            <Menu
-              id="demo-customized-menu"
-              MenuListProps={{
-                'aria-labelledby': 'demo-customized-button',
-              }}
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleMenuClose}
-              sx={{ "& .MuiPaper-root": { minWidth: '110px' }, }}
+              Detail
+            </MenuItem>
+            <MenuItem
+              onClick={handleMenuItemClose}
+              sx={
+                menuContext.classTab === 'grade_upload'
+                  ? { backgroundColor: 'aliceblue' }
+                  : {}
+              }
             >
-              <MenuItem
-                onClick={handleMenuItemClose}
-                sx={menuContext.classTab === "grade_detail" ? { backgroundColor: "aliceblue" } : {}}
-              >
-                Detail
-              </MenuItem>
-              <MenuItem
-                onClick={handleMenuItemClose}
-                sx={menuContext.classTab === "grade_structure" ? { backgroundColor: "aliceblue" } : {}}
-              >
-                Structure
-              </MenuItem>
-              <MenuItem
-                onClick={handleMenuItemClose}
-                sx={menuContext.classTab === "grade_review" ? { backgroundColor: "aliceblue" } : {}}
-              >
-                Review
-              </MenuItem>
-            </Menu>
-            {/* <Tab
+              upload
+            </MenuItem>
+            <MenuItem
+              onClick={handleMenuItemClose}
+              sx={
+                menuContext.classTab === 'grade_structure'
+                  ? { backgroundColor: 'aliceblue' }
+                  : {}
+              }
+            >
+              Structure
+            </MenuItem>
+            <MenuItem
+              onClick={handleMenuItemClose}
+              sx={
+                menuContext.classTab === 'grade_review'
+                  ? { backgroundColor: 'aliceblue' }
+                  : {}
+              }
+            >
+              Review
+            </MenuItem>
+          </Menu>
+          {/* <Tab
               className="tab"
               value="general"
               label="General"
               onClick={handleTabClick}
             /> */}
-          </Tabs>
-          :
-          <Typography
-            variant="subtitle2"
-            component="div"
-            sx={{
-              color: 'black',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              minHeight: '48px',
-              fontSize: '17px'
-            }}
-          >
-            {TabsName(menuContext.tab)}
-          </Typography>
-      }
-    </Box >
+        </Tabs>
+      ) : (
+        <Typography
+          variant='subtitle2'
+          component='div'
+          sx={{
+            color: 'black',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minHeight: '48px',
+            fontSize: '17px',
+          }}
+        >
+          {TabsName(menuContext.tab)}
+        </Typography>
+      )}
+    </Box>
   );
 }

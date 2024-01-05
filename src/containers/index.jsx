@@ -4,16 +4,14 @@ import { Container } from '@mui/material';
 import DashBoard from './Dashboard';
 import Stream from './Stream';
 import People from './People';
-import Grade from './Grade';
 import AddClass from './AddClass';
-import PrimarySearchAppBar from '../components/Header';
 import Detail from './Grade/Detail';
 import Reviews from './Grade/Review';
-import Structure from './Grade/Structure';
 
 import { useContext } from 'react';
 import { MenuContext } from '../context/MenuContext';
 import GradeStructure from './Grade/Structure/v2';
+import GradeUpload from './Grade/Upload/GradeUpload';
 
 const identifyTabs = () => {
   const menuContext = useContext(MenuContext);
@@ -36,6 +34,9 @@ const identifyTabs = () => {
         break;
       case 'grade_review':
         tab = <Reviews />;
+        break;
+      case 'grade_upload':
+        tab = <GradeUpload />;
         break;
       default:
         tab = <Stream />;
