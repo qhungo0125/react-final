@@ -31,6 +31,7 @@ export default function NavTabs() {
   };
 
   const handleMenuItemClose = (eventName) => {
+    console.log(eventName);
     menuContext.handleClassTabChanges(eventName);
     setAnchorEl(null);
   };

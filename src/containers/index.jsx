@@ -38,6 +38,7 @@ const identifyTabs = () => {
         break;
       case 'grade_upload':
         tab = <GradeUpload />;
+        break;
       case 'grade_students':
         tab = <GradeStudents />;
         break;
