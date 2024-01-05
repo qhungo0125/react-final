@@ -2,7 +2,6 @@ import React from 'react';
 
 import {
   getClassScoreTypes,
-  getScoreTypes,
   removeType,
   setScoreStructure,
   updateType,

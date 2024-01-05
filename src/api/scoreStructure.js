@@ -1,14 +1,5 @@
 import ClientAxios from '../utils/axiosConfig';
 
-export async function getScoreTypes() {
-  const response = await ClientAxios.get(`/score/types`);
-  if (response.error && response.error.message) {
-    console.error(response.error.message);
-    return response;
-  }
-  return response;
-}
-
 export async function getClassScoreTypes(params) {
   const { classId } = params;
   if (!classId) {
