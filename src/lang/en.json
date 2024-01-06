@@ -27,5 +27,8 @@
   "admin.status.all": "All",
   "admin.status.asc": "Inactive first",
   "admin.status.desc": "Active first",
-  "admin.map.selectClass": "Select class"
+  "admin.map.selectClass": "Select class",
+
+  "label.vietnamese": "Vietnamese",
+  "label.english": "English"
 }

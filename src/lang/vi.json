@@ -27,5 +27,8 @@
   "admin.status.all": "Tat ca",
   "admin.status.asc": "Vo hieu hoa truoc",
   "admin.status.desc": "Hoat dong truoc",
-  "admin.map.selectClass": "Chon lop hoc"
+  "admin.map.selectClass": "Chon lop hoc",
+
+  "label.vietnamese": "Tieng Viet",
+  "label.english": "Tieng Anh"
 }
