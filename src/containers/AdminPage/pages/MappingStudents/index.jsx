@@ -7,6 +7,7 @@ import InputLabel from '@mui/material/InputLabel';
 import { useTranslation } from 'react-i18next';
 import { downloadExcel, getDatafromUploadExcel } from '../../../../utils/excel';
 import { mapStudents } from '../../../../api/admin';
+import { t } from 'i18next';
 
 const ClassNameCombobox = ({ selected, onSelect, values }) => {
   const { t } = useTranslation();
@@ -76,7 +77,7 @@ const MappingStudents = () => {
           className='btn btn-success'
           onClick={(e) => downloadExcel(students)}
         >
-          Download Excel Template
+          {t('label.button.download')}
         </button>
       </div>
       <h5 className='mt-5'>Upload</h5>

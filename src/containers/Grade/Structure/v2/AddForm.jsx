@@ -2,6 +2,7 @@ import React from 'react';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import { t } from 'i18next';
 
 const StructuresCombobox = ({ values, selected, onSelect }) => {
   return (
@@ -51,10 +52,10 @@ const AddForm = (props) => {
           textAlign: 'center',
         }}
       >
-        <h5>Add new score structure</h5>
+        <h5>{t('label.add.score')}</h5>
 
         <div className='d-flex justify-content-between align-items-center mt-4 mb-4'>
-          <h6>Name</h6>
+          <h6>{t('label.add.score.name')}</h6>
           <input
             style={{
               border: '1px solid #ccc',
@@ -69,7 +70,7 @@ const AddForm = (props) => {
         </div>
 
         <div className='d-flex justify-content-between align-items-center mb-4'>
-          <h6>Percentage</h6>
+          <h6>{t('label.percentage')}</h6>
           <input
             style={{
               border: '1px solid #ccc',
@@ -87,7 +88,7 @@ const AddForm = (props) => {
 
         <div className='d-flex justify-content-center gap-4'>
           <button onClick={onClose} className='btn btn-danger'>
-            close
+            {t('label.button.close')}
           </button>
           <button
             onClick={async (e) => {
@@ -95,7 +96,7 @@ const AddForm = (props) => {
             }}
             className='btn btn-success'
           >
-            add
+            {t('label.button.add')}
           </button>
         </div>
       </div>

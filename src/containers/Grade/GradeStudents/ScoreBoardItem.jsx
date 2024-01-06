@@ -1,3 +1,4 @@
+import { t } from 'i18next';
 import React from 'react';
 
 const ScoreBoardItem = (props) => {
@@ -24,7 +25,7 @@ const ScoreBoardItem = (props) => {
               handleEdit({ student: item });
             }}
           >
-            Edit
+            {t('label.button.edit')}
           </button>
           {!mapCode && (
             <button
@@ -34,7 +35,7 @@ const ScoreBoardItem = (props) => {
                 onMapClick({ student: item });
               }}
             >
-              Map
+              {t('label.button.map.code')}
             </button>
           )}
         </div>

@@ -1,3 +1,4 @@
+import { t } from 'i18next';
 import React from 'react';
 
 const Comments = (props) => {
@@ -41,7 +42,7 @@ const Comments = (props) => {
               borderRadius: '0.5rem',
               height: '2.5rem',
             }}
-            placeholder='write a comment...'
+            placeholder={t('label.write.comment')}
             value={chatContent}
             onChange={(e) => setChatContent(e.target.value)}
           />
@@ -52,12 +53,12 @@ const Comments = (props) => {
             }}
             className='btn btn-primary'
           >
-            send
+            {t('label.button.send')}
           </button>
         </div>
         <div className='text-center'>
           <button onClick={(e) => onClose()} className='btn btn-danger'>
-            close
+            {t('label.button.close')}
           </button>
         </div>
       </div>

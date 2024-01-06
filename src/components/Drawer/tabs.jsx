@@ -11,6 +11,7 @@ import { MenuContext } from '../../context/MenuContext';
 import './style.css';
 import TabsName from '../../utils/tabsName';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { t } from 'i18next';
 
 export default function NavTabs() {
   const navigate = useNavigate();
@@ -60,15 +61,23 @@ export default function NavTabs() {
           scrollButtons='auto'
           allowScrollButtonsMobile
         >
-          <Tab value='stream' label='Stream' onClick={handleTabClick} />
-          <Tab value='people' label='People' onClick={handleTabClick} />
+          <Tab
+            value='stream'
+            label={t('label.class.home')}
+            onClick={handleTabClick}
+          />
+          <Tab
+            value='people'
+            label={t('label.class.people')}
+            onClick={handleTabClick}
+          />
           <Tab
             value={
               menuContext.classTab.includes('grade')
                 ? menuContext.classTab
                 : 'grade'
             }
-            label='Grade'
+            label={t('label.gradescore')}
             icon={<KeyboardArrowDownIcon />}
             iconPosition='end'
             onClick={handleMenuClick}
@@ -83,7 +92,7 @@ export default function NavTabs() {
             onClose={handleMenuClose}
             sx={{ '& .MuiPaper-root': { minWidth: '110px' } }}
           >
-            <MenuItem
+            {/* <MenuItem
               onClick={(e) => handleMenuItemClose('grade_detail')}
               sx={
                 menuContext.classTab === 'grade_detail'
@@ -92,7 +101,7 @@ export default function NavTabs() {
               }
             >
               Detail
-            </MenuItem>
+            </MenuItem> */}
             <MenuItem
               onClick={(e) => handleMenuItemClose('grade_upload')}
               sx={
@@ -101,7 +110,7 @@ export default function NavTabs() {
                   : {}
               }
             >
-              upload
+              {t('label.class.score.upload')}
             </MenuItem>
             <MenuItem
               onClick={(e) => handleMenuItemClose('grade_students')}
@@ -111,7 +120,7 @@ export default function NavTabs() {
                   : {}
               }
             >
-              Students x Grade
+              {t('label.class.score.students')}
             </MenuItem>
             <MenuItem
               onClick={(e) => handleMenuItemClose('grade_structure')}
@@ -121,7 +130,7 @@ export default function NavTabs() {
                   : {}
               }
             >
-              Structure
+              {t('label.class.score.structure')}
             </MenuItem>
             <MenuItem
               onClick={(e) => handleMenuItemClose('grade_review')}
@@ -131,7 +140,7 @@ export default function NavTabs() {
                   : {}
               }
             >
-              Review
+              {t('label.class.score.request')}
             </MenuItem>
           </Menu>
           {/* <Tab

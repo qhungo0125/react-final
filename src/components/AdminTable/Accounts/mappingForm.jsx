@@ -53,11 +53,11 @@ const MappingForm = (props) => {
         }}
       >
         <button className='btn btn-danger' onClick={(e) => setIsOpen(false)}>
-          Close
+          {t('label.button.close')}
         </button>
 
         <button type='submit' className='btn btn-success'>
-          Submit
+          {t('label.button.confirm')}
         </button>
       </div>
     </form>

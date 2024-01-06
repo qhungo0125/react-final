@@ -1,6 +1,7 @@
 import React from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import ScoreStructureItem from './ScoreStructureItem';
+import { t } from 'i18next';
 
 const DraggableList = (props) => {
   const { data, onChange, onRemove, setOpenEditForm, setSelectedType } = props;
@@ -21,10 +22,10 @@ const DraggableList = (props) => {
       <table className='table table-striped'>
         <thead>
           <tr>
-            <th scope='col'>Index</th>
-            <th scope='col'>name</th>
-            <th scope='col'>percentage</th>
-            <th scope='col'>Actions</th>
+            <th scope='col'>{t('label.index')}</th>
+            <th scope='col'>{t('label.fullname')}</th>
+            <th scope='col'>{t('label.percentage')}</th>
+            <th scope='col'>{t('label.actions')}</th>
           </tr>
         </thead>
         <Droppable droppableId='droppable'>

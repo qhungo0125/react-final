@@ -10,6 +10,7 @@ import { useSearchParams } from 'react-router-dom';
 import AddForm from './AddForm';
 import DraggableList from './StructureDetail';
 import EditForm from './EditForm';
+import { t } from 'i18next';
 
 const GradeStructure = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -103,7 +104,7 @@ const GradeStructure = () => {
             onClick={(e) => setOpenAddForm(true)}
             className='btn btn-success'
           >
-            Add new
+            {t('label.button.add')}
           </button>
         </div>
       </div>

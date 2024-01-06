@@ -1,3 +1,4 @@
+import { t } from 'i18next';
 import React from 'react';
 
 const EditScore = (props) => {
@@ -67,7 +68,7 @@ const EditScore = (props) => {
 
         <div className='d-flex justify-content-center gap-4'>
           <button onClick={handleClose} className='btn btn-danger'>
-            close
+            {t('label.button.close')}
           </button>
           <button
             onClick={async (e) => {
@@ -80,7 +81,7 @@ const EditScore = (props) => {
             }}
             className='btn btn-success'
           >
-            add
+            {t('label.button.add')}
           </button>
         </div>
       </div>

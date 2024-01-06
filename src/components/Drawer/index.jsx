@@ -21,7 +21,8 @@ import { useContext } from 'react';
 import { MenuContext } from '../../context/MenuContext.jsx';
 import ClientAxios from '../../utils/axiosConfig.js';
 import { Button } from '@mui/material';
-import {addMember} from '../../api/class.js';
+import { addMember } from '../../api/class.js';
+import { t } from 'i18next';
 const drawerWidth = 240;
 
 const BootstrapButton = styled(Button)({
@@ -80,7 +81,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export default function PersistentDrawerLeft(props) {
-
   const navigate = useNavigate();
   const menuContext = useContext(MenuContext);
 
@@ -169,12 +169,11 @@ export default function PersistentDrawerLeft(props) {
     navigate('/add_class');
   };
 
-
   return (
     <Box sx={{ display: 'flex', position: 'relative' }}>
       <CssBaseline />
       <AppBar
-        position="absolute"
+        position='absolute'
         open={open}
         sx={{
           backgroundColor: '#fff',
@@ -185,14 +184,14 @@ export default function PersistentDrawerLeft(props) {
         <Box
           sx={{
             display: 'flex',
-            justifyContent:{xs:"left", sm:"space-between"},
+            justifyContent: { xs: 'left', sm: 'space-between' },
           }}
         >
           <Toolbar sx={{ minHeight: '48px !important', maxWidth: '50px' }}>
             <IconButton
-              aria-label="open drawer"
+              aria-label='open drawer'
               onClick={handleDrawer}
-              edge="start"
+              edge='start'
             >
               <MenuIcon />
             </IconButton>
@@ -200,7 +199,9 @@ export default function PersistentDrawerLeft(props) {
           <Box sx={{ justifyContent: 'center', display: 'flex' }}>
             <NavTabs />
           </Box>
-          <Box sx={{ width: "70px", display: { xs: "none", sm: "block" } }}></Box>
+          <Box
+            sx={{ width: '70px', display: { xs: 'none', sm: 'block' } }}
+          ></Box>
         </Box>
       </AppBar>
       <Drawer
@@ -212,13 +213,13 @@ export default function PersistentDrawerLeft(props) {
             width: drawerWidth,
             boxSizing: 'border-box',
             position: 'absolute',
-            height:'auto',
-            overflowX:'hidden'
+            height: 'auto',
+            overflowX: 'hidden',
           },
-          '& .MuiDrawer-paper div': { minHeight: '48px !important' }
+          '& .MuiDrawer-paper div': { minHeight: '48px !important' },
         }}
-        variant="persistent"
-        anchor="left"
+        variant='persistent'
+        anchor='left'
         open={open}
       >
         <div
@@ -228,12 +229,12 @@ export default function PersistentDrawerLeft(props) {
           }}
         >
           <Button
-            variant="contained"
+            variant='contained'
             onClick={() => {
               openForm();
             }}
           >
-            Join by Code
+            {t('label.joinbycode')}
           </Button>
 
           {isOpen && (
@@ -279,7 +280,7 @@ export default function PersistentDrawerLeft(props) {
                     height: '2.5rem',
                     fontSize: '1.5rem',
                   }}
-                  type="text"
+                  type='text'
                   value={invitationCode}
                   onChange={(e) => setInvitationCode(e.target.value)}
                 />
@@ -296,14 +297,14 @@ export default function PersistentDrawerLeft(props) {
                       backgroundColor: 'white',
                       color: 'black',
                     }}
-                    variant="contained"
-                    type="button"
+                    variant='contained'
+                    type='button'
                     onClick={(e) => setIsOpen(false)}
                   >
                     Close
                   </BootstrapButton>
 
-                  <Button variant="contained" type="submit">
+                  <Button variant='contained' type='submit'>
                     Submit
                   </Button>
                 </div>
@@ -314,12 +315,16 @@ export default function PersistentDrawerLeft(props) {
         <DrawerHeader>
           <Typography
             noWrap
-            component="div"
+            component='div'
             sx={{
-              width: '100%', paddingLeft: '10px', paddingTop: '12px', fontSize: '16px', fontWeight: '500',
+              width: '100%',
+              paddingLeft: '10px',
+              paddingTop: '12px',
+              fontSize: '16px',
+              fontWeight: '500',
             }}
           >
-            Class List
+            {t('label.classlist')}
           </Typography>
         </DrawerHeader>
         <Divider />
@@ -346,15 +351,22 @@ export default function PersistentDrawerLeft(props) {
         <Divider />
         <Box sx={{ width: '100%', textAlign: 'center', marginTop: '10px' }}>
           <IconButton
-            color="primary"
-            size="large"
+            color='primary'
+            size='large'
             onClick={handleAddClassButton}
           >
             <AddIcon />
           </IconButton>
         </Box>
       </Drawer>
-      <Main open={open} sx={{ paddingTop: {xs:"0px",sm:"60px"}, width:"100%", padding:{xs:"0px"} }}>
+      <Main
+        open={open}
+        sx={{
+          paddingTop: { xs: '0px', sm: '60px' },
+          width: '100%',
+          padding: { xs: '0px' },
+        }}
+      >
         {/* <DrawerHeader /> */}
         {props && props.children}
       </Main>

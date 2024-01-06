@@ -1,5 +1,6 @@
 import React from 'react';
 import ScoreBoardItem from './ScoreBoardItem';
+import { t } from 'i18next';
 
 const ScoreBoard = (props) => {
   const { students, scoreTypes, onEditClick, onMapClick } = props;
@@ -7,17 +8,19 @@ const ScoreBoard = (props) => {
     <table className='table table-striped'>
       <thead>
         <tr>
-          <th scope='col'>Index</th>
-          <th scope='col'>mapCode</th>
-          <th scope='col'>name</th>
+          <th scope='col'>{t('label.index')}</th>
+          <th scope='col'>{t('label.student.code')}</th>
+          <th scope='col'>{t('label.fullname')}</th>
           {scoreTypes.map((scoreType, index) => {
             return (
               <th key={`header-${index}`} scope='col'>{`${scoreType.name} - ${
                 scoreType.percentage
-              }% - (${scoreType.isPublish ? 'Published' : 'Hidden'})`}</th>
+              }% - (${
+                scoreType.isPublish ? t('label.show') : t('label.hide')
+              })`}</th>
             );
           })}
-          <th scope='col'>actions</th>
+          <th scope='col'>{t('label.actions')}</th>
         </tr>
       </thead>
       <tbody>

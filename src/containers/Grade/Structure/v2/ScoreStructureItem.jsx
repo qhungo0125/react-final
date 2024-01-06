@@ -1,3 +1,4 @@
+import { t } from 'i18next';
 import React from 'react';
 
 const ScoreStructureItem = (props) => {
@@ -33,7 +34,7 @@ const ScoreStructureItem = (props) => {
               setSelectedType(data);
             }}
           >
-            Edit
+            {t('label.button.edit')}
           </button>
 
           <button
@@ -43,7 +44,7 @@ const ScoreStructureItem = (props) => {
               await handleRemove({ typeId: _id });
             }}
           >
-            Remove
+            {t('label.button.remove')}
           </button>
         </div>
       </td>

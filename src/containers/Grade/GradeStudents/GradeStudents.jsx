@@ -7,6 +7,7 @@ import ScoreBoard from './ScoreBoard';
 import EditScore from './EditScore';
 import MappingForm from '../../../components/AdminTable/Accounts/mappingForm';
 import { downloadExcel } from '../../../utils/excel';
+import { t } from 'i18next';
 
 const GradeStudents = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -139,7 +140,7 @@ const GradeStudents = () => {
               downloadExcel(data);
             }}
           >
-            Export to Excel
+            {t('label.export.excel')}
           </button>
         </div>
         <ScoreBoard
