@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthenticationAPI } from '../../api/authentication';
+import { mappingStudent } from '../../api/admin';
 import { useTranslation } from 'react-i18next';
 import './profile.css';
 
@@ -8,6 +9,8 @@ const ProfilePage = () => {
   const { t } = useTranslation();
   const [isFetching, setIsFetching] = React.useState(true);
   const [profile, setProfile] = React.useState({
+    _id: '',
+    mapCode: '',
     email: '',
     address: '',
     avatar: '',
@@ -38,7 +41,6 @@ const ProfilePage = () => {
         setIsFetching(true);
         const result = await AuthenticationAPI.getUser({ userId });
         if (result.data) {
-          console.log(result.data);
           setProfile(result.data);
         }
       } catch (error) {
@@ -63,9 +65,14 @@ const ProfilePage = () => {
           const data = Object.fromEntries(formData);
           console.log(data);
           try {
+            if (data.mapCode === "") {
+              const rs = await mappingStudent({ studentId: profile._id, mapCode: data.mapCode })
+            }
+
             setIsFetching(true);
             const result = await AuthenticationAPI.updateProfile(data);
             result.data && setProfile(result.data);
+
           } catch (error) {
             console.log(error);
             alert(error.message);
@@ -98,6 +105,19 @@ const ProfilePage = () => {
             {/* <button onClick={(e) => {}}>Upload</button> */}
           </div>
         </div>
+
+        {profile.role === "student" &&
+          <div className="mb-3">
+            <label className="form-label">{t('label.studentid')}</label>
+            <input
+              name="mapCode" // Add name attribute
+              value={profile.mapCode}
+              type="text"
+              className="form-control"
+              onChange={(e) => changeField('mapCode', e.target.value)}
+            />
+          </div>
+        }
 
         <div className="mb-3">
           <label className="form-label">{t('label.email')}</label>

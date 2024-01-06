@@ -14,6 +14,7 @@
   "label.goback": "Go back",
   "label.submit": "Submit",
   "label.loading": "Loading...",
+  "label.studentid": "Student ID",
 
   "admin.nav.accounts": "Accounts",
   "admin.nav.classes": "Classes",
