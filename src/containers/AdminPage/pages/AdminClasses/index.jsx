@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import { t } from 'i18next';
 
 const FilterStatus = ({ selected, onSelect }) => {
   const { t } = useTranslation();
@@ -185,9 +186,9 @@ const AdminClasses = () => {
               opacity: 1,
             }}
           >
-            <h5 className='text-center'>Filter</h5>
+            <h5 className='text-center'>{t('label.button.filter')}</h5>
             <div className='mb-4'>
-              <label className='form-label'>Keywords</label>
+              <label className='form-label'>{t('label.keywords')}</label>
               <input
                 className='form-control'
                 type='text'
@@ -199,7 +200,7 @@ const AdminClasses = () => {
               />
             </div>
             <div className='mb-4'>
-              <label className='form-label'>Status</label>
+              <label className='form-label'>{t('label.status')}</label>
               <FilterStatus
                 selected={filter.status}
                 onSelect={(value) => {
@@ -214,7 +215,7 @@ const AdminClasses = () => {
                 }}
                 className='btn btn-danger'
               >
-                Close
+                {t('label.button.close')}
               </button>
               <button
                 onClick={async (e) => {
@@ -222,7 +223,7 @@ const AdminClasses = () => {
                 }}
                 className='btn btn-success'
               >
-                Apply
+                {t('label.button.apply')}
               </button>
             </div>
           </div>
@@ -250,9 +251,9 @@ const AdminClasses = () => {
               opacity: 1,
             }}
           >
-            <h5 className='text-center'>Sort</h5>
+            <h5 className='text-center'>{t('label.button.sort')}</h5>
             <div className='mb-4'>
-              <label className='form-label'>Name</label>
+              <label className='form-label'>{t('label.class.name')}</label>
               <NameCombobox
                 selected={sort.name}
                 onSelect={(value) => {
@@ -261,7 +262,7 @@ const AdminClasses = () => {
               />
             </div>
             <div className='mb-4'>
-              <label className='form-label'>Status</label>
+              <label className='form-label'>{t('label.status')}</label>
               <SortStatus
                 selected={sort.status}
                 onSelect={(value) => {
@@ -276,7 +277,7 @@ const AdminClasses = () => {
                 }}
                 className='btn btn-danger'
               >
-                Close
+                {t('label.button.close')}
               </button>
               <button
                 onClick={async (e) => {
@@ -285,7 +286,7 @@ const AdminClasses = () => {
                 }}
                 className='btn btn-success'
               >
-                Apply
+                {t('label.button.apply')}
               </button>
             </div>
           </div>
@@ -307,7 +308,7 @@ const AdminClasses = () => {
             className='btn btn-success'
           >
             <FilterAltIcon />
-            filter
+            {t('label.button.filter')}
           </button>
           <button
             onClick={(e) => {
@@ -316,7 +317,7 @@ const AdminClasses = () => {
             className='btn btn-success'
           >
             <SortIcon />
-            sort
+            {t('label.button.sort')}
           </button>
         </div>
 
@@ -336,7 +337,7 @@ const AdminClasses = () => {
                     pagination.page - 1 > 0 ? pagination.page - 1 : 1
                   }&limit=${pagination.limit}`}
                 >
-                  Previous
+                  {t('label.button.previous')}
                 </Link>
               </li>
               {pages.map((pageIndex) => {
@@ -364,7 +365,7 @@ const AdminClasses = () => {
                       : +pagination.page + 1
                   }&limit=${pagination.limit}`}
                 >
-                  Next
+                  {t('label.button.next')}
                 </Link>
               </li>
             </ul>

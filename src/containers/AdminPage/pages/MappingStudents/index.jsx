@@ -64,7 +64,7 @@ const MappingStudents = () => {
 
   return (
     <div>
-      <h5>Download template</h5>
+      <h5>{t('label.download.template')}</h5>
       <div className='mt-4 d-flex gap-4 w-50'>
         <ClassNameCombobox
           onSelect={(value) => {
@@ -80,7 +80,7 @@ const MappingStudents = () => {
           {t('label.button.download')}
         </button>
       </div>
-      <h5 className='mt-5'>Upload</h5>
+      <h5 className='mt-5'>{t('label.upload')}</h5>
       <div className='d-flex w-50 flex-column'>
         <div className='input-group'>
           <input
@@ -95,7 +95,7 @@ const MappingStudents = () => {
               await mapStudentsFromExcel(studentsExcel);
             }}
           >
-            Submit
+            {t('label.button.send')}
           </button>
         </div>
       </div>

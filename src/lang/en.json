@@ -42,6 +42,11 @@
   "label.actual.score": "Actual score",
   "label.expected.score": "Expected score",
   "label.write.comment": "Write comment",
+  "label.class.name": "Class name",
+  "label.class.code": "Class code",
+  "label.status": "Status",
+  "label.description": "Description",
+  "label.keywords": "Keywords",
 
   "admin.nav.accounts": "Accounts",
   "admin.nav.classes": "Classes",
@@ -71,5 +76,12 @@
   "label.button.approve": "Approve",
   "label.button.reject": "Reject",
   "label.button.send": "Send",
+  "label.button.block": "Block",
+  "label.button.unblock": "Unblock",
+  "label.button.filter": "Filter",
+  "label.button.sort": "Sort",
+  "label.button.apply": "Apply",
+  "label.button.previous": "Previous",
+  "label.button.next": "Next",
   "label.button.cancel": "Cancel"
 }

@@ -14,17 +14,17 @@ const AccountItem = (props) => {
   const { _id, name, phone, mapCode, isLocked, email, address } = account;
 
   return (
-    <tr className="align-items-center" style={{ verticalAlign: 'middle' }}>
-      {selectedRole === t('label.student') && <th scope="row">{mapCode}</th>}
+    <tr className='align-items-center' style={{ verticalAlign: 'middle' }}>
+      {selectedRole === t('label.student') && <th scope='row'>{mapCode}</th>}
       <td>{name}</td>
       <td>{email}</td>
       <td>{phone}</td>
       <td>{address}</td>
       <td>
         <div
-          className="btn-group"
-          role="group"
-          aria-label="Basic mixed styles example"
+          className='btn-group'
+          role='group'
+          aria-label='Basic mixed styles example'
         >
           {selectedRole === t('label.student') && (
             <button
@@ -35,10 +35,12 @@ const AccountItem = (props) => {
                   setIsOpen(true);
                 }
               }}
-              type="button"
-              className="btn btn-success"
+              type='button'
+              className='btn btn-success'
             >
-              {mapCode && mapCode.length ? 'Unmap' : 'Map'}
+              {mapCode && mapCode.length
+                ? t('label.button.unmap.code')
+                : t('label.button.map.code')}
             </button>
           )}
 
@@ -46,10 +48,10 @@ const AccountItem = (props) => {
             onClick={(e) => {
               handleBlock({ id: _id, isLocked });
             }}
-            type="button"
+            type='button'
             className={isLocked ? 'btn btn-warning' : 'btn btn-danger'}
           >
-            {isLocked ? 'Unlock' : 'Block'}
+            {isLocked ? t('label.button.unblock') : t('label.button.block')}
           </button>
         </div>
       </td>

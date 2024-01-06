@@ -1,3 +1,4 @@
+import { t } from 'i18next';
 import React from 'react';
 
 const ClassItem = (props) => {
@@ -11,19 +12,21 @@ const ClassItem = (props) => {
   const { _id, name, description, invitationCode, isActived } = item;
   return (
     <tr>
-      <th scope="row">{index}</th>
+      <th scope='row'>{index}</th>
       <td>{name}</td>
       <td>{invitationCode}</td>
       <td>{description}</td>
-      <td>{isActived ? 'Actived' : 'Inactive'}</td>
+      <td>
+        {isActived ? t('admin.status.active') : t('admin.status.inactive')}
+      </td>
       <td>
         <div
-          className="btn-group"
-          role="group"
-          aria-label="Basic mixed styles example"
+          className='btn-group'
+          role='group'
+          aria-label='Basic mixed styles example'
         >
           <button
-            type="button"
+            type='button'
             className={
               invitationCode && invitationCode !== ''
                 ? 'btn btn-warning'
@@ -37,17 +40,17 @@ const ClassItem = (props) => {
               }
             }}
           >
-            {invitationCode ? 'Reset Code' : 'Create Code'}
+            {invitationCode ? t('admin.reset.code') : t('admin.add.code')}
           </button>
 
           <button
-            type="button"
+            type='button'
             className={isActived ? 'btn btn-danger' : 'btn btn-success'}
             onClick={(e) => {
               handleUpdateClassStatus({ classId: _id, isActived: !isActived });
             }}
           >
-            {isActived ? 'InActive' : 'Acrtive'}
+            {isActived ? t('admin.status.active') : t('admin.status.inactive')}
           </button>
         </div>
       </td>
