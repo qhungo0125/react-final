@@ -22,7 +22,7 @@ import { MenuContext } from '../../context/MenuContext.jsx';
 import ClientAxios from '../../utils/axiosConfig.js';
 import { Button } from '@mui/material';
 import { addMember } from '../../api/class.js';
-import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 const drawerWidth = 240;
 
 const BootstrapButton = styled(Button)({
@@ -81,6 +81,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export default function PersistentDrawerLeft(props) {
+  const { t } = useTranslation();
+
   const navigate = useNavigate();
   const menuContext = useContext(MenuContext);
 

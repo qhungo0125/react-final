@@ -18,8 +18,8 @@ export default function NavTabs() {
 
   const menuContext = useContext(MenuContext);
 
-  const handleTabClick = (e) => {
-    menuContext.handleClassTabChanges(e.target.innerText.toLowerCase());
+  const handleTabClick = (value) => {
+    menuContext.handleClassTabChanges(value);
   };
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -64,12 +64,12 @@ export default function NavTabs() {
           <Tab
             value='stream'
             label={t('label.class.home')}
-            onClick={handleTabClick}
+            onClick={(e) => handleTabClick('stream')}
           />
           <Tab
             value='people'
             label={t('label.class.people')}
-            onClick={handleTabClick}
+            onClick={(e) => handleTabClick('people')}
           />
           <Tab
             value={

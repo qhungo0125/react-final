@@ -20,6 +20,7 @@ import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { MenuContext } from '../../context/MenuContext';
 import { useTranslation } from 'react-i18next';
+import { useGlobal } from '../../context';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -62,7 +63,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function PrimarySearchAppBar() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
+  const { changeLanguage } = useGlobal();
   const navigate = useNavigate();
   const menuContext = useContext(MenuContext);
 
@@ -115,7 +117,7 @@ export default function PrimarySearchAppBar() {
       <MenuItem
         onClick={(e) => {
           handleMenuClose();
-          i18n.changeLanguage('vi');
+          changeLanguage('vi');
         }}
       >
         {t('label.vietnamese')}
@@ -123,7 +125,7 @@ export default function PrimarySearchAppBar() {
       <MenuItem
         onClick={(e) => {
           handleMenuClose();
-          i18n.changeLanguage('en');
+          changeLanguage('en');
         }}
       >
         {t('label.english')}
