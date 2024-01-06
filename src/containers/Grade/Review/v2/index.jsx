@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { getClassReviews } from '../../../../api/review';
+import { getClassReviews, sendChatContent } from '../../../../api/review';
 import Comments from './Comments';
 import Request from './Request';
 
@@ -9,7 +9,23 @@ const ScoreReview = () => {
   const [requests, setRequests] = React.useState([]);
   const [selectedRequest, setSelectedRequest] = React.useState({});
   const [openComments, setOpenComments] = React.useState(false);
-  console.log(selectedRequest);
+
+  const getData = async () => {
+    const classId = searchParams.get('id');
+    const requests = await getClassReviews({ classId });
+    if (requests.success && requests.data && requests.data.length > 0) {
+      return requests.data;
+    }
+    return [];
+  };
+
+  React.useEffect(() => {
+    const getInitData = async () => {
+      const data = await getData();
+      setRequests(data);
+    };
+    getInitData();
+  }, []);
 
   const viewCommentHandler = (request) => {
     if (openComments || !request) {
@@ -21,17 +37,33 @@ const ScoreReview = () => {
     }
   };
 
-  React.useEffect(() => {
-    const getData = async () => {
-      const classId = searchParams.get('id');
-      const requests = await getClassReviews({ classId });
+  const sendChat = async (params) => {
+    const { chatContent } = params;
+    if (!chatContent || chatContent === '') {
+      return;
+    }
 
-      if (requests.success && requests.data && requests.data.length > 0) {
-        setRequests(requests.data);
+    try {
+      const response = await sendChatContent({
+        accountId: localStorage.getItem('userid'),
+        requestId: selectedRequest._id,
+        content: chatContent,
+      });
+
+      if (response.success) {
+        const newData = await getData();
+        setRequests(newData);
+
+        setSelectedRequest((current) => {
+          const _id = current._id;
+          const updated = newData.find((item) => item._id === _id);
+          return updated;
+        });
       }
-    };
-    getData();
-  }, []);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>
@@ -49,6 +81,7 @@ const ScoreReview = () => {
         <Comments
           onClose={(e) => viewCommentHandler()}
           selectedRequest={selectedRequest}
+          onSendChat={(params) => sendChat(params)}
         />
       )}
     </>

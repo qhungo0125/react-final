@@ -1,7 +1,8 @@
 import React from 'react';
 
 const Comments = (props) => {
-  const { selectedRequest, onClose } = props;
+  const { selectedRequest, onClose, onSendChat } = props;
+  const [chatContent, setChatContent] = React.useState('');
   return (
     <div
       style={{
@@ -21,20 +22,44 @@ const Comments = (props) => {
           transform: 'translate(-50%, -50%)',
         }}
       >
-        <h4 className='mb-4'>{selectedRequest.title}</h4>
+        <h4 className='mb-4 text-center'>{selectedRequest.title}</h4>
+        <p className='mb-4'>{selectedRequest.explain}</p>
         {selectedRequest.comments.map((comment) => {
           return (
             <div className='mb-4'>
-              <h5>{comment.account.name}</h5>
+              <h6>{comment.account.name}</h6>
               <div>{comment.content}</div>
             </div>
           );
         })}
-        <input type='text' placeholder='input new comment' />
-        <button className='btn btn-primary'>send</button>
-        <button onClick={(e) => onClose()} className='btn btn-danger'>
-          close
-        </button>
+        <div className='d-flex justify-content-between mb-4 gap-4'>
+          <input
+            type='text'
+            className='w-100 p-2'
+            style={{
+              border: '1px solid #ccc',
+              borderRadius: '0.5rem',
+              height: '2.5rem',
+            }}
+            placeholder='write a comment...'
+            value={chatContent}
+            onChange={(e) => setChatContent(e.target.value)}
+          />
+          <button
+            onClick={async (e) => {
+              await onSendChat({ chatContent });
+              setChatContent('');
+            }}
+            className='btn btn-primary'
+          >
+            send
+          </button>
+        </div>
+        <div className='text-center'>
+          <button onClick={(e) => onClose()} className='btn btn-danger'>
+            close
+          </button>
+        </div>
       </div>
     </div>
   );

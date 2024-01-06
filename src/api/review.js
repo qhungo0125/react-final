@@ -17,3 +17,24 @@ export async function getClassReviews(params) {
   }
   return response;
 }
+
+export async function sendChatContent(params) {
+  const { accountId, requestId, content } = params;
+
+  if (!accountId || !requestId || !content) {
+    console.error('accountId, requestId and content are required');
+    return;
+  }
+
+  const response = await ClientAxios.post(`/score/create-comment`, {
+    accountId,
+    requestId,
+    content,
+  });
+
+  if (response.error && response.error.message) {
+    console.error(response.error.message);
+    return response;
+  }
+  return response;
+}
