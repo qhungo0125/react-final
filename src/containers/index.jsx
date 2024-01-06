@@ -13,6 +13,7 @@ import { MenuContext } from '../context/MenuContext';
 import GradeStructure from './Grade/Structure/v2';
 import GradeUpload from './Grade/Upload/GradeUpload';
 import GradeStudents from './Grade/GradeStudents/GradeStudents';
+import ScoreReview from './Grade/Review/v2';
 
 const identifyTabs = () => {
   const menuContext = useContext(MenuContext);
@@ -34,7 +35,7 @@ const identifyTabs = () => {
         tab = <GradeStructure />;
         break;
       case 'grade_review':
-        tab = <Reviews />;
+        tab = <ScoreReview />;
         break;
       case 'grade_upload':
         tab = <GradeUpload />;
