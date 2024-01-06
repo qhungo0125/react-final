@@ -152,7 +152,7 @@ export default function PrimarySearchAppBar() {
           navigate('/profile');
         }}
       >
-        Profile
+        {t('label.profile')}
       </MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
@@ -192,23 +192,23 @@ export default function PrimarySearchAppBar() {
             <NotificationsIcon />
           </Badge>
         </IconButton>
-        <p>Notifications</p>
+        <p>{t('label.notification')}</p>
       </MenuItem>
 
       {/* <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          id={languageId}
-          size='large'
-          edge='end'
-          aria-controls={languageId}
-          aria-haspopup='true'
-          onClick={handleProfileMenuOpen}
-          color='inherit'
-        >
-          <LanguageIcon />
-        </IconButton>
-        <p>Choose language</p>
-      </MenuItem> */}
+          <IconButton
+            id={languageId}
+            size='large'
+            edge='end'
+            aria-controls={languageId}
+            aria-haspopup='true'
+            onClick={handleProfileMenuOpen}
+            color='inherit'
+          >
+            <LanguageIcon />
+          </IconButton>
+          <p>Choose language</p>
+        </MenuItem> */}
 
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
@@ -221,7 +221,7 @@ export default function PrimarySearchAppBar() {
         >
           <AccountCircle />
         </IconButton>
-        <p>Profile</p>
+        <p>{t('label.profile')}</p>
       </MenuItem>
     </Menu>
   );
@@ -237,7 +237,7 @@ export default function PrimarySearchAppBar() {
                 component='div'
                 sx={{ width: { xs: '100px', md: '100px' } }}
               >
-                NHOM4
+                {t('group.name')}
               </Typography>
             </Box>
             <Search>
