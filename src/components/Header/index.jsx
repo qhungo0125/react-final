@@ -156,7 +156,7 @@ export default function PrimarySearchAppBar() {
       >
         {t('label.profile')}
       </MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      {/* <MenuItem onClick={handleMenuClose}>My account</MenuItem> */}
     </Menu>
   );
   const mobileMenuId = 'primary-search-account-menu-mobile';
