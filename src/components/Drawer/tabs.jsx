@@ -80,7 +80,7 @@ export default function NavTabs() {
             label={t('label.gradescore')}
             icon={<KeyboardArrowDownIcon />}
             iconPosition='end'
-            onClick={handleMenuClick}
+            onClick={handleTabClick('grade')}
           ></Tab>
           <Menu
             id='demo-customized-menu'
