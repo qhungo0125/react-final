@@ -19,6 +19,7 @@ export default function NavTabs() {
   const menuContext = useContext(MenuContext);
 
   const handleTabClick = (value) => {
+    console.log(value);
     menuContext.handleClassTabChanges(value);
   };
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -80,7 +81,7 @@ export default function NavTabs() {
             label={t('label.gradescore')}
             icon={<KeyboardArrowDownIcon />}
             iconPosition='end'
-            onClick={handleTabClick('grade')}
+            onClick={(e) => handleTabClick('grade')}
           ></Tab>
           <Menu
             id='demo-customized-menu'
