@@ -79,9 +79,17 @@ export default function NavTabs() {
                 : 'grade'
             }
             label={t('label.gradescore')}
-            icon={<KeyboardArrowDownIcon />}
+            icon={
+              localStorage.getItem('role') === 'teacher' && (
+                <KeyboardArrowDownIcon />
+              )
+            }
             iconPosition='end'
-            onClick={(e) => handleTabClick('grade')}
+            onClick={(e) => {
+              localStorage.getItem('role') === 'teacher'
+                ? handleTeacherGradeClick(e)
+                : handleTabClick('grade');
+            }}
           ></Tab>
           <Menu
             id='demo-customized-menu'
@@ -93,16 +101,6 @@ export default function NavTabs() {
             onClose={handleMenuClose}
             sx={{ '& .MuiPaper-root': { minWidth: '110px' } }}
           >
-            {/* <MenuItem
-              onClick={(e) => handleMenuItemClose('grade_detail')}
-              sx={
-                menuContext.classTab === 'grade_detail'
-                  ? { backgroundColor: 'aliceblue' }
-                  : {}
-              }
-            >
-              Detail
-            </MenuItem> */}
             <MenuItem
               onClick={(e) => handleMenuItemClose('grade_upload')}
               sx={
