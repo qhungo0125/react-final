@@ -51,6 +51,9 @@
   "label.percentage": "Tỷ lệ",
   "label.grade": "Điểm",
   "label.overall": "Tổng kết",
+  "label.score.publish": "Công bố điểm",
+  "label.select.score.type": "Chọn loại điểm",
+  "label.publish.score": "Công bố điểm",
 
   "admin.nav.accounts": "Tài Khoản",
   "admin.manage.accounts": "Quản lý Tài Khoản",

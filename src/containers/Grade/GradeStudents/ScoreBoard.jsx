@@ -20,6 +20,7 @@ const ScoreBoard = (props) => {
               })`}</th>
             );
           })}
+          <th scope='col'>{t('label.overall')}</th>
           <th scope='col'>{t('label.actions')}</th>
         </tr>
       </thead>

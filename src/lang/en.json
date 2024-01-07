@@ -51,6 +51,7 @@
   "label.composition": "Composition",
   "label.grade": "Grade",
   "label.overall": "Overall",
+  "label.score.publish": "Publish",
 
   "admin.nav.accounts": "Accounts",
   "admin.nav.classes": "Classes",
@@ -65,6 +66,8 @@
   "admin.status.asc": "Inactive first",
   "admin.status.desc": "Active first",
   "admin.map.selectClass": "Select class",
+  "label.select.score.type": "Select score type",
+  "label.publish.score": "Publish score",
 
   "label.vietnamese": "Vietnamese",
   "label.english": "English",
