@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { getClassReviews, sendChatContent } from '../../../../api/review';
 import Comments from './Comments';
 import Request from './Request';
+import { approveRequest } from '../../../../api/scoreDetail';
 
 const ScoreReview = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -65,6 +66,33 @@ const ScoreReview = () => {
     }
   };
 
+  const handleApprove = async (params) => {
+    const { value, teacherId, studentId, scoreId, requestId } = params;
+
+    try {
+      const response = await approveRequest({
+        value,
+        teacherId,
+        studentId,
+        scoreId,
+        requestId,
+      });
+
+      if (response.success) {
+        const newData = await getData();
+        setRequests(newData);
+
+        setSelectedRequest({});
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleReject = async (params) => {
+    return;
+  };
+
   return (
     <>
       <div className={openComments && 'opacity-25'}>
@@ -73,6 +101,8 @@ const ScoreReview = () => {
             <Request
               request={request}
               onClick={(e) => viewCommentHandler(request)}
+              onApprove={handleApprove}
+              onReject={handleReject}
             />
           );
         })}

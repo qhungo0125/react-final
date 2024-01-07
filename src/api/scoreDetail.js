@@ -52,3 +52,27 @@ export async function uploadScores(params) {
   }
   return response;
 }
+
+export async function approveRequest(params) {
+  const { value, teacherId, studentId, scoreId, requestId } = params;
+  if (!value || !teacherId || !studentId || !scoreId || !requestId) {
+    console.error(
+      'value, teacherId, studentId ,requestId and scoreId are required',
+    );
+    return;
+  }
+
+  const response = await ClientAxios.post(`/score/update-score`, {
+    value,
+    teacherId,
+    studentId,
+    scoreId,
+    requestId,
+  });
+
+  if (response.error && response.error.message) {
+    console.error(response.error.message);
+    return response;
+  }
+  return response;
+}
