@@ -76,3 +76,21 @@ export async function approveRequest(params) {
   }
   return response;
 }
+
+export async function rejectRequest(params) {
+  const { requestId } = params;
+  if (!requestId) {
+    console.error('requestId is required');
+    return;
+  }
+
+  const response = await ClientAxios.post(`/score/request/reject`, {
+    requestId,
+  });
+
+  if (response.error && response.error.message) {
+    console.error(response.error.message);
+    return response;
+  }
+  return response;
+}

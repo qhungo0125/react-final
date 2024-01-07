@@ -21,7 +21,14 @@ const Request = (props) => {
         <button onClick={(e) => onClick()} className='btn btn-info'>
           {t('label.view.comments')}
         </button>
-        <button className='btn btn-danger'>{t('label.button.reject')}</button>
+        <button
+          onClick={async (e) => {
+            await onReject({ requestId: request._id });
+          }}
+          className='btn btn-danger'
+        >
+          {t('label.button.reject')}
+        </button>
         <button
           onClick={async (e) => {
             await onApprove({

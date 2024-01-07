@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { getClassReviews, sendChatContent } from '../../../../api/review';
 import Comments from './Comments';
 import Request from './Request';
-import { approveRequest } from '../../../../api/scoreDetail';
+import { approveRequest, rejectRequest } from '../../../../api/scoreDetail';
 
 const ScoreReview = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -81,7 +81,6 @@ const ScoreReview = () => {
       if (response.success) {
         const newData = await getData();
         setRequests(newData);
-
         setSelectedRequest({});
       }
     } catch (error) {
@@ -90,7 +89,21 @@ const ScoreReview = () => {
   };
 
   const handleReject = async (params) => {
-    return;
+    const { requestId } = params;
+
+    try {
+      const response = await rejectRequest({
+        requestId,
+      });
+
+      if (response.success) {
+        const newData = await getData();
+        setRequests(newData);
+        setSelectedRequest({});
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
