@@ -18,7 +18,7 @@ const ScoreBoardItem = (props) => {
       {scoreTypes.map((scoreType) => {
         return <td key={scoreType._id}>{scoreType.value}</td>;
       })}
-      <td>{total}</td>
+      <td>{Number(total.toFixed(2))}</td>
       <td>
         <div
           className='btn-group'

@@ -34,3 +34,21 @@ export async function setStudentScore(params) {
   }
   return response;
 }
+
+export async function uploadScores(params) {
+  const { listScores } = params;
+  if (!listScores) {
+    console.error('listScores is required');
+    return;
+  }
+
+  const response = await ClientAxios.post(`/score/update-scores`, {
+    listScores,
+  });
+
+  if (response.error && response.error.message) {
+    console.error(response.error.message);
+    return response;
+  }
+  return response;
+}
