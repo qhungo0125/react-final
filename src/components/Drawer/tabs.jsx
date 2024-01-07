@@ -23,7 +23,7 @@ export default function NavTabs() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
-  const handleMenuClick = (event) => {
+  const handleTeacherGradeClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleMenuClose = () => {
@@ -57,49 +57,64 @@ export default function NavTabs() {
           >
             <Tab value="stream" label="Stream" onClick={handleTabClick} />
             <Tab value="people" label="People" onClick={handleTabClick} />
-            <Tab
-              value={menuContext.classTab.includes("grade") ? menuContext.classTab : "grade"}
-              label="Grade"
-              icon={<KeyboardArrowDownIcon />}
-              iconPosition="end"
-              onClick={handleMenuClick}
-            >
-            </Tab>
-            <Menu
-              id="demo-customized-menu"
-              MenuListProps={{
-                'aria-labelledby': 'demo-customized-button',
-              }}
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleMenuClose}
-              sx={{ "& .MuiPaper-root": { minWidth: '110px' }, }}
-            >
-              <MenuItem
-                onClick={handleMenuItemClose}
-                sx={menuContext.classTab === "grade_detail" ? { backgroundColor: "aliceblue" } : {}}
+            {localStorage.getItem('role') === "teacher" &&
+              <Tab
+                value={menuContext.classTab.includes("grade") ? menuContext.classTab : "grade"}
+                label="Grade"
+                icon={<KeyboardArrowDownIcon />}
+                iconPosition="end"
+                onClick={handleTeacherGradeClick}
               >
-                Detail
-              </MenuItem>
-              <MenuItem
-                onClick={handleMenuItemClose}
-                sx={menuContext.classTab === "grade_structure" ? { backgroundColor: "aliceblue" } : {}}
+              </Tab>
+            }
+            {localStorage.getItem('role') === "teacher" &&
+              <Menu
+                id="demo-customized-menu"
+                MenuListProps={{
+                  'aria-labelledby': 'demo-customized-button',
+                }}
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleMenuClose}
+                sx={{ "& .MuiPaper-root": { minWidth: '110px' }, }}
               >
-                Structure
-              </MenuItem>
-              <MenuItem
-                onClick={handleMenuItemClose}
-                sx={menuContext.classTab === "grade_review" ? { backgroundColor: "aliceblue" } : {}}
+                <MenuItem
+                  onClick={handleMenuItemClose}
+                  sx={menuContext.classTab === "grade_detail" ? { backgroundColor: "aliceblue" } : {}}
+                >
+                  Detail
+                </MenuItem>
+                <MenuItem
+                  onClick={handleMenuItemClose}
+                  sx={menuContext.classTab === "grade_structure" ? { backgroundColor: "aliceblue" } : {}}
+                >
+                  Structure
+                </MenuItem>
+                <MenuItem
+                  onClick={handleMenuItemClose}
+                  sx={menuContext.classTab === "grade_review" ? { backgroundColor: "aliceblue" } : {}}
+                >
+                  Review
+                </MenuItem>
+              </Menu>
+            }
+
+            {localStorage.getItem('role') === "student" &&
+              <Tab
+                value="grade"
+                label="Grade"
+                onClick={handleTabClick}
               >
-                Review
-              </MenuItem>
-            </Menu>
+              </Tab>
+            }
+
             {/* <Tab
               className="tab"
               value="general"
               label="General"
               onClick={handleTabClick}
             /> */}
+
           </Tabs>
           :
           <Typography

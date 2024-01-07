@@ -41,7 +41,6 @@ export default function useGradeDetail() {
                     setLoading(false)
                     console.log(error)
                 })
-
         }
 
         const getScore = async () => {

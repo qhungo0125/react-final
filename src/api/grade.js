@@ -8,5 +8,16 @@ export const GradeAPI = {
             }
         })
         return res
+    },
+    getTypes: async () => {
+        const res = await axios.get('/score/types');
+        return res
+    },
+    getStudentScore: async (studentId) => {
+        const res = await axios.get('/score/student-scores', {
+            params: { studentId: studentId }
+        });
+        return res
     }
+
 }

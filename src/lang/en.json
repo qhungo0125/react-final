@@ -14,6 +14,11 @@
   "label.goback": "Go back",
   "label.submit": "Submit",
   "label.loading": "Loading...",
+  "label.studentid": "Student ID",
+  "label.composition": "Composition",
+  "label.percentage": "Percentage",
+  "label.grade": "Grade",
+  "label.overall": "Overall",
 
   "admin.nav.accounts": "Accounts",
   "admin.nav.classes": "Classes",
