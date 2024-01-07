@@ -15,6 +15,10 @@
   "label.submit": "Xac nhan",
   "label.loading": "Dang tai...",
   "label.studentid": "Ma so sinh vien",
+  "label.composition": "Thành phần điểm",
+  "label.percentage": "Tỷ lệ",
+  "label.grade": "Điểm",
+  "label.overall": "Tổng kết",
 
   "admin.nav.accounts": "Tai Khoan",
   "admin.manage.accounts": "Quan ly Tai Khoan",

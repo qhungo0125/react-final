@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from '../../utils/axiosConfig.js';
 import { MenuContext } from '../../context/MenuContext.jsx';
 import { GradeAPI } from '../../api/grade.js';
+import { useTranslation } from 'react-i18next';
 
 
 export default function useGradeStructure() {
@@ -16,10 +17,12 @@ export default function useGradeStructure() {
 
     const menuContext = React.useContext(MenuContext);
 
+    const { t } = useTranslation();
+
     const columns = [
-        { field: 'type', headerName: 'Composition', width: '250' },
-        { field: 'percentage', headerName: 'Percentage', width: '150' },
-        { field: 'grade', headerName: 'Grade', width: '150' },
+        { field: 'type', headerName: t("label.composition"), width: '250' },
+        { field: 'percentage', headerName: t('label.percentage'), width: '150' },
+        { field: 'grade', headerName: t('label.grade'), width: '150' },
     ]
 
     const fetchData = async () => {

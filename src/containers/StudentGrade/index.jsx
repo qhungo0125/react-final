@@ -1,14 +1,12 @@
 import * as React from 'react';
 import { DataGrid, GridToolbar, GridActionsCellItem, GridToolbarContainer } from '@mui/x-data-grid';
-import EditIcon from '@mui/icons-material/Edit';
-import { Button, IconButton, Box, ButtonGroup } from '@mui/material';
 import useGradeStructure from './state.js'
 import Loader from '../../components/Loader'
-import Autocomplete from '@mui/material/Autocomplete';
-import { styled } from '@mui/material/styles';
-
+import { useTranslation } from 'react-i18next';
 
 export default function StudentGrade() {
+    const { t } = useTranslation();
+    
     let {
         loading,
         columns,
@@ -53,7 +51,7 @@ export default function StudentGrade() {
                         disableColumnSelector
                     />
                     <div style={{textAlign:"center", marginTop:"20px"}}>
-                        Overall Grade: &nbsp;&nbsp;
+                        {t("label.overall")+" : "} &nbsp;&nbsp;
                         <span style={{ fontWeight: "600", fontSize: "130%" }}>
                             {Math.round(overAll * 100) / 100}
                         </span>
