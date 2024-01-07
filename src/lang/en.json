@@ -47,6 +47,11 @@
   "label.status": "Status",
   "label.description": "Description",
   "label.keywords": "Keywords",
+  "label.studentid": "Student ID",
+  "label.composition": "Composition",
+  "label.percentage": "Percentage",
+  "label.grade": "Grade",
+  "label.overall": "Overall",
 
   "admin.nav.accounts": "Accounts",
   "admin.nav.classes": "Classes",

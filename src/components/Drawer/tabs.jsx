@@ -24,7 +24,7 @@ export default function NavTabs() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
-  const handleMenuClick = (event) => {
+  const handleTeacherGradeClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleMenuClose = () => {
@@ -143,12 +143,6 @@ export default function NavTabs() {
               {t('label.class.score.request')}
             </MenuItem>
           </Menu>
-          {/* <Tab
-              className="tab"
-              value="general"
-              label="General"
-              onClick={handleTabClick}
-            /> */}
         </Tabs>
       ) : (
         <Typography

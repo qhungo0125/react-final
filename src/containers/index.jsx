@@ -7,6 +7,8 @@ import People from './People';
 import AddClass from './AddClass';
 import Detail from './Grade/Detail';
 import Reviews from './Grade/Review';
+import Structure from './Grade/Structure';
+import StudentGrade from "./StudentGrade"
 
 import { useContext } from 'react';
 import { MenuContext } from '../context/MenuContext';
@@ -42,6 +44,9 @@ const identifyTabs = () => {
         break;
       case 'grade_students':
         tab = <GradeStudents />;
+        break;
+      case 'grade': //student grade
+        tab = <StudentGrade />;
         break;
       default:
         tab = <Stream />;

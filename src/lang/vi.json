@@ -47,6 +47,11 @@
   "label.status": "Trạng thái",
   "label.description": "Mô tả",
   "label.keywords": "Từ khóa",
+  "label.studentid": "Ma so sinh vien",
+  "label.composition": "Thành phần điểm",
+  "label.percentage": "Tỷ lệ",
+  "label.grade": "Điểm",
+  "label.overall": "Tổng kết",
 
   "admin.nav.accounts": "Tài Khoản",
   "admin.manage.accounts": "Quản lý Tài Khoản",
