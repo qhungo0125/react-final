@@ -2,6 +2,7 @@ import React from 'react';
 
 const MappingForm = (props) => {
   const {
+    heading,
     isOpen,
     setIsOpen,
     onMapping: handleSubmit = () => {},
@@ -14,6 +15,7 @@ const MappingForm = (props) => {
       style={{
         background: 'white',
         padding: '2rem 6rem',
+        border: '1px solid #ccc',
         borderRadius: '1rem',
       }}
       onSubmit={(e) => {
@@ -27,7 +29,7 @@ const MappingForm = (props) => {
           textAlign: 'center', // Center the heading text
         }}
       >
-        Input Map Code
+        {heading ? heading : 'Input Map Code'}
       </h4>
 
       <input
@@ -38,7 +40,7 @@ const MappingForm = (props) => {
           height: '2.5rem',
           fontSize: '1.5rem',
         }}
-        type="text"
+        type='text'
         value={mapCode}
         onChange={(e) => setMapCode(e.target.value)}
       />
@@ -50,12 +52,12 @@ const MappingForm = (props) => {
           justifyContent: 'space-around',
         }}
       >
-        <button className="btn btn-danger" onClick={(e) => setIsOpen(false)}>
-          Close
+        <button className='btn btn-danger' onClick={(e) => setIsOpen(false)}>
+          {t('label.button.close')}
         </button>
 
-        <button type="submit" className="btn btn-success">
-          Submit
+        <button type='submit' className='btn btn-success'>
+          {t('label.button.confirm')}
         </button>
       </div>
     </form>

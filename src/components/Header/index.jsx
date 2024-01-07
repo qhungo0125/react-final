@@ -10,6 +10,7 @@ import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
+import LanguageIcon from '@mui/icons-material/Language';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
@@ -18,6 +19,8 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { MenuContext } from '../../context/MenuContext';
+import { useTranslation } from 'react-i18next';
+import { useGlobal } from '../../context';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -60,6 +63,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function PrimarySearchAppBar() {
+  const { t } = useTranslation();
+  const { changeLanguage } = useGlobal();
   const navigate = useNavigate();
   const menuContext = useContext(MenuContext);
 
@@ -92,7 +97,42 @@ export default function PrimarySearchAppBar() {
   };
 
   const menuId = 'primary-search-account-menu';
-  const renderMenu = (
+  const languageId = 'primary-languages-menu';
+  const renderLanguagesMenu = anchorEl && anchorEl.id === languageId && (
+    <Menu
+      anchorEl={anchorEl}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'right',
+      }}
+      id={languageId}
+      keepMounted
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
+    >
+      <MenuItem
+        onClick={(e) => {
+          handleMenuClose();
+          changeLanguage('vi');
+        }}
+      >
+        {t('label.vietnamese')}
+      </MenuItem>
+      <MenuItem
+        onClick={(e) => {
+          handleMenuClose();
+          changeLanguage('en');
+        }}
+      >
+        {t('label.english')}
+      </MenuItem>
+    </Menu>
+  );
+  const renderMenu = anchorEl && anchorEl.id === menuId && (
     <Menu
       anchorEl={anchorEl}
       anchorOrigin={{
@@ -114,9 +154,9 @@ export default function PrimarySearchAppBar() {
           navigate('/profile');
         }}
       >
-        Profile
+        {t('label.profile')}
       </MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      {/* <MenuItem onClick={handleMenuClose}>My account</MenuItem> */}
     </Menu>
   );
   const mobileMenuId = 'primary-search-account-menu-mobile';
@@ -137,8 +177,8 @@ export default function PrimarySearchAppBar() {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
+        <IconButton size='large' aria-label='show 4 new mails' color='inherit'>
+          <Badge badgeContent={4} color='error'>
             <MailIcon />
           </Badge>
         </IconButton>
@@ -146,43 +186,60 @@ export default function PrimarySearchAppBar() {
       </MenuItem>
       <MenuItem>
         <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
+          size='large'
+          aria-label='show 17 new notifications'
+          color='inherit'
         >
-          <Badge badgeContent={17} color="error">
+          <Badge badgeContent={17} color='error'>
             <NotificationsIcon />
           </Badge>
         </IconButton>
-        <p>Notifications</p>
+        <p>{t('label.notification')}</p>
       </MenuItem>
+
+      {/* <MenuItem onClick={handleProfileMenuOpen}>
+          <IconButton
+            id={languageId}
+            size='large'
+            edge='end'
+            aria-controls={languageId}
+            aria-haspopup='true'
+            onClick={handleProfileMenuOpen}
+            color='inherit'
+          >
+            <LanguageIcon />
+          </IconButton>
+          <p>Choose language</p>
+        </MenuItem> */}
+
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
+          size='large'
+          id={menuId}
+          aria-label='account of current user'
+          aria-controls='primary-search-account-menu'
+          aria-haspopup='true'
+          color='inherit'
         >
           <AccountCircle />
         </IconButton>
-        <p>Profile</p>
+        <p>{t('label.profile')}</p>
       </MenuItem>
     </Menu>
   );
   return (
     <div>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
+        <AppBar position='static'>
           <Toolbar>
             <Box sx={{ cursor: 'pointer' }} onClick={handleHomeIconClick}>
               <Typography
-                variant="h6"
+                variant='h6'
                 noWrap
-                component="div"
+                component='div'
                 sx={{ width: { xs: '100px', md: '100px' } }}
               >
-                NHOM4
+                {t('group.name')}
               </Typography>
             </Box>
             <Search>
@@ -190,50 +247,61 @@ export default function PrimarySearchAppBar() {
                 <SearchIcon />
               </SearchIconWrapper>
               <StyledInputBase
-                placeholder="Search…"
+                placeholder='Search…'
                 inputProps={{ 'aria-label': 'search' }}
               />
             </Search>
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
               <IconButton
-                size="large"
-                aria-label="show 4 new mails"
-                color="inherit"
+                size='large'
+                aria-label='show 4 new mails'
+                color='inherit'
               >
-                <Badge badgeContent={4} color="error">
+                <Badge badgeContent={4} color='error'>
                   <MailIcon />
                 </Badge>
               </IconButton>
               <IconButton
-                size="large"
-                aria-label="show 17 new notifications"
-                color="inherit"
+                size='large'
+                aria-label='show 17 new notifications'
+                color='inherit'
               >
-                <Badge badgeContent={17} color="error">
+                <Badge badgeContent={17} color='error'>
                   <NotificationsIcon />
                 </Badge>
               </IconButton>
               <IconButton
-                size="large"
-                edge="end"
-                aria-label="account of current user"
-                aria-controls={menuId}
-                aria-haspopup="true"
+                id={languageId}
+                size='large'
+                edge='end'
+                aria-controls={languageId}
+                aria-haspopup='true'
                 onClick={handleProfileMenuOpen}
-                color="inherit"
+                color='inherit'
+              >
+                <LanguageIcon />
+              </IconButton>
+              <IconButton
+                id={menuId}
+                size='large'
+                edge='end'
+                aria-controls={menuId}
+                aria-haspopup='true'
+                onClick={handleProfileMenuOpen}
+                color='inherit'
               >
                 <AccountCircle />
               </IconButton>
             </Box>
             <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
               <IconButton
-                size="large"
-                aria-label="show more"
+                size='large'
+                aria-label='show more'
                 aria-controls={mobileMenuId}
-                aria-haspopup="true"
+                aria-haspopup='true'
                 onClick={handleMobileMenuOpen}
-                color="inherit"
+                color='inherit'
               >
                 <MoreIcon />
               </IconButton>
@@ -242,6 +310,7 @@ export default function PrimarySearchAppBar() {
         </AppBar>
         {renderMobileMenu}
         {renderMenu}
+        {renderLanguagesMenu}
       </Box>
     </div>
   );

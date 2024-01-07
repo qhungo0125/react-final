@@ -16,7 +16,7 @@ const MyComboBox = ({ selectedRole, onSelectRole }) => {
   const { t } = useTranslation();
   return (
     <Dropdown onSelect={onSelectRole}>
-      <Dropdown.Toggle variant="primary" id="dropdown-basic">
+      <Dropdown.Toggle variant='primary' id='dropdown-basic'>
         {selectedRole || 'Select Role'}
       </Dropdown.Toggle>
       <Dropdown.Menu>
@@ -129,22 +129,22 @@ const AdminAccounts = () => {
         onBlock={onBlock}
         accounts={accounts.data || []}
       />
-      <div className="d-flex justify-content-center">
-        <nav aria-label="Page navigation example">
-          <ul className="pagination">
-            <li className="page-item">
+      <div className='d-flex justify-content-center'>
+        <nav aria-label='Page navigation example'>
+          <ul className='pagination'>
+            <li className='page-item'>
               <Link
-                className="page-link"
+                className='page-link'
                 to={`?page=${
                   pagination.page - 1 > 0 ? pagination.page - 1 : 1
                 }&limit=${pagination.limit}`}
               >
-                Previous
+                {t('label.button.previous')}
               </Link>
             </li>
             {pages.map((pageIndex) => {
               return (
-                <li key={pageIndex} className="page-item">
+                <li key={pageIndex} className='page-item'>
                   <Link
                     className={
                       pagination.page === pageIndex
@@ -158,16 +158,16 @@ const AdminAccounts = () => {
                 </li>
               );
             })}
-            <li className="page-item">
+            <li className='page-item'>
               <Link
-                className="page-link"
+                className='page-link'
                 to={`?page=${
                   +pagination.page + 1 > pages.length
                     ? pages.length
                     : +pagination.page + 1
                 }&limit=${pagination.limit}`}
               >
-                Next
+                {t('label.button.next')}
               </Link>
             </li>
           </ul>

@@ -23,24 +23,14 @@ export default function Home() {
 
   return (
     <>
-      <button
-        onClick={(e) => {
-          i18n.language === 'vi'
-            ? i18n.changeLanguage('en')
-            : i18n.changeLanguage('vi');
-        }}
-      >
-        change language
-      </button>
-      <h2>{t('greeting')}</h2>
-      <img className="background" loading="lazy" src="./login_bg.jpg" />
-      <div className="items">
-        <h1 className="welcome">Welcome to React-Mid-Term!</h1>
-        <div className="links">
+      <img className='background' loading='lazy' src='./login_bg.jpg' />
+      <div className='items'>
+        <h1 className='welcome'>Welcome to React-Mid-Term!</h1>
+        <div className='links'>
           {userId ? (
             <Button
               sx={btnStyle}
-              variant="contained"
+              variant='contained'
               onClick={(e) => navigate('/dashboard')}
             >
               dashboard
@@ -49,7 +39,7 @@ export default function Home() {
             <>
               <Button
                 sx={btnStyle}
-                variant="contained"
+                variant='contained'
                 onClick={(e) => navigate('/login')}
               >
                 login
@@ -57,7 +47,7 @@ export default function Home() {
 
               <Button
                 sx={btnStyle}
-                variant="contained"
+                variant='contained'
                 onClick={(e) => navigate('/register')}
               >
                 register
