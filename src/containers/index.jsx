@@ -17,6 +17,7 @@ import GradeUpload from './Grade/Upload/GradeUpload';
 import GradeStudents from './Grade/GradeStudents/GradeStudents';
 import ScoreReview from './Grade/Review/v2';
 import { useNavigate } from 'react-router-dom';
+import ScoreReviewDetail from './Grade/Review/v2/ScoreReviewDetail';
 
 const identifyTabs = () => {
   console.log('identifyTabs');
@@ -40,6 +41,9 @@ const identifyTabs = () => {
         break;
       case 'grade_review':
         tab = <ScoreReview />;
+        break;
+      case 'grade_review_detail':
+        tab = <ScoreReviewDetail />;
         break;
       case 'grade_upload':
         tab = <GradeUpload />;

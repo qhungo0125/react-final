@@ -94,3 +94,21 @@ export async function rejectRequest(params) {
   }
   return response;
 }
+
+export async function getRequest(params) {
+  const { reviewId } = params;
+  if (!reviewId) {
+    console.error('reviewId is required');
+    return;
+  }
+
+  const response = await ClientAxios.get(
+    `/score/request-details?requestId=${reviewId}`,
+  );
+
+  if (response.error && response.error.message) {
+    console.error(response.error.message);
+    return response;
+  }
+  return response;
+}

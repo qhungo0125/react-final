@@ -1,9 +1,9 @@
 import { t } from 'i18next';
 import React from 'react';
-
+import { useNavigate } from 'react-router-dom';
 const Request = (props) => {
   const { request, onClick, onApprove, onReject } = props;
-  console.log(request);
+  const navigate = useNavigate();
   return (
     <div className='mb-4 border border-2 p-4 rounded'>
       <h4>{request.title}</h4>
@@ -42,6 +42,14 @@ const Request = (props) => {
           className='btn btn-success'
         >
           {t('label.button.approve')}
+        </button>
+        <button
+          onClick={(e) => {
+            navigate(`./${request._id}`);
+          }}
+          className='btn btn-success'
+        >
+          {t('label.button.detail')}
         </button>
       </div>
     </div>

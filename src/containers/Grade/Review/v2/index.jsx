@@ -106,10 +106,11 @@ const ScoreReview = () => {
 
   return (
     <>
-      <div className={openComments && 'opacity-25'}>
+      <div className={openComments ? 'opacity-25' : ''}>
         {requests.map((request) => {
           return (
             <Request
+              key={request._id}
               request={request}
               onClick={(e) => viewCommentHandler(request)}
               onApprove={handleApprove}

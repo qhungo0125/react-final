@@ -73,6 +73,14 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: '/class/:classId/grade/review/:reviewId',
+    Component: () => (
+      <PageWithHeader>
+        <Page tab={'grade_review_detail'} />
+      </PageWithHeader>
+    ),
+  },
+  {
     path: '/class/:classId/stream',
     Component: () => (
       <PageWithHeader>

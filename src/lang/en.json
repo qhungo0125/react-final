@@ -52,6 +52,7 @@
   "label.grade": "Grade",
   "label.overall": "Overall",
   "label.score.publish": "Publish",
+  "label.list.comments": "List comments",
 
   "admin.nav.accounts": "Accounts",
   "admin.nav.classes": "Classes",
@@ -88,6 +89,7 @@
   "label.button.filter": "Filter",
   "label.button.sort": "Sort",
   "label.button.apply": "Apply",
+  "label.button.detail": "View detail",
   "label.button.previous": "Previous",
   "label.button.next": "Next",
   "label.button.cancel": "Cancel"
