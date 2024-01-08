@@ -11,7 +11,7 @@ const ScoreDetail = ({ selectedRequest, onSendChat }) => {
         <h6 className='mb-2'>{t('label.list.comments')}</h6>
         {selectedRequest.comments.map((comment) => {
           return (
-            <div className='mb-4'>
+            <div key={comment._id} className='mb-4'>
               <h6>{comment.account.name}</h6>
               <div>{comment.content}</div>
             </div>

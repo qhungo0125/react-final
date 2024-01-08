@@ -76,24 +76,28 @@ const identifyTabs = () => {
 };
 
 const Page = (props) => {
-  const { tab } = props;
+  const { tab: classTab, mainTab } = props;
   const menuContext = useContext(MenuContext);
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    if (localStorage.getItem('role') === 'teacher' && tab === 'grade') {
+    if (localStorage.getItem('role') === 'teacher' && classTab === 'grade') {
       navigate('/classes', {
         replace: true,
       });
       return;
     }
 
-    if (tab) {
-      menuContext.handleClassTabChanges(tab);
+    if (classTab) {
+      menuContext.handleClassTabChanges(classTab);
+      return;
+    }
+    if (mainTab) {
+      menuContext.handleTabChanges(mainTab);
       return;
     }
     menuContext.handleTabChanges('home');
-  }, [tab]);
+  }, [classTab, mainTab]);
   return (
     <div>
       {

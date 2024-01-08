@@ -76,7 +76,7 @@ const router = createBrowserRouter([
     path: '/class/:classId/grade/review/:reviewId',
     Component: () => (
       <PageWithHeader>
-        <Page tab={'grade_review_detail'} />
+        <Page tab={'grade_review'} />
       </PageWithHeader>
     ),
   },
@@ -92,7 +92,7 @@ const router = createBrowserRouter([
     path: '/add_class',
     Component: () => (
       <PageWithHeader>
-        <Page />
+        <Page mainTab={'add_class'} />
       </PageWithHeader>
     ),
   },

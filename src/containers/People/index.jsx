@@ -7,6 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import StudentInviteModal from './studentInvite';
 import TeacherInviteModal from './teacherInvite';
 import { t } from 'i18next';
+import { useParams } from 'react-router-dom';
 
 function People() {
   const [teachers, setTeachers] = useState([]);
@@ -14,9 +15,10 @@ function People() {
   const [studentModelOpen, setStudentModelOpen] = useState(false);
   const [teacherModelOpen, setTeacherModelOpen] = useState(false);
   const menuContext = useContext(MenuContext);
-  const { classId } = menuContext;
+  const { classId } = useParams();
 
   useEffect(() => {
+    console.log('classId', classId);
     const getClassById = async () => {
       const res = await ClientAxios.get('/class', {
         params: { id: classId },

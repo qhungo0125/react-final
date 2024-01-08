@@ -20,7 +20,10 @@ function AddClass() {
     if (!info.name || !info.description) return alert('Please fill all fields');
     try {
       setIsLoading(true);
-      await ClientAxios.post('/class/create', info);
+      await ClientAxios.post('/class/create', {
+        ...info,
+        teacherId: localStorage.getItem('userid'),
+      });
       setIsLoading(false);
       alert(`Class was created successfully`);
       menuContext.handleTabChanges('home');
