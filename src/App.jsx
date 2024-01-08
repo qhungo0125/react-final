@@ -19,6 +19,7 @@ import PageWithHeader from './components/PageWithHeader';
 import React from 'react';
 import { socket } from './socket';
 import AdminPage from './containers/AdminPage';
+import CustomizedSnackbars from './components/Notification/Notification';
 
 const router = createBrowserRouter([
   { path: '/login', Component: () => <Login /> },
@@ -76,7 +77,7 @@ const router = createBrowserRouter([
     path: '/class/:classId/grade/review/:reviewId',
     Component: () => (
       <PageWithHeader>
-        <Page tab={'grade_review'} />
+        <Page tab={'grade_review_detail'} />
       </PageWithHeader>
     ),
   },
@@ -165,6 +166,7 @@ export default function App() {
     <GlobalContext>
       <MenuProvider>
         <RouterProvider router={router} />
+        <CustomizedSnackbars />
       </MenuProvider>
     </GlobalContext>
   );
