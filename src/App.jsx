@@ -25,26 +25,18 @@ const router = createBrowserRouter([
   { path: '/register', Component: () => <Register /> },
   { path: '/', Component: () => <Home /> },
   {
-    path: '/class/people',
+    path: '/class/:classId/people',
     Component: () => (
       <PageWithHeader>
-        <Page />
+        <Page tab={'people'} />
       </PageWithHeader>
     ),
   },
   {
-    path: '/class/general',
+    path: '/class/:classId/grade',
     Component: () => (
       <PageWithHeader>
-        <Page />
-      </PageWithHeader>
-    ),
-  },
-  {
-    path: '/class/grade',
-    Component: () => (
-      <PageWithHeader>
-        <Page />
+        <Page tab={'grade'} />
       </PageWithHeader>
     ),
   },
@@ -52,7 +44,7 @@ const router = createBrowserRouter([
     path: '/class/:classId/stream',
     Component: () => (
       <PageWithHeader>
-        <Page key={'stream'} tab={'stream'} />
+        <Page tab={'stream'} />
       </PageWithHeader>
     ),
   },
@@ -64,19 +56,19 @@ const router = createBrowserRouter([
       </PageWithHeader>
     ),
   },
+  // {
+  //   path: '/dashboard',
+  //   Component: () => (
+  //     <PageWithHeader>
+  //       <Page />
+  //     </PageWithHeader>
+  //   ),
+  // },
   {
-    path: '/dashboard',
+    path: '/classes',
     Component: () => (
       <PageWithHeader>
         <Page />
-      </PageWithHeader>
-    ),
-  },
-  {
-    path: '/class',
-    Component: () => (
-      <PageWithHeader>
-        <Page key={'class'} />
       </PageWithHeader>
     ),
   },

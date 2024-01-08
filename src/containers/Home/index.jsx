@@ -31,7 +31,7 @@ export default function Home() {
             <Button
               sx={btnStyle}
               variant='contained'
-              onClick={(e) => navigate('/dashboard')}
+              onClick={(e) => navigate('/classes')}
             >
               dashboard
             </Button>

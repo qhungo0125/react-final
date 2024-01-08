@@ -12,15 +12,17 @@ import './style.css';
 import TabsName from '../../utils/tabsName';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { t } from 'i18next';
+import { useParams } from 'react-router-dom';
 
 export default function NavTabs() {
   const navigate = useNavigate();
+  const { classId } = useParams();
 
   const menuContext = useContext(MenuContext);
 
   const handleTabClick = (value) => {
     console.log(value);
-    menuContext.handleClassTabChanges(value);
+    navigate(`/class/${classId}/${value}`);
   };
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
