@@ -21,7 +21,6 @@ export default function NavTabs() {
   const menuContext = useContext(MenuContext);
 
   const handleTabClick = (value) => {
-    console.log(value);
     navigate(`/class/${classId}/${value}`);
   };
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -34,9 +33,10 @@ export default function NavTabs() {
     setAnchorEl(null);
   };
 
-  const handleMenuItemClose = (eventName) => {
-    console.log(eventName);
-    menuContext.handleClassTabChanges(eventName);
+  const handleMenuItemClose = (params) => {
+    const { origin, path } = params;
+    navigate(`/class/${classId}/${origin}/${path}`);
+    // menuContext.handleClassTabChanges(eventName);
     setAnchorEl(null);
   };
 
@@ -104,7 +104,12 @@ export default function NavTabs() {
             sx={{ '& .MuiPaper-root': { minWidth: '110px' } }}
           >
             <MenuItem
-              onClick={(e) => handleMenuItemClose('grade_upload')}
+              onClick={(e) =>
+                handleMenuItemClose({
+                  origin: 'grade',
+                  path: 'upload',
+                })
+              }
               sx={
                 menuContext.classTab === 'grade_upload'
                   ? { backgroundColor: 'aliceblue' }
@@ -114,7 +119,12 @@ export default function NavTabs() {
               {t('label.class.score.upload')}
             </MenuItem>
             <MenuItem
-              onClick={(e) => handleMenuItemClose('grade_students')}
+              onClick={(e) =>
+                handleMenuItemClose({
+                  origin: 'grade',
+                  path: 'students',
+                })
+              }
               sx={
                 menuContext.classTab === 'grade_students'
                   ? { backgroundColor: 'aliceblue' }
@@ -124,7 +134,12 @@ export default function NavTabs() {
               {t('label.class.score.students')}
             </MenuItem>
             <MenuItem
-              onClick={(e) => handleMenuItemClose('grade_structure')}
+              onClick={(e) =>
+                handleMenuItemClose({
+                  origin: 'grade',
+                  path: 'structure',
+                })
+              }
               sx={
                 menuContext.classTab === 'grade_structure'
                   ? { backgroundColor: 'aliceblue' }
@@ -134,7 +149,12 @@ export default function NavTabs() {
               {t('label.class.score.structure')}
             </MenuItem>
             <MenuItem
-              onClick={(e) => handleMenuItemClose('grade_review')}
+              onClick={(e) =>
+                handleMenuItemClose({
+                  origin: 'grade',
+                  path: 'review',
+                })
+              }
               sx={
                 menuContext.classTab === 'grade_review'
                   ? { backgroundColor: 'aliceblue' }

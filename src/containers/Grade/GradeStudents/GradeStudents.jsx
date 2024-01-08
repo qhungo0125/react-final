@@ -6,16 +6,15 @@ import {
   setStudentScore,
   uploadScores,
 } from '../../../api/scoreDetail';
-import { useSearchParams } from 'react-router-dom';
 import ScoreBoard from './ScoreBoard';
 import EditScore from './EditScore';
 import MappingForm from '../../../components/AdminTable/Accounts/mappingForm';
 import { downloadExcel, getDatafromUploadExcel } from '../../../utils/excel';
 import { t } from 'i18next';
 import PublishForm from './PublishForm';
+import { useParams } from 'react-router-dom';
 
 const GradeStudents = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
   const [students, setStudents] = React.useState([]);
   const [scoreTypes, setScoreTypes] = React.useState([]);
   const [selectedStudent, setSelectedStudent] = React.useState({});
@@ -23,9 +22,9 @@ const GradeStudents = () => {
   const [openMapForm, setOpenMapForm] = React.useState(false);
   const [openPublishForm, setOpenPublishForm] = React.useState(false);
   const [excelData, setExcelData] = React.useState(null);
+  const { classId } = useParams();
 
   const getClassData = async () => {
-    const classId = searchParams.get('id');
     try {
       let [rawStudents, scoresType, scores] = await Promise.all([
         getClass({

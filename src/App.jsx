@@ -41,6 +41,38 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: '/class/:classId/grade/upload',
+    Component: () => (
+      <PageWithHeader>
+        <Page tab={'grade_upload'} />
+      </PageWithHeader>
+    ),
+  },
+  {
+    path: '/class/:classId/grade/students',
+    Component: () => (
+      <PageWithHeader>
+        <Page tab={'grade_students'} />
+      </PageWithHeader>
+    ),
+  },
+  {
+    path: '/class/:classId/grade/structure',
+    Component: () => (
+      <PageWithHeader>
+        <Page tab={'grade_structure'} />
+      </PageWithHeader>
+    ),
+  },
+  {
+    path: '/class/:classId/grade/review',
+    Component: () => (
+      <PageWithHeader>
+        <Page tab={'grade_review'} />
+      </PageWithHeader>
+    ),
+  },
+  {
     path: '/class/:classId/stream',
     Component: () => (
       <PageWithHeader>

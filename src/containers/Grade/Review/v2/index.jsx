@@ -1,18 +1,16 @@
 import React from 'react';
-import { useSearchParams } from 'react-router-dom';
 import { getClassReviews, sendChatContent } from '../../../../api/review';
 import Comments from './Comments';
 import Request from './Request';
 import { approveRequest, rejectRequest } from '../../../../api/scoreDetail';
-
+import { useParams } from 'react-router-dom';
 const ScoreReview = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
   const [requests, setRequests] = React.useState([]);
   const [selectedRequest, setSelectedRequest] = React.useState({});
   const [openComments, setOpenComments] = React.useState(false);
+  const { classId } = useParams();
 
   const getData = async () => {
-    const classId = searchParams.get('id');
     const requests = await getClassReviews({ classId });
     if (requests.success && requests.data && requests.data.length > 0) {
       return requests.data;
