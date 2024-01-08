@@ -1,17 +1,14 @@
 import React from 'react';
 import { getClass, mapStudents } from '../../../api/admin';
-import { useSearchParams } from 'react-router-dom';
 import { downloadExcel, getDatafromUploadExcel } from '../../../utils/excel';
 import { t } from 'i18next';
-
+import { useParams } from 'react-router-dom';
 const GradeUpload = () => {
   const [students, setStudents] = React.useState([]);
-  const [searchParams, setSearchParams] = useSearchParams();
   const [loading, setLoading] = React.useState(false);
-
+  const { classId } = useParams();
   React.useEffect(() => {
     const getClassData = async () => {
-      const classId = searchParams.get('id');
       try {
         setLoading(true);
         const response = await getClass({

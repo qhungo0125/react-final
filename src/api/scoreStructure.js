@@ -51,15 +51,16 @@ export async function removeType(params) {
 }
 
 export async function updateType(params) {
-  const { name, percentage, typeId } = params;
-  if (!typeId || !name || !percentage) {
-    console.error('typeId, name and percentage are required');
+  const { name, percentage, typeId, isPublish } = params;
+  if (!typeId && !name && !percentage) {
+    console.error('Missing params required');
     return;
   }
   const response = await ClientAxios.post(`/score/update-type`, {
     name,
     percentage,
     typeId,
+    isPublish,
   });
   if (response.error && response.error.message) {
     console.error(response.error.message);

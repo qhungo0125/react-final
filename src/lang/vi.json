@@ -51,6 +51,10 @@
   "label.percentage": "Tỷ lệ",
   "label.grade": "Điểm",
   "label.overall": "Tổng kết",
+  "label.score.publish": "Công bố điểm",
+  "label.select.score.type": "Chọn loại điểm",
+  "label.publish.score": "Công bố điểm",
+  "label.list.comments": "Danh sách bình luận",
 
   "admin.nav.accounts": "Tài Khoản",
   "admin.manage.accounts": "Quản lý Tài Khoản",
@@ -88,6 +92,7 @@
   "label.button.filter": "Lọc",
   "label.button.sort": "Sắp xếp",
   "label.button.apply": "Áp dụng",
+  "label.button.detail": "Xem chi tiết",
   "label.button.previous": "Trước",
   "label.button.next": "Sau",
   "label.button.goback": "Quay lại"

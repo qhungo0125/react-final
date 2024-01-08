@@ -93,7 +93,7 @@ export default function PrimarySearchAppBar() {
 
   const handleHomeIconClick = () => {
     menuContext.handleTabChanges('home');
-    navigate('/dashboard');
+    navigate('/classes');
   };
 
   const menuId = 'primary-search-account-menu';

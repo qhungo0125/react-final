@@ -3,7 +3,13 @@ import React from 'react';
 
 const ScoreBoardItem = (props) => {
   const { item, index, onEditClick: handleEdit = () => {}, onMapClick } = props;
-  const { _id, name, mapCode, scoreTypes } = item;
+  const { _id, name, mapCode, scoreTypes = [] } = item;
+  const total = React.useMemo(() => {
+    if (!scoreTypes || !scoreTypes.length) return 0;
+    return scoreTypes.reduce((total, scoreType) => {
+      return total + (scoreType.value * scoreType.percentage) / 100;
+    }, 0);
+  }, [scoreTypes]);
   return (
     <tr>
       <th scope='row'>{index}</th>
@@ -12,6 +18,7 @@ const ScoreBoardItem = (props) => {
       {scoreTypes.map((scoreType) => {
         return <td key={scoreType._id}>{scoreType.value}</td>;
       })}
+      <td>{Number(total.toFixed(2))}</td>
       <td>
         <div
           className='btn-group'

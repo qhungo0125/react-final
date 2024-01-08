@@ -16,8 +16,11 @@ import GradeStructure from './Grade/Structure/v2';
 import GradeUpload from './Grade/Upload/GradeUpload';
 import GradeStudents from './Grade/GradeStudents/GradeStudents';
 import ScoreReview from './Grade/Review/v2';
+import { useNavigate } from 'react-router-dom';
+import ScoreReviewDetail from './Grade/Review/v2/ScoreReviewDetail';
 
 const identifyTabs = () => {
+  console.log('identifyTabs');
   const menuContext = useContext(MenuContext);
 
   var tab;
@@ -38,6 +41,9 @@ const identifyTabs = () => {
         break;
       case 'grade_review':
         tab = <ScoreReview />;
+        break;
+      case 'grade_review_detail':
+        tab = <ScoreReviewDetail />;
         break;
       case 'grade_upload':
         tab = <GradeUpload />;
@@ -69,7 +75,25 @@ const identifyTabs = () => {
   return tab;
 };
 
-const Page = () => {
+const Page = (props) => {
+  const { tab } = props;
+  const menuContext = useContext(MenuContext);
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (localStorage.getItem('role') === 'teacher' && tab === 'grade') {
+      navigate('/classes', {
+        replace: true,
+      });
+      return;
+    }
+
+    if (tab) {
+      menuContext.handleClassTabChanges(tab);
+      return;
+    }
+    menuContext.handleTabChanges('home');
+  }, [tab]);
   return (
     <div>
       {

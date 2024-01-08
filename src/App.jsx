@@ -25,34 +25,66 @@ const router = createBrowserRouter([
   { path: '/register', Component: () => <Register /> },
   { path: '/', Component: () => <Home /> },
   {
-    path: '/class/people',
+    path: '/class/:classId/people',
     Component: () => (
       <PageWithHeader>
-        <Page />
+        <Page tab={'people'} />
       </PageWithHeader>
     ),
   },
   {
-    path: '/class/general',
+    path: '/class/:classId/grade',
     Component: () => (
       <PageWithHeader>
-        <Page />
+        <Page tab={'grade'} />
       </PageWithHeader>
     ),
   },
   {
-    path: '/class/grade',
+    path: '/class/:classId/grade/upload',
     Component: () => (
       <PageWithHeader>
-        <Page />
+        <Page tab={'grade_upload'} />
       </PageWithHeader>
     ),
   },
   {
-    path: '/class/stream',
+    path: '/class/:classId/grade/students',
     Component: () => (
       <PageWithHeader>
-        <Page />
+        <Page tab={'grade_students'} />
+      </PageWithHeader>
+    ),
+  },
+  {
+    path: '/class/:classId/grade/structure',
+    Component: () => (
+      <PageWithHeader>
+        <Page tab={'grade_structure'} />
+      </PageWithHeader>
+    ),
+  },
+  {
+    path: '/class/:classId/grade/review',
+    Component: () => (
+      <PageWithHeader>
+        <Page tab={'grade_review'} />
+      </PageWithHeader>
+    ),
+  },
+  {
+    path: '/class/:classId/grade/review/:reviewId',
+    Component: () => (
+      <PageWithHeader>
+        <Page tab={'grade_review_detail'} />
+      </PageWithHeader>
+    ),
+  },
+  {
+    path: '/class/:classId/stream',
+    Component: () => (
+      <PageWithHeader>
+        <Page tab={'stream'} />
       </PageWithHeader>
     ),
   },
@@ -64,16 +96,16 @@ const router = createBrowserRouter([
       </PageWithHeader>
     ),
   },
+  // {
+  //   path: '/dashboard',
+  //   Component: () => (
+  //     <PageWithHeader>
+  //       <Page />
+  //     </PageWithHeader>
+  //   ),
+  // },
   {
-    path: '/dashboard',
-    Component: () => (
-      <PageWithHeader>
-        <Page />
-      </PageWithHeader>
-    ),
-  },
-  {
-    path: '/class',
+    path: '/classes',
     Component: () => (
       <PageWithHeader>
         <Page />

@@ -24,7 +24,7 @@ function AddClass() {
       setIsLoading(false);
       alert(`Class was created successfully`);
       menuContext.handleTabChanges('home');
-      navigate('/dashboard');
+      navigate('/classes');
     } catch (error) {
       console.error('Error create class', error);
     }
@@ -33,12 +33,12 @@ function AddClass() {
   return (
     <Box sx={{ maxWidth: '600px', marginLeft: 'auto', marginRight: 'auto' }}>
       <Box sx={{ height: '150px' }}>
-        <Box className="G-input">
+        <Box className='G-input'>
           <label>Class Name</label>
           <TextField
             multiline
-            variant="standard"
-            size="small"
+            variant='standard'
+            size='small'
             sx={{ width: '300px' }}
             value={info.name}
             onChange={(e) => {
@@ -46,12 +46,12 @@ function AddClass() {
             }}
           />
         </Box>
-        <Box className="G-input">
+        <Box className='G-input'>
           <label>Class Description</label>
           <TextField
             multiline
-            variant="standard"
-            size="small"
+            variant='standard'
+            size='small'
             sx={{ width: '300px' }}
             value={info.description}
             onChange={(e) => {
@@ -63,7 +63,7 @@ function AddClass() {
 
       <Box sx={{ textAlign: 'center' }}>
         <Button
-          variant="contained"
+          variant='contained'
           onClick={handleCreateClass}
           disabled={isLoading}
         >
