@@ -7,6 +7,11 @@ const AppContext = React.createContext();
 const GlobalContext = ({ children }) => {
   const { i18n } = useTranslation();
   const [locale, setLocale] = React.useState('vi');
+  const [socketNotif, setSocketNotif] = React.useState(null);
+  const [loginState, setLoginState] = React.useState({
+    isLogin: false,
+    role: STUDENT_ROLE,
+  });
 
   React.useEffect(() => {
     const locale = localStorage.getItem('locale') || 'vi';
@@ -18,15 +23,18 @@ const GlobalContext = ({ children }) => {
     localStorage.setItem('locale', locale);
     setLocale(locale);
   };
-
-  const [loginState, setLoginState] = React.useState({
-    isLogin: false,
-    role: STUDENT_ROLE,
-  });
+  const changeSocketNotif = (value) => {
+    setSocketNotif(value);
+  };
 
   const value = React.useMemo(
-    () => ({ loginState, changeLanguage }),
-    [loginState],
+    () => ({
+      loginState,
+      changeLanguage,
+      changeSocketNotif,
+      socketNotif,
+    }),
+    [loginState, locale, socketNotif],
   );
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

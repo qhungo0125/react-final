@@ -5,7 +5,7 @@ import Home from './containers/Home';
 import Page from './containers';
 import NotFound from './components/NotFound';
 import Login from './containers/Login/index';
-import GlobalContext from './context';
+import GlobalContext, { useGlobal } from './context';
 import ConfirmRegister from './containers/ConfirmRegister';
 import ForgotPassword from './containers/ForgotPassword';
 import ConfirmPassword from './containers/ConfirmPassword';
@@ -17,7 +17,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import PageWithHeader from './components/PageWithHeader';
 import React from 'react';
-import { socket } from './socket';
 import AdminPage from './containers/AdminPage';
 import CustomizedSnackbars from './components/Notification/Notification';
 
@@ -133,35 +132,6 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-  console.log('effect run');
-  React.useEffect(() => {
-    const userId = localStorage.getItem('userid');
-    if (userId) {
-      // Emit 'userConnected' event with the user ID
-      socket.emit('userConnected', userId);
-    }
-
-    socket.on('connect', () => {
-      console.log('Connected to the server');
-    });
-
-    socket.on('welcome', (data) => {
-      console.log('Received welcome event:', data.message);
-      // Handle the welcome event as needed in your React component
-    });
-
-    socket.on('disconnect', () => {
-      console.log('Disconnected from the server');
-    });
-
-    // Additional custom events can be handled here
-
-    return () => {
-      // Clean up the socket connection when the component unmounts
-      socket.disconnect();
-    };
-  }, []);
-
   return (
     <GlobalContext>
       <MenuProvider>
