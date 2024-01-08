@@ -28,7 +28,7 @@ import { MenuContext } from '../../context/MenuContext';
 
 export const DashBoard = () => {
   const navigate = useNavigate();
-  const menuContext = useContext(MenuContext);
+  // const menuContext = useContext(MenuContext);
   const [classList, setClassList] = React.useState([]);
 
   React.useEffect(() => {
@@ -45,10 +45,10 @@ export const DashBoard = () => {
   }, []);
 
   const handleClassSelect = (class_id) => {
-    const { classId } = menuContext;
-    menuContext.updateClassId(class_id);
-    menuContext.handleClassTabChanges('stream');
-    navigate(`/class/stream?id=${class_id}`);
+    // const { classId } = menuContext;
+    // menuContext.updateClassId(class_id);
+    // menuContext.handleClassTabChanges('stream');
+    navigate(`/class/${class_id}/stream`);
   };
 
   return (
@@ -56,19 +56,19 @@ export const DashBoard = () => {
       {classList.map((class_item) => {
         return (
           <div
-            className="card d-inline-flex m-3"
+            className='card d-inline-flex m-3'
             key={class_item._id}
             style={{ width: 18 + 'rem', cursor: 'pointer' }}
             onClick={() => handleClassSelect(class_item._id)}
           >
             <img
-              src="https://wallpapers.com/images/hd/virtual-classroom-background-xl1p59ku6y834y02.jpg"
-              className="card-img-top"
+              src='https://wallpapers.com/images/hd/virtual-classroom-background-xl1p59ku6y834y02.jpg'
+              className='card-img-top'
               alt={class_item._id}
             />
-            <div className="card-body">
-              <h5 className="card-title">{class_item.name}</h5>
-              <p className="card-text">{class_item.description}</p>
+            <div className='card-body'>
+              <h5 className='card-title'>{class_item.name}</h5>
+              <p className='card-text'>{class_item.description}</p>
             </div>
           </div>
         );

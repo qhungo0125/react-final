@@ -49,10 +49,10 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/class/stream',
+    path: '/class/:classId/stream',
     Component: () => (
       <PageWithHeader>
-        <Page />
+        <Page key={'stream'} tab={'stream'} />
       </PageWithHeader>
     ),
   },
@@ -76,7 +76,7 @@ const router = createBrowserRouter([
     path: '/class',
     Component: () => (
       <PageWithHeader>
-        <Page />
+        <Page key={'class'} />
       </PageWithHeader>
     ),
   },

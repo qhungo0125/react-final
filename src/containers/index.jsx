@@ -16,8 +16,10 @@ import GradeStructure from './Grade/Structure/v2';
 import GradeUpload from './Grade/Upload/GradeUpload';
 import GradeStudents from './Grade/GradeStudents/GradeStudents';
 import ScoreReview from './Grade/Review/v2';
+import { useParams } from 'react-router-dom';
 
 const identifyTabs = () => {
+  console.log('identifyTabs');
   const menuContext = useContext(MenuContext);
 
   var tab;
@@ -69,7 +71,18 @@ const identifyTabs = () => {
   return tab;
 };
 
-const Page = () => {
+const Page = (props) => {
+  const { tab } = props;
+  const menuContext = useContext(MenuContext);
+
+  React.useEffect(() => {
+    console.log('tab ', tab);
+    if (tab) {
+      menuContext.handleClassTabChanges(tab);
+    } else {
+      menuContext.handleTabChanges('home');
+    }
+  }, [tab]);
   return (
     <div>
       {
