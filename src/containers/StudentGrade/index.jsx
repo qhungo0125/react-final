@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DataGrid, GridToolbar, GridActionsCellItem, GridToolbarContainer } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import useGradeStructure from './state.js'
 import Loader from '../../components/Loader'
 import { useTranslation } from 'react-i18next';
@@ -18,7 +18,6 @@ export default function StudentGrade() {
     React.useEffect(() => {
         fetchData()
     }, [])
-
 
     return (
         <div style={{ minHeight: 600, maxWidth: 'fit-content', width: "100%" }}>
