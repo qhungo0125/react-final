@@ -30,6 +30,12 @@ const buildMessageUrl = (item) => {
         createdAt: formatDateTime(item.comment.createdAt),
         url: `/class/${item.request.class._id}/grade/review/${item.request._id}`,
       };
+    case 'create':
+      return {
+        message: t('notif.receive.request', { name: item.request.class.name }),
+        createdAt: formatDateTime(item.request.createdAt),
+        url: `/class/${item.request.class._id}/grade/review/${item.request._id}`,
+      };
     default:
       break;
   }
@@ -154,13 +160,14 @@ export default function PrimarySearchAppBar() {
           const { message, url, createdAt } = buildMessageUrl(item);
           return (
             <MenuItem
+              className='border rounded mb-2 ms-2 me-2'
               key={item._id}
               onClick={(e) => {
                 handleMenuClose();
-                navigate(url);
+                navigate(url, { replace: true });
               }}
             >
-              <div className='d-flex flex-column border p-2 rounded'>
+              <div className='d-flex flex-column'>
                 <div>{createdAt}</div>
                 <div>{message}</div>
               </div>

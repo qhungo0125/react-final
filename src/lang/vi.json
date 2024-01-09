@@ -76,6 +76,7 @@
   "label.english": "Tiếng Anh",
 
   "notif.receive.comment": "Bạn nhận được một bình luận mới trong {{name}}",
+  "notif.receive.request": "Bạn nhận được một khiếu nại từ {{name}}",
 
   "label.button.confirm": "Xác nhận",
   "label.button.download": "Tải xuống",

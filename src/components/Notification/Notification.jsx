@@ -54,6 +54,8 @@ export default function CustomizedSnackbars() {
     switch (socketNotif.type) {
       case 'chat':
         return `New message from ${socketNotif.sender}`;
+      case 'create_review':
+        return `New review from ${socketNotif.sender}`;
     }
     // return 'This is a success message!';
   };

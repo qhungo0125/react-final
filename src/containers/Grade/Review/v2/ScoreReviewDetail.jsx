@@ -20,7 +20,7 @@ const ScoreReviewDetail = () => {
   };
   React.useEffect(() => {
     getData();
-  }, []);
+  }, [reviewId]);
 
   const sendChat = async (params) => {
     const { chatContent } = params;
