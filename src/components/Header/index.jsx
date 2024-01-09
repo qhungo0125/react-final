@@ -20,12 +20,14 @@ import { MenuContext } from '../../context/MenuContext';
 import { useTranslation } from 'react-i18next';
 import { useGlobal } from '../../context';
 import { t } from 'i18next';
+import { formatDateTime } from '../../utils/format';
 
 const buildMessageUrl = (item) => {
   switch (item.type) {
     case 'chat':
       return {
         message: t('notif.receive.comment', { name: item.request.class.name }),
+        createdAt: formatDateTime(item.comment.createdAt),
         url: `/class/${item.request.class._id}/grade/review/${item.request._id}`,
       };
     default:
@@ -149,7 +151,7 @@ export default function PrimarySearchAppBar() {
     >
       {notification &&
         notification.map((item) => {
-          const { message, url } = buildMessageUrl(item);
+          const { message, url, createdAt } = buildMessageUrl(item);
           return (
             <MenuItem
               key={item._id}
@@ -158,7 +160,10 @@ export default function PrimarySearchAppBar() {
                 navigate(url);
               }}
             >
-              {message}
+              <div className='d-flex flex-column border p-2 rounded'>
+                <div>{createdAt}</div>
+                <div>{message}</div>
+              </div>
             </MenuItem>
           );
         })}

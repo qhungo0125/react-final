@@ -14,16 +14,17 @@ const GlobalContext = ({ children }) => {
   });
   const [notification, setNotification] = React.useState(null);
   console.log(notification);
+
   React.useEffect(() => {
-    const getData = async () => {
+    const getDataNotif = async () => {
       const resp = await getNotifications({
         userId: localStorage.getItem('userid'),
       });
       // console.log(resp);
       setNotification(resp.data);
     };
-    getData();
-  }, []);
+    getDataNotif();
+  }, [socketNotif]);
 
   React.useEffect(() => {
     const locale = localStorage.getItem('locale') || 'vi';
