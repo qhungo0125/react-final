@@ -56,6 +56,10 @@ export default function CustomizedSnackbars() {
         return `New message from ${socketNotif.sender}`;
       case 'create_review':
         return `New review from ${socketNotif.sender}`;
+      case 'reject':
+        return `Your request has been rejected by ${socketNotif.sender}`;
+      case 'approve':
+        return `Your request has been approved by ${socketNotif.sender}`;
     }
     // return 'This is a success message!';
   };

@@ -36,6 +36,20 @@ const buildMessageUrl = (item) => {
         createdAt: formatDateTime(item.request.createdAt),
         url: `/class/${item.request.class._id}/grade/review/${item.request._id}`,
       };
+    case 'reject':
+      return {
+        message: t('notif.receive.reject', { name: item.request.teacher.name }),
+        createdAt: formatDateTime(item.request.updatedAt),
+        url: `/class/${item.request.class._id}/grade/review/${item.request._id}`,
+      };
+    case 'approve':
+      return {
+        message: t('notif.receive.approve', {
+          name: item.request.teacher.name,
+        }),
+        createdAt: formatDateTime(item.request.updatedAt),
+        url: `/class/${item.request.class._id}/grade/review/${item.request._id}`,
+      };
     default:
       break;
   }

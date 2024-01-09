@@ -3,9 +3,17 @@ import React from 'react';
 
 const ScoreDetail = ({ selectedRequest, onSendChat }) => {
   const [chatContent, setChatContent] = React.useState('');
+  console.log(selectedRequest.isApprove);
   return (
     <>
-      <h4 className='mb-4 text-center'>{selectedRequest.title}</h4>
+      <h4 className='mb-4 text-center'>
+        {selectedRequest.title}{' '}
+        {selectedRequest.isActive
+          ? ''
+          : selectedRequest.isApprove
+          ? `(${t('label.handled.success')})`
+          : `(${t('label.handled.fail')})`}
+      </h4>
       <p className='mb-4'>{selectedRequest.explain}</p>
       <div className='mt-2'>
         <h6 className='mb-2'>{t('label.list.comments')}</h6>

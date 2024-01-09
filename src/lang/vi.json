@@ -77,6 +77,10 @@
 
   "notif.receive.comment": "Bạn nhận được một bình luận mới trong {{name}}",
   "notif.receive.request": "Bạn nhận được một khiếu nại từ {{name}}",
+  "notif.receive.reject": "Khiếu nại của bạn đã bị từ chối bởi  {{name}}",
+  "notif.receive.approve": "Khiếu nại của bạn đã được phê duyệt bởi {{name}}",
+  "label.handled.fail": "Khiếu nại bị từ chối",
+  "label.handled.success": "Khiếu nại được phê duyệt",
 
   "label.button.confirm": "Xác nhận",
   "label.button.download": "Tải xuống",

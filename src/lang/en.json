@@ -75,6 +75,10 @@
 
   "notif.receive.comment": "You have a new comment in {{name}}",
   "notif.receive.request": "You have a new request from {{name}}",
+  "notif.receive.reject": "Your request has been rejected by {{name}}",
+  "notif.receive.approve": "Your request has been approved by {{name}}",
+  "label.handled.fail": "Request has been rejected ",
+  "label.handled.success": "Request has been approved ",
 
   "label.button.confirm": "Confirm",
   "label.button.download": "Download",
