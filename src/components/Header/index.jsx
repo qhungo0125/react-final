@@ -51,6 +51,7 @@ const buildMessageUrl = (item) => {
         url: `/class/${item.request.class._id}/grade/review/${item.request._id}`,
       };
     case 'publish':
+      console.log(item);
       return {
         message: t('label.publish.scoretype', {
           type: item.scoreType.name,
