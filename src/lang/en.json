@@ -79,6 +79,7 @@
   "notif.receive.approve": "Your request has been approved by {{name}}",
   "label.handled.fail": "Request has been rejected ",
   "label.handled.success": "Request has been approved ",
+  "label.publish.scoretype": "Score type {{type}} in class {{class}} has been published",
 
   "label.button.confirm": "Confirm",
   "label.button.download": "Download",

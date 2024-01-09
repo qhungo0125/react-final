@@ -81,6 +81,7 @@
   "notif.receive.approve": "Khiếu nại của bạn đã được phê duyệt bởi {{name}}",
   "label.handled.fail": "Khiếu nại bị từ chối",
   "label.handled.success": "Khiếu nại được phê duyệt",
+  "label.publish.scoretype": "Cột điểm {{type}} trong lớp {{class}} đã được công bố",
 
   "label.button.confirm": "Xác nhận",
   "label.button.download": "Tải xuống",

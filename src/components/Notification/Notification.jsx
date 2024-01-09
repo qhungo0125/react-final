@@ -60,6 +60,8 @@ export default function CustomizedSnackbars() {
         return `Your request has been rejected by ${socketNotif.sender}`;
       case 'approve':
         return `Your request has been approved by ${socketNotif.sender}`;
+      case 'publish':
+        return `Score ${socketNotif.scoreType.name} in class ${socketNotif.scoreType.class} has been published`;
     }
     // return 'This is a success message!';
   };

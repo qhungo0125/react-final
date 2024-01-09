@@ -50,6 +50,15 @@ const buildMessageUrl = (item) => {
         createdAt: formatDateTime(item.request.updatedAt),
         url: `/class/${item.request.class._id}/grade/review/${item.request._id}`,
       };
+    case 'publish':
+      return {
+        message: t('label.publish.scoretype', {
+          type: item.scoreType.name,
+          class: item.scoreType.class.name,
+        }),
+        createdAt: formatDateTime(item.scoreType.updatedAt),
+        url: `/class/${item.scoreType.class._id}/grade`,
+      };
     default:
       break;
   }
