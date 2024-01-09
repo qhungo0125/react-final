@@ -22,19 +22,18 @@ let styles = {
     bgColor: '#fff',
     hoverColor: '#e6e6e6',
     color: '#000000',
-    icon: <Google fontSize="inherit" />,
+    icon: <Google fontSize='inherit' />,
   },
   login_w_apple: {
     text: 'Log in with Apple',
     bgColor: '#000000',
     hoverColor: '#333333',
     color: '#fff',
-    icon: <Apple fontSize="inherit" />,
+    icon: <Apple fontSize='inherit' />,
   },
 };
 
 function Login() {
-  const { loginState } = useGlobal();
   const {
     formData,
     errors,
@@ -44,10 +43,9 @@ function Login() {
     loading,
   } = useLogin();
 
-
-  if (loading){
+  if (loading) {
     styles.login_btn.text = 'Loading...';
-  }else{
+  } else {
     styles.login_btn.text = 'Log in';
   }
 
@@ -55,17 +53,17 @@ function Login() {
   const { email: emailError, password: passwordError } = errors;
 
   return (
-    <div className="login_background">
-      <div className="login_wrapper">
+    <div className='login_background'>
+      <div className='login_wrapper'>
         <Box
-          className="login_form"
-          component="form"
+          className='login_form'
+          component='form'
           sx={{
             '& .MuiTextField-root': { marginBlock: 1 },
             width: { xs: '100%', md: '100%' },
           }}
           noValidate
-          autoComplete="off"
+          autoComplete='off'
         >
           <h2 style={{ textAlign: 'center' }}>Welcome back</h2>
           <SInput
@@ -88,7 +86,7 @@ function Login() {
           <div style={{ textAlign: 'right', fontSize: '10px' }}>
             <Link
               to={'/forgot-password'}
-              color="inherit"
+              color='inherit'
               sx={{ fontSize: 'inherit' }}
             >
               Forgot Password?
@@ -108,7 +106,7 @@ function Login() {
             Don't have an account? &nbsp;
             <Link
               to={'/register'}
-              color="#187b87"
+              color='#187b87'
               fontSize={'10px'}
               fontWeight={'500'}
             >
@@ -129,10 +127,10 @@ function Login() {
           </div>
         </Box>
         <Box
-          sx={{ display: { xs: 'none', sm: 'none', md: 'none', lg: "block" } }}
-          className="login_image"
+          sx={{ display: { xs: 'none', sm: 'none', md: 'none', lg: 'block' } }}
+          className='login_image'
         >
-          <img src="./login_bg.jpg" />
+          <img src='./login_bg.jpg' />
         </Box>
       </div>
     </div>

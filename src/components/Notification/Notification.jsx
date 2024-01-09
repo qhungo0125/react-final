@@ -6,7 +6,6 @@ import MuiAlert from '@mui/material/Alert';
 import { useGlobal } from '../../context';
 import { socket } from '../../socket';
 import { t } from 'i18next';
-
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
 });
@@ -14,6 +13,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 export default function CustomizedSnackbars() {
   const [open, setOpen] = React.useState(false);
   const { changeSocketNotif, socketNotif } = useGlobal();
+
   React.useEffect(() => {
     const userId = localStorage.getItem('userid');
     if (userId) {

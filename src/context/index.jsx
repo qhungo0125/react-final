@@ -1,19 +1,15 @@
 import React from 'react';
-import { STUDENT_ROLE } from '../constant';
 import { useTranslation } from 'react-i18next';
 import { getNotifications } from '../api/notification';
+import { AuthenticationAPI } from '../api/authentication';
+
 const AppContext = React.createContext();
 
 const GlobalContext = ({ children }) => {
   const { i18n } = useTranslation();
   const [locale, setLocale] = React.useState('vi');
   const [socketNotif, setSocketNotif] = React.useState(null);
-  const [loginState, setLoginState] = React.useState({
-    isLogin: false,
-    role: STUDENT_ROLE,
-  });
   const [notification, setNotification] = React.useState(null);
-  console.log(notification);
 
   React.useEffect(() => {
     const getDataNotif = async () => {
@@ -42,13 +38,12 @@ const GlobalContext = ({ children }) => {
 
   const value = React.useMemo(
     () => ({
-      loginState,
       changeLanguage,
       changeSocketNotif,
       socketNotif,
       notification,
     }),
-    [loginState, locale, socketNotif, notification],
+    [locale, socketNotif, notification],
   );
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

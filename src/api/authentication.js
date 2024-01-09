@@ -50,4 +50,10 @@ export const AuthenticationAPI = {
     });
     return data;
   },
+  loginWithUserId: async ({ userId }) => {
+    const data = await ClientAxios.post('/accounts/auth/login', {
+      userId,
+    });
+    return data;
+  },
 };

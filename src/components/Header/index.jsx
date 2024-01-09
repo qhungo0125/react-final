@@ -160,6 +160,16 @@ export default function PrimarySearchAppBar() {
       >
         {t('label.profile')}
       </MenuItem>
+      <MenuItem
+        onClick={(e) => {
+          localStorage.removeItem('token');
+          localStorage.removeItem('userid');
+          localStorage.removeItem('role');
+          navigate('/login');
+        }}
+      >
+        {t('label.button.logout')}
+      </MenuItem>
       {/* <MenuItem onClick={handleMenuClose}>My account</MenuItem> */}
     </Menu>
   );

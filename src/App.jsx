@@ -5,7 +5,7 @@ import Home from './containers/Home';
 import Page from './containers';
 import NotFound from './components/NotFound';
 import Login from './containers/Login/index';
-import GlobalContext, { useGlobal } from './context';
+import GlobalContext from './context';
 import ConfirmRegister from './containers/ConfirmRegister';
 import ForgotPassword from './containers/ForgotPassword';
 import ConfirmPassword from './containers/ConfirmPassword';
@@ -19,6 +19,7 @@ import PageWithHeader from './components/PageWithHeader';
 import React from 'react';
 import AdminPage from './containers/AdminPage';
 import CustomizedSnackbars from './components/Notification/Notification';
+import AuthenticationRoute from './containers/AuthenticationRoute/AuthenticationRoute';
 
 const router = createBrowserRouter([
   { path: '/login', Component: () => <Login /> },
@@ -27,89 +28,101 @@ const router = createBrowserRouter([
   {
     path: '/class/:classId/people',
     Component: () => (
-      <PageWithHeader>
-        <Page tab={'people'} />
-      </PageWithHeader>
+      <AuthenticationRoute>
+        <PageWithHeader>
+          <Page tab={'people'} />
+        </PageWithHeader>
+      </AuthenticationRoute>
     ),
   },
   {
     path: '/class/:classId/grade',
     Component: () => (
-      <PageWithHeader>
-        <Page tab={'grade'} />
-      </PageWithHeader>
+      <AuthenticationRoute>
+        <PageWithHeader>
+          <Page tab={'grade'} />
+        </PageWithHeader>
+      </AuthenticationRoute>
     ),
   },
   {
     path: '/class/:classId/grade/upload',
     Component: () => (
-      <PageWithHeader>
-        <Page tab={'grade_upload'} />
-      </PageWithHeader>
+      <AuthenticationRoute>
+        <PageWithHeader>
+          <Page tab={'grade_upload'} />
+        </PageWithHeader>
+      </AuthenticationRoute>
     ),
   },
   {
     path: '/class/:classId/grade/students',
     Component: () => (
-      <PageWithHeader>
-        <Page tab={'grade_students'} />
-      </PageWithHeader>
+      <AuthenticationRoute>
+        <PageWithHeader>
+          <Page tab={'grade_students'} />
+        </PageWithHeader>
+      </AuthenticationRoute>
     ),
   },
   {
     path: '/class/:classId/grade/structure',
     Component: () => (
-      <PageWithHeader>
-        <Page tab={'grade_structure'} />
-      </PageWithHeader>
+      <AuthenticationRoute>
+        <PageWithHeader>
+          <Page tab={'grade_structure'} />
+        </PageWithHeader>
+      </AuthenticationRoute>
     ),
   },
   {
     path: '/class/:classId/grade/review',
     Component: () => (
-      <PageWithHeader>
-        <Page tab={'grade_review'} />
-      </PageWithHeader>
+      <AuthenticationRoute>
+        <PageWithHeader>
+          <Page tab={'grade_review'} />
+        </PageWithHeader>
+      </AuthenticationRoute>
     ),
   },
   {
     path: '/class/:classId/grade/review/:reviewId',
     Component: () => (
-      <PageWithHeader>
-        <Page tab={'grade_review_detail'} />
-      </PageWithHeader>
+      <AuthenticationRoute>
+        <PageWithHeader>
+          <Page tab={'grade_review_detail'} />
+        </PageWithHeader>
+      </AuthenticationRoute>
     ),
   },
   {
     path: '/class/:classId/stream',
     Component: () => (
-      <PageWithHeader>
-        <Page tab={'stream'} />
-      </PageWithHeader>
+      <AuthenticationRoute>
+        <PageWithHeader>
+          <Page tab={'stream'} />
+        </PageWithHeader>
+      </AuthenticationRoute>
     ),
   },
   {
     path: '/add_class',
     Component: () => (
-      <PageWithHeader>
-        <Page mainTab={'add_class'} />
-      </PageWithHeader>
+      <AuthenticationRoute>
+        <PageWithHeader>
+          <Page mainTab={'add_class'} />
+        </PageWithHeader>
+      </AuthenticationRoute>
     ),
   },
-  // {
-  //   path: '/dashboard',
-  //   Component: () => (
-  //     <PageWithHeader>
-  //       <Page />
-  //     </PageWithHeader>
-  //   ),
-  // },
   {
     path: '/classes',
     Component: () => (
-      <PageWithHeader>
-        <Page />
-      </PageWithHeader>
+      <AuthenticationRoute>
+        <PageWithHeader>
+          <Page />
+        </PageWithHeader>
+      </AuthenticationRoute>
     ),
   },
   { path: '/confirm-register', Component: () => <ConfirmRegister /> },
@@ -119,14 +132,20 @@ const router = createBrowserRouter([
   {
     path: '/profile',
     Component: () => (
-      <PageWithHeader>
-        <ProfilePage />
-      </PageWithHeader>
+      <AuthenticationRoute>
+        <PageWithHeader>
+          <ProfilePage />
+        </PageWithHeader>
+      </AuthenticationRoute>
     ),
   },
   {
     path: '/admin',
-    Component: () => <AdminPage />,
+    Component: () => (
+      <AuthenticationRoute>
+        <AdminPage />
+      </AuthenticationRoute>
+    ),
   },
   { path: '*', Component: () => <NotFound /> },
 ]);
@@ -135,8 +154,11 @@ export default function App() {
   return (
     <GlobalContext>
       <MenuProvider>
-        <RouterProvider router={router} />
-        <CustomizedSnackbars />
+        <RouterProvider router={router}>
+          <AuthenticationRoute>
+            <CustomizedSnackbars />
+          </AuthenticationRoute>
+        </RouterProvider>
       </MenuProvider>
     </GlobalContext>
   );

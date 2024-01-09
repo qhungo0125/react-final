@@ -81,15 +81,15 @@ export function useLogin() {
         localStorage.setItem('token', access_token);
         localStorage.setItem('userid', userId);
         localStorage.setItem('role', role);
-        // alert('login successfully');
-        // setTimeout()
-
-        setTimeout(() => navigate('/classes'), 2000);
+        navigate('/classes');
       } else {
         setLoading(false);
 
         alert('Error occurs');
         // res.error ? alert(res.error.message) : alert('Error occurs');
+        localStorage.removeItem('token');
+        localStorage.removeItem('userid');
+        localStorage.removeItem('role');
       }
     } catch (error) {
       setLoading(false);

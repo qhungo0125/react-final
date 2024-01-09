@@ -101,5 +101,6 @@
   "label.button.detail": "View detail",
   "label.button.previous": "Previous",
   "label.button.next": "Next",
+  "label.button.logout": "Logout",
   "label.button.cancel": "Cancel"
 }
