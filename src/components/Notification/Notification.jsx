@@ -53,15 +53,18 @@ export default function CustomizedSnackbars() {
     if (!socketNotif) return;
     switch (socketNotif.type) {
       case 'chat':
-        return `New message from ${socketNotif.sender}`;
+        return t('notif.receive.comment.from', { name: socketNotif.sender });
       case 'create_review':
-        return `New review from ${socketNotif.sender}`;
+        return t('notif.receive.request', { name: socketNotif.sender });
       case 'reject':
-        return `Your request has been rejected by ${socketNotif.sender}`;
+        return t('notif.receive.reject', { name: socketNotif.sender });
       case 'approve':
-        return `Your request has been approved by ${socketNotif.sender}`;
+        return t('notif.receive.approve', { name: socketNotif.sender });
       case 'publish':
-        return `Score ${socketNotif.scoreType.name} in class ${socketNotif.scoreType.class} has been published`;
+        return t('label.publish.scoretype', {
+          type: socketNotif.scoreType.name,
+          class: socketNotif.scoreType.class,
+        });
     }
     // return 'This is a success message!';
   };
@@ -73,10 +76,6 @@ export default function CustomizedSnackbars() {
           {buildContent()}
         </Alert>
       </Snackbar>
-      {/* <Alert severity='error'>This is an error message!</Alert>
-      <Alert severity='warning'>This is a warning message!</Alert>
-      <Alert severity='info'>This is an information message!</Alert>
-      <Alert severity='success'>This is a success message!</Alert> */}
     </Stack>
   );
 }

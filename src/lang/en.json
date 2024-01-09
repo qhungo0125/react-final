@@ -74,6 +74,7 @@
   "label.english": "English",
 
   "notif.receive.comment": "You have a new comment in {{name}}",
+  "notif.receive.comment.from": "You have a new comment from {{name}}",
   "notif.receive.request": "You have a new request from {{name}}",
   "notif.receive.reject": "Your request has been rejected by {{name}}",
   "notif.receive.approve": "Your request has been approved by {{name}}",
