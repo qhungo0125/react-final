@@ -19,50 +19,23 @@ import { useContext } from 'react';
 import { MenuContext } from '../../context/MenuContext';
 import { useTranslation } from 'react-i18next';
 import { useGlobal } from '../../context';
+import { t } from 'i18next';
 
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
-    width: 'auto',
-  },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
-    },
-  },
-}));
+const buildMessageUrl = (item) => {
+  switch (item.type) {
+    case 'chat':
+      return {
+        message: t('notif.receive.comment', { name: item.request.class.name }),
+        url: `/class/${item.request.class._id}/grade/review/${item.request._id}`,
+      };
+    default:
+      break;
+  }
+};
 
 export default function PrimarySearchAppBar() {
   const { t } = useTranslation();
-  const { changeLanguage } = useGlobal();
+  const { changeLanguage, notification } = useGlobal();
   const navigate = useNavigate();
   const menuContext = useContext(MenuContext);
 
@@ -96,6 +69,7 @@ export default function PrimarySearchAppBar() {
 
   const menuId = 'primary-search-account-menu';
   const languageId = 'primary-languages-menu';
+  const notifId = 'primary-notifs-menu';
   const renderLanguagesMenu = anchorEl && anchorEl.id === languageId && (
     <Menu
       anchorEl={anchorEl}
@@ -155,6 +129,39 @@ export default function PrimarySearchAppBar() {
         {t('label.profile')}
       </MenuItem>
       {/* <MenuItem onClick={handleMenuClose}>My account</MenuItem> */}
+    </Menu>
+  );
+  const renderNotifMenu = anchorEl && anchorEl.id === notifId && (
+    <Menu
+      anchorEl={anchorEl}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'right',
+      }}
+      id={menuId}
+      keepMounted
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
+    >
+      {notification &&
+        notification.map((item) => {
+          const { message, url } = buildMessageUrl(item);
+          return (
+            <MenuItem
+              key={item._id}
+              onClick={(e) => {
+                handleMenuClose();
+                navigate(url);
+              }}
+            >
+              {message}
+            </MenuItem>
+          );
+        })}
     </Menu>
   );
   const mobileMenuId = 'primary-search-account-menu-mobile';
@@ -232,7 +239,7 @@ export default function PrimarySearchAppBar() {
                 {t('group.name')}
               </Typography>
             </Box>
-            <Search>
+            {/* <Search>
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
@@ -240,15 +247,22 @@ export default function PrimarySearchAppBar() {
                 placeholder='Search…'
                 inputProps={{ 'aria-label': 'search' }}
               />
-            </Search>
+            </Search> */}
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
               <IconButton
+                id={notifId}
                 size='large'
-                aria-label='show 17 new notifications'
+                edge='end'
+                aria-controls={notifId}
+                aria-haspopup='true'
+                onClick={handleProfileMenuOpen}
                 color='inherit'
               >
-                <Badge badgeContent={17} color='error'>
+                <Badge
+                  badgeContent={notification ? notification.length : 0}
+                  color='error'
+                >
                   <NotificationsIcon />
                 </Badge>
               </IconButton>
@@ -292,6 +306,7 @@ export default function PrimarySearchAppBar() {
         {renderMobileMenu}
         {renderMenu}
         {renderLanguagesMenu}
+        {renderNotifMenu}
       </Box>
     </div>
   );

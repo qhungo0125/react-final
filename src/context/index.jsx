@@ -1,7 +1,7 @@
 import React from 'react';
 import { STUDENT_ROLE } from '../constant';
 import { useTranslation } from 'react-i18next';
-
+import { getNotifications } from '../api/notification';
 const AppContext = React.createContext();
 
 const GlobalContext = ({ children }) => {
@@ -12,6 +12,18 @@ const GlobalContext = ({ children }) => {
     isLogin: false,
     role: STUDENT_ROLE,
   });
+  const [notification, setNotification] = React.useState(null);
+  console.log(notification);
+  React.useEffect(() => {
+    const getData = async () => {
+      const resp = await getNotifications({
+        userId: localStorage.getItem('userid'),
+      });
+      // console.log(resp);
+      setNotification(resp.data);
+    };
+    getData();
+  }, []);
 
   React.useEffect(() => {
     const locale = localStorage.getItem('locale') || 'vi';
@@ -33,8 +45,9 @@ const GlobalContext = ({ children }) => {
       changeLanguage,
       changeSocketNotif,
       socketNotif,
+      notification,
     }),
-    [loginState, locale, socketNotif],
+    [loginState, locale, socketNotif, notification],
   );
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

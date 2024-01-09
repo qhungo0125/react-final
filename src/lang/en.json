@@ -73,6 +73,8 @@
   "label.vietnamese": "Vietnamese",
   "label.english": "English",
 
+  "notif.receive.comment": "You have a new comment in {{name}}",
+
   "label.button.confirm": "Confirm",
   "label.button.download": "Download",
   "label.button.goback": "Go back",

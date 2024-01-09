@@ -75,6 +75,8 @@
   "label.vietnamese": "Tiếng Việt",
   "label.english": "Tiếng Anh",
 
+  "notif.receive.comment": "Bạn nhận được một bình luận mới trong {{name}}",
+
   "label.button.confirm": "Xác nhận",
   "label.button.download": "Tải xuống",
   "label.button.cancel": "Hủy",
