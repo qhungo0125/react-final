@@ -55,9 +55,11 @@ export default function useGradeStructure() {
         let temp_rows = []
         let over_all = 0;
         let sum_percent = 0;
+        const userId = localStorage.getItem('userid')
         for (var i = 0; i < types.length; i++) {
-            if (types[i].isPublish == true) {// de tam
-                let score = scores.filter(item => item.type && item.type._id === types[i]._id)
+            //set score
+            if (types[i].isPublish == true) {
+                let score = scores.filter(item => item.type && item.type._id === types[i]._id && item.student._id === userId)
                 let grade = ''
                 if (score.length > 0) {
                     grade = score[0].value
