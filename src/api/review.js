@@ -64,8 +64,8 @@ export async function createRequest(params) {
     return;
   }
 
-  const response = await ClientAxios.get(
-    `/score/create-request'`, {
+  const response = await ClientAxios.post(
+    `/score/create-request`, {
     title,
     explain,
     actualScore,

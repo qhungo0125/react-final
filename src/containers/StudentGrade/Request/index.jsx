@@ -3,19 +3,24 @@ import { Box, IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { useSearchParams } from 'react-router-dom';
 import { getClassReviews, sendChatContent } from '../../../api/review';
+import { MenuContext } from '../../../context/MenuContext';
 import Comment from './Comment';
 import Request from './Request';
 import NewRequest from './NewRequest';
+import { useParams } from 'react-router-dom';
 
-const RequestList = ({rows}) => {
+const RequestList = ({ rows, scores }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [requests, setRequests] = React.useState([]);
   const [selectedRequest, setSelectedRequest] = React.useState({});
   const [openComments, setOpenComments] = React.useState(false);
   const [openRequest, setOpenRequest] = React.useState(false);
+  const [reload, setReload] = React.useState(false);
+  const menuContext = React.useContext(MenuContext);
+  const { classId } = useParams();
+  
 
   const getData = async () => {
-    const classId = searchParams.get('id');
     const studentId = localStorage.getItem('userid')
     const requests = await getClassReviews({ classId });
     if (requests.success && requests.data && requests.data.length > 0) {
@@ -32,7 +37,9 @@ const RequestList = ({rows}) => {
       setRequests(data);
     };
     getInitData();
-  }, []);
+  }, [reload]);
+
+  console.log()
 
   const viewCommentHandler = (request) => {
     if (openComments || !request) {
@@ -76,6 +83,10 @@ const RequestList = ({rows}) => {
     setOpenRequest(prev => !prev)
   }
 
+  const reloadRequest = () => {
+    setReload(prev => !prev)
+  }
+
   return (
     <>
       <Box sx={{ width: '100%', textAlign: 'center', marginBottom: '10px' }}>
@@ -87,7 +98,10 @@ const RequestList = ({rows}) => {
           <AddIcon />
         </IconButton>
       </Box>
-      {openRequest && <NewRequest closeForm={handleAddRequestBtnClick} rows={rows}/>}
+      {
+        openRequest &&
+        <NewRequest closeForm={handleAddRequestBtnClick} rows={rows} scores={scores} reloadRequest={reloadRequest}/>
+      }
       <div className={openComments && 'opacity-25'}>
         {requests.map((request) => {
           return (

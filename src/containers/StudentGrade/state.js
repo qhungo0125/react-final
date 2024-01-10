@@ -3,15 +3,17 @@ import { useNavigate } from 'react-router-dom';
 import { MenuContext } from '../../context/MenuContext.jsx';
 import { GradeAPI } from '../../api/grade.js';
 import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
 
 
 export default function useGradeStructure() {
     const navigate = useNavigate();
     const [gradeStructure, setGradeStructure] = React.useState([])
-    const [score, setScore] = React.useState([])
+    const [scores, setScores] = React.useState([])
     const [loading, setLoading] = React.useState(false)
     const [rows, setRows] = React.useState([]);
     const [overAll, setOverAll] = React.useState(0)
+    const { classId } = useParams();
 
     const menuContext = React.useContext(MenuContext);
 
@@ -42,6 +44,7 @@ export default function useGradeStructure() {
             }
 
             getRows({ types: scoreTypesResponse.data, scores: studentScoresResponse.data });
+            setScores(studentScoresResponse.data)
         } catch (error) {
             console.error(error);
         } finally {
@@ -58,7 +61,7 @@ export default function useGradeStructure() {
         const userId = localStorage.getItem('userid')
         for (var i = 0; i < types.length; i++) {
             //set score
-            if (types[i].isPublish == true) {
+            if (types[i].class._id === classId && types[i].isPublish == true) {
                 let score = scores.filter(item => item.type && item.type._id === types[i]._id && item.student._id === userId)
                 let grade = ''
                 if (score.length > 0) {
@@ -86,6 +89,7 @@ export default function useGradeStructure() {
         columns,
         rows,
         overAll,
+        scores,
         fetchData
     };
 }

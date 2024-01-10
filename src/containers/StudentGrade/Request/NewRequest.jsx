@@ -3,10 +3,9 @@ import { createRequest } from '../../../api/review';
 import { t } from 'i18next';
 import React from 'react';
 
-const NewRequest = ({ closeForm, rows }) => {//types
+const NewRequest = ({ closeForm, rows, scores, reloadRequest }) => {//types
   const [form, setForm] = React.useState({
     title: '',
-    name: '',
     composition: '',
     actual_score: '',
     expected_score: '',
@@ -29,17 +28,23 @@ const NewRequest = ({ closeForm, rows }) => {//types
     }))
   }
 
+  console.log(form)
+
   const hanleCreateRequest = async () => {
+    const studentId = localStorage.getItem('userid')
+    const score = scores.filter(item => item.student._id === studentId && item.type._id === form.composition)
     await createRequest({
       title: form.title,
       explain: form.explain,
       actualScore: form.actual_score,
       expectedScore: form.expected_score,
-      studentId: localStorage.getItem('userid'),
-      teacherId: '',
-      classId: '',
-      scoreId: '',
+      studentId: studentId,
+      teacherId: score[0].teacher._id,
+      classId: score[0].type.class._id,
+      scoreId: score[0]._id,
     })
+    closeForm();
+    reloadRequest();
   }
 
   console.log(compositions)
@@ -57,16 +62,6 @@ const NewRequest = ({ closeForm, rows }) => {//types
           value={form.title}
           required
           onChange={(e) => handleChangeText({ field: 'title', value: e.target.value })}
-        />
-        <TextField
-          label="Name"
-          variant="outlined"
-          fullWidth
-          InputLabelProps={{ shrink: true, }}
-          size='small'
-          value={form.name}
-          required
-          onChange={(e) => handleChangeText({ field: 'name', value: e.target.value })}
         />
         <div className='mt-2 d-flex gap-4 justify-content-center mt-4'>
           <FormControl >
