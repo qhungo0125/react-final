@@ -5,21 +5,23 @@ import { useSearchParams } from 'react-router-dom';
 import { getClassReviews, sendChatContent } from '../../../api/review';
 import Comment from './Comment';
 import Request from './Request';
+import NewRequest from './NewRequest';
 
 const RequestList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [requests, setRequests] = React.useState([]);
   const [selectedRequest, setSelectedRequest] = React.useState({});
   const [openComments, setOpenComments] = React.useState(false);
+  const [openRequest, setOpenRequest] = React.useState(false);
 
   const getData = async () => {
     const classId = searchParams.get('id');
     const studentId = localStorage.getItem('userid')
     const requests = await getClassReviews({ classId });
     if (requests.success && requests.data && requests.data.length > 0) {
-      const student_requests = requests.data.filter(rq => rq.student._id === studentId)
-      return student_requests;
-      //return requests.data;
+      //const student_requests = requests.data.filter(rq => rq.student._id === studentId)
+      //return student_requests;
+      return requests.data;
     }
     return [];
   };
@@ -70,16 +72,22 @@ const RequestList = () => {
     }
   };
 
+  const handleAddRequestBtn = () => {
+    setOpenRequest(prev => !prev)
+  }
+
   return (
     <>
       <Box sx={{ width: '100%', textAlign: 'center', marginBottom: '10px' }}>
         <IconButton
           color='primary'
           size='large'
+          onClick={handleAddRequestBtn}
         >
           <AddIcon />
         </IconButton>
       </Box>
+      {openRequest && <NewRequest />}
       <div className={openComments && 'opacity-25'}>
         {requests.map((request) => {
           return (
