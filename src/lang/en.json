@@ -53,6 +53,13 @@
   "label.overall": "Overall",
   "label.score.publish": "Publish",
   "label.list.comments": "List comments",
+  "label.scorerequests": "Score Requests",
+  "label.request.title": "Title",
+  "label.request.score.actual": "Actual Score",
+  "label.request.score.expected": "Expected Score",
+  "label.request.explain": "Your explaination",
+  "label.create":"Create",
+  "label.cancel":"Cancel",
 
   "admin.nav.accounts": "Accounts",
   "admin.nav.classes": "Classes",

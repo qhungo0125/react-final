@@ -60,7 +60,7 @@ export default function StudentGrade() {
                             </span>
                         </div>
                     </div>
-                    <Divider sx={{ marginTop: "40px", marginBottom: "10px" }}><strong>Request List</strong></Divider>
+                    <Divider sx={{ marginTop: "40px", marginBottom: "10px" }}><strong>{t('label.scorerequests')}</strong></Divider>
                     <RequestList rows={rows} scores={scores} />
                 </div>
 

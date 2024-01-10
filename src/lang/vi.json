@@ -55,6 +55,13 @@
   "label.select.score.type": "Chọn loại điểm",
   "label.publish.score": "Công bố điểm",
   "label.list.comments": "Danh sách bình luận",
+  "label.scorerequests": "Danh sách phúc khảo",
+  "label.request.title": "Tiêu đề",
+  "label.request.score.actual": "Điểm hiện tại",
+  "label.request.score.expected": "Điểm mong muốn",
+  "label.request.explain": "Lý do của bạn",
+  "label.create":"Tạo",
+  "label.cancel":"Hủy",
 
   "admin.nav.accounts": "Tài Khoản",
   "admin.manage.accounts": "Quản lý Tài Khoản",

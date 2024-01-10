@@ -53,7 +53,7 @@ const NewRequest = ({ closeForm, rows, scores, reloadRequest }) => {//types
     <div className='mb-4 border border-2 p-4 rounded'>
       <div style={{ maxWidth: "350px", marginInline: "auto" }}>
         <TextField
-          label="Title"
+          label={t('label.request.title')}
           variant="outlined"
           fullWidth
           InputLabelProps={{ shrink: true, }}
@@ -65,7 +65,7 @@ const NewRequest = ({ closeForm, rows, scores, reloadRequest }) => {//types
         />
         <div className='mt-2 d-flex gap-4 justify-content-center mt-4'>
           <FormControl >
-            <InputLabel id="Composition" size='small' required >Composition</InputLabel>
+            <InputLabel id="Composition" size='small' required >{t('label.composition')}</InputLabel>
             <Select
               labelId="Composition"
               label="Composition"
@@ -85,7 +85,7 @@ const NewRequest = ({ closeForm, rows, scores, reloadRequest }) => {//types
           </FormControl>
           <div className='d-flex flex-column gap-2'>
             <TextField
-              label="Actual Score"
+              label={t('label.request.score.actual')}
               variant="outlined"
               size="small"
               sx={{ maxWidth: "150px" }}
@@ -97,7 +97,7 @@ const NewRequest = ({ closeForm, rows, scores, reloadRequest }) => {//types
 
             />
             <TextField
-              label="Expected Score"
+              label={t('label.request.score.expected')}
               variant="outlined"
               size="small"
               sx={{ maxWidth: "150px" }}
@@ -111,7 +111,7 @@ const NewRequest = ({ closeForm, rows, scores, reloadRequest }) => {//types
         </div>
 
         <TextField
-          placeholder="Your explaination..."
+          placeholder={t('label.request.explain')+"..."}
           multiline
           rows={5}
           maxRows={20}
@@ -126,10 +126,10 @@ const NewRequest = ({ closeForm, rows, scores, reloadRequest }) => {//types
       </div>
       <div className='mt-2 d-flex gap-4 justify-content-center'>
         <button className='btn btn-light' onClick={closeForm}>
-          Cancel
+          {t('label.cancel')}
         </button>
         <button className='btn btn-info' onClick={hanleCreateRequest}>
-          Create
+          {t('label.create')}
         </button>
       </div>
     </div >
