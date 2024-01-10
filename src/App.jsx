@@ -17,67 +17,113 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import PageWithHeader from './components/PageWithHeader';
 import React from 'react';
-import { socket } from './socket';
 import AdminPage from './containers/AdminPage';
+import CustomizedSnackbars from './components/Notification/Notification';
+import AuthenticationRoute from './containers/AuthenticationRoute/AuthenticationRoute';
+import AdminRoute from './containers/AuthenticationRoute/AdminRoute';
 
 const router = createBrowserRouter([
   { path: '/login', Component: () => <Login /> },
   { path: '/register', Component: () => <Register /> },
   { path: '/', Component: () => <Home /> },
   {
-    path: '/class/people',
+    path: '/class/:classId/people',
     Component: () => (
-      <PageWithHeader>
-        <Page />
-      </PageWithHeader>
+      <AuthenticationRoute>
+        <PageWithHeader>
+          <Page tab={'people'} />
+        </PageWithHeader>
+      </AuthenticationRoute>
     ),
   },
   {
-    path: '/class/general',
+    path: '/class/:classId/grade',
     Component: () => (
-      <PageWithHeader>
-        <Page />
-      </PageWithHeader>
+      <AuthenticationRoute>
+        <PageWithHeader>
+          <Page tab={'grade'} />
+        </PageWithHeader>
+      </AuthenticationRoute>
     ),
   },
   {
-    path: '/class/grade',
+    path: '/class/:classId/grade/upload',
     Component: () => (
-      <PageWithHeader>
-        <Page />
-      </PageWithHeader>
+      <AuthenticationRoute>
+        <PageWithHeader>
+          <Page tab={'grade_upload'} />
+        </PageWithHeader>
+      </AuthenticationRoute>
     ),
   },
   {
-    path: '/class/stream',
+    path: '/class/:classId/grade/students',
     Component: () => (
-      <PageWithHeader>
-        <Page />
-      </PageWithHeader>
+      <AuthenticationRoute>
+        <PageWithHeader>
+          <Page tab={'grade_students'} />
+        </PageWithHeader>
+      </AuthenticationRoute>
+    ),
+  },
+  {
+    path: '/class/:classId/grade/structure',
+    Component: () => (
+      <AuthenticationRoute>
+        <PageWithHeader>
+          <Page tab={'grade_structure'} />
+        </PageWithHeader>
+      </AuthenticationRoute>
+    ),
+  },
+  {
+    path: '/class/:classId/grade/review',
+    Component: () => (
+      <AuthenticationRoute>
+        <PageWithHeader>
+          <Page tab={'grade_review'} />
+        </PageWithHeader>
+      </AuthenticationRoute>
+    ),
+  },
+  {
+    path: '/class/:classId/grade/review/:reviewId',
+    Component: () => (
+      <AuthenticationRoute>
+        <PageWithHeader>
+          <Page tab={'grade_review_detail'} />
+        </PageWithHeader>
+      </AuthenticationRoute>
+    ),
+  },
+  {
+    path: '/class/:classId/stream',
+    Component: () => (
+      <AuthenticationRoute>
+        <PageWithHeader>
+          <Page tab={'stream'} />
+        </PageWithHeader>
+      </AuthenticationRoute>
     ),
   },
   {
     path: '/add_class',
     Component: () => (
-      <PageWithHeader>
-        <Page />
-      </PageWithHeader>
+      <AuthenticationRoute>
+        <PageWithHeader>
+          <Page mainTab={'add_class'} />
+        </PageWithHeader>
+      </AuthenticationRoute>
     ),
   },
   {
-    path: '/dashboard',
+    path: '/classes',
     Component: () => (
-      <PageWithHeader>
-        <Page />
-      </PageWithHeader>
-    ),
-  },
-  {
-    path: '/class',
-    Component: () => (
-      <PageWithHeader>
-        <Page />
-      </PageWithHeader>
+      <AuthenticationRoute>
+        <PageWithHeader>
+          <Page />
+        </PageWithHeader>
+      </AuthenticationRoute>
     ),
   },
   { path: '/confirm-register', Component: () => <ConfirmRegister /> },
@@ -87,52 +133,35 @@ const router = createBrowserRouter([
   {
     path: '/profile',
     Component: () => (
-      <PageWithHeader>
-        <ProfilePage />
-      </PageWithHeader>
+      <AuthenticationRoute>
+        <PageWithHeader>
+          <ProfilePage />
+        </PageWithHeader>
+      </AuthenticationRoute>
     ),
   },
   {
     path: '/admin',
-    Component: () => <AdminPage />,
+    Component: () => (
+      <AuthenticationRoute>
+        <AdminRoute>
+          <AdminPage />
+        </AdminRoute>
+      </AuthenticationRoute>
+    ),
   },
   { path: '*', Component: () => <NotFound /> },
 ]);
 
 export default function App() {
-  console.log('effect run');
-  React.useEffect(() => {
-    const userId = localStorage.getItem('userid');
-    if (userId) {
-      // Emit 'userConnected' event with the user ID
-      socket.emit('userConnected', userId);
-    }
-
-    socket.on('connect', () => {
-      console.log('Connected to the server');
-    });
-
-    socket.on('welcome', (data) => {
-      console.log('Received welcome event:', data.message);
-      // Handle the welcome event as needed in your React component
-    });
-
-    socket.on('disconnect', () => {
-      console.log('Disconnected from the server');
-    });
-
-    // Additional custom events can be handled here
-
-    return () => {
-      // Clean up the socket connection when the component unmounts
-      socket.disconnect();
-    };
-  }, []);
-
   return (
     <GlobalContext>
       <MenuProvider>
-        <RouterProvider router={router} />
+        <RouterProvider router={router}>
+          <AuthenticationRoute>
+            <CustomizedSnackbars />
+          </AuthenticationRoute>
+        </RouterProvider>
       </MenuProvider>
     </GlobalContext>
   );

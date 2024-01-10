@@ -6,24 +6,22 @@ import {
   setScoreStructure,
   updateType,
 } from '../../../../api/scoreStructure';
-import { useSearchParams } from 'react-router-dom';
 import AddForm from './AddForm';
 import DraggableList from './StructureDetail';
 import EditForm from './EditForm';
 import { t } from 'i18next';
-
+import { useParams } from 'react-router-dom';
 const GradeStructure = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
   const [classTypes, setClassTypes] = React.useState([]);
   const [openAddForm, setOpenAddForm] = React.useState(false);
   const [openEditForm, setOpenEditForm] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [selectedType, setSelectedType] = React.useState({});
+  const { classId } = useParams();
 
   console.log(openEditForm);
 
   const fetchData = async () => {
-    const classId = searchParams.get('id');
     const classTypes = await getClassScoreTypes({ classId });
     console.log('classTypes', classTypes);
     setClassTypes(classTypes.data);
@@ -39,7 +37,6 @@ const GradeStructure = () => {
       console.error('Missing name or percentage');
       return;
     }
-    const classId = searchParams.get('id');
     try {
       setLoading(true);
       const response = await setScoreStructure({ name, percentage, classId });

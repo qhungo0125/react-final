@@ -50,7 +50,7 @@ const ClassItem = (props) => {
               handleUpdateClassStatus({ classId: _id, isActived: !isActived });
             }}
           >
-            {isActived ? t('admin.status.active') : t('admin.status.inactive')}
+            {isActived ? t('admin.status.inactive') : t('admin.status.active')}
           </button>
         </div>
       </td>

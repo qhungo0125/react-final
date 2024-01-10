@@ -91,7 +91,6 @@ const MappingStudents = () => {
           <button
             className='rounded btn btn-success'
             onClick={async (e) => {
-              console.log('studentsExcel ', studentsExcel);
               await mapStudentsFromExcel(studentsExcel);
             }}
           >

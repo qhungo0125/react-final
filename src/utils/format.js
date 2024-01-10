@@ -22,3 +22,27 @@ export function createArrayFrom1ToN(n) {
   }
   return result;
 }
+
+export function formatDateTime(originalString) {
+  var dateObject = new Date(originalString);
+  var formattedString = `${(dateObject.getUTCDate() + '').padStart(2, '0')}:${(
+    dateObject.getUTCMonth() +
+    1 +
+    ''
+  ).padStart(
+    2,
+    '0',
+  )}:${dateObject.getUTCFullYear()} ${dateObject.getUTCHours()}:${dateObject.getUTCMinutes()}:${dateObject.getUTCSeconds()}`;
+  return formattedString;
+}
+
+export function removeLS() {
+  localStorage.removeItem('token');
+  localStorage.removeItem('userid');
+  localStorage.removeItem('role');
+}
+export function saveLS({ token, userId, role }) {
+  localStorage.setItem('token', token);
+  localStorage.setItem('userid', userId);
+  localStorage.setItem('role', role);
+}

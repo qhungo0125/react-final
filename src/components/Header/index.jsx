@@ -9,11 +9,9 @@ import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import LanguageIcon from '@mui/icons-material/Language';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { useNavigate } from 'react-router-dom';
@@ -21,50 +19,55 @@ import { useContext } from 'react';
 import { MenuContext } from '../../context/MenuContext';
 import { useTranslation } from 'react-i18next';
 import { useGlobal } from '../../context';
+import { t } from 'i18next';
+import { formatDateTime, removeLS } from '../../utils/format';
 
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
-    width: 'auto',
-  },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
-    },
-  },
-}));
+const buildMessageUrl = (item) => {
+  switch (item.type) {
+    case 'chat':
+      return {
+        message: t('notif.receive.comment', { name: item.request.class.name }),
+        createdAt: formatDateTime(item.comment.createdAt),
+        url: `/class/${item.request.class._id}/grade/review/${item.request._id}`,
+      };
+    case 'create':
+      return {
+        message: t('notif.receive.request', { name: item.request.class.name }),
+        createdAt: formatDateTime(item.request.createdAt),
+        url: `/class/${item.request.class._id}/grade/review/${item.request._id}`,
+      };
+    case 'reject':
+      return {
+        message: t('notif.receive.reject', { name: item.request.teacher.name }),
+        createdAt: formatDateTime(item.request.updatedAt),
+        url: `/class/${item.request.class._id}/grade/review/${item.request._id}`,
+      };
+    case 'approve':
+      return {
+        message: t('notif.receive.approve', {
+          name: item.request.teacher.name,
+        }),
+        createdAt: formatDateTime(item.request.updatedAt),
+        url: `/class/${item.request.class._id}/grade/review/${item.request._id}`,
+      };
+    case 'publish':
+      console.log(item);
+      return {
+        message: t('label.publish.scoretype', {
+          type: item.scoreType.name,
+          class: item.scoreType.class.name,
+        }),
+        createdAt: formatDateTime(item.scoreType.updatedAt),
+        url: `/class/${item.scoreType.class._id}/grade`,
+      };
+    default:
+      break;
+  }
+};
 
 export default function PrimarySearchAppBar() {
   const { t } = useTranslation();
-  const { changeLanguage } = useGlobal();
+  const { changeLanguage, notification } = useGlobal();
   const navigate = useNavigate();
   const menuContext = useContext(MenuContext);
 
@@ -93,11 +96,12 @@ export default function PrimarySearchAppBar() {
 
   const handleHomeIconClick = () => {
     menuContext.handleTabChanges('home');
-    navigate('/dashboard');
+    navigate('/classes');
   };
 
   const menuId = 'primary-search-account-menu';
   const languageId = 'primary-languages-menu';
+  const notifId = 'primary-notifs-menu';
   const renderLanguagesMenu = anchorEl && anchorEl.id === languageId && (
     <Menu
       anchorEl={anchorEl}
@@ -156,7 +160,51 @@ export default function PrimarySearchAppBar() {
       >
         {t('label.profile')}
       </MenuItem>
-      {/* <MenuItem onClick={handleMenuClose}>My account</MenuItem> */}
+      <MenuItem
+        onClick={(e) => {
+          removeLS();
+          navigate('/login');
+        }}
+      >
+        {t('label.button.logout')}
+      </MenuItem>
+    </Menu>
+  );
+  const renderNotifMenu = anchorEl && anchorEl.id === notifId && (
+    <Menu
+      anchorEl={anchorEl}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'right',
+      }}
+      id={menuId}
+      keepMounted
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
+    >
+      {notification &&
+        notification.map((item) => {
+          const { message, url, createdAt } = buildMessageUrl(item);
+          return (
+            <MenuItem
+              className='border rounded mb-2 ms-2 me-2'
+              key={item._id}
+              onClick={(e) => {
+                handleMenuClose();
+                navigate(url, { replace: true });
+              }}
+            >
+              <div className='d-flex flex-column'>
+                <div>{createdAt}</div>
+                <div>{message}</div>
+              </div>
+            </MenuItem>
+          );
+        })}
     </Menu>
   );
   const mobileMenuId = 'primary-search-account-menu-mobile';
@@ -173,58 +221,57 @@ export default function PrimarySearchAppBar() {
         vertical: 'top',
         horizontal: 'right',
       }}
+      sx={{ width: '200px' }}
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton size='large' aria-label='show 4 new mails' color='inherit'>
-          <Badge badgeContent={4} color='error'>
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton
-          size='large'
-          aria-label='show 17 new notifications'
-          color='inherit'
+      <IconButton
+        id={notifId}
+        size='small'
+        // edge='end'
+        sx={{
+          padding: 2,
+        }}
+        aria-controls={notifId}
+        aria-haspopup='true'
+        onClick={handleProfileMenuOpen}
+        color='inherit'
+      >
+        <Badge
+          badgeContent={notification ? notification.length : 0}
+          color='error'
         >
-          <Badge badgeContent={17} color='error'>
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>{t('label.notification')}</p>
-      </MenuItem>
-
-      {/* <MenuItem onClick={handleProfileMenuOpen}>
-          <IconButton
-            id={languageId}
-            size='large'
-            edge='end'
-            aria-controls={languageId}
-            aria-haspopup='true'
-            onClick={handleProfileMenuOpen}
-            color='inherit'
-          >
-            <LanguageIcon />
-          </IconButton>
-          <p>Choose language</p>
-        </MenuItem> */}
-
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size='large'
-          id={menuId}
-          aria-label='account of current user'
-          aria-controls='primary-search-account-menu'
-          aria-haspopup='true'
-          color='inherit'
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>{t('label.profile')}</p>
-      </MenuItem>
+          <NotificationsIcon />
+        </Badge>
+      </IconButton>
+      <IconButton
+        id={languageId}
+        size='small'
+        // edge='end'
+        sx={{
+          padding: 2,
+        }}
+        aria-controls={languageId}
+        aria-haspopup='true'
+        onClick={handleProfileMenuOpen}
+        color='inherit'
+      >
+        <LanguageIcon />
+      </IconButton>
+      <IconButton
+        id={menuId}
+        size='small'
+        // edge='end'
+        sx={{
+          padding: 2,
+        }}
+        aria-controls={menuId}
+        aria-haspopup='true'
+        onClick={handleProfileMenuOpen}
+        color='inherit'
+      >
+        <AccountCircle />
+      </IconButton>
     </Menu>
   );
   return (
@@ -242,7 +289,7 @@ export default function PrimarySearchAppBar() {
                 {t('group.name')}
               </Typography>
             </Box>
-            <Search>
+            {/* <Search>
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
@@ -250,24 +297,22 @@ export default function PrimarySearchAppBar() {
                 placeholder='Search…'
                 inputProps={{ 'aria-label': 'search' }}
               />
-            </Search>
+            </Search> */}
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
               <IconButton
+                id={notifId}
                 size='large'
-                aria-label='show 4 new mails'
+                edge='end'
+                aria-controls={notifId}
+                aria-haspopup='true'
+                onClick={handleProfileMenuOpen}
                 color='inherit'
               >
-                <Badge badgeContent={4} color='error'>
-                  <MailIcon />
-                </Badge>
-              </IconButton>
-              <IconButton
-                size='large'
-                aria-label='show 17 new notifications'
-                color='inherit'
-              >
-                <Badge badgeContent={17} color='error'>
+                <Badge
+                  badgeContent={notification ? notification.length : 0}
+                  color='error'
+                >
                   <NotificationsIcon />
                 </Badge>
               </IconButton>
@@ -311,6 +356,7 @@ export default function PrimarySearchAppBar() {
         {renderMobileMenu}
         {renderMenu}
         {renderLanguagesMenu}
+        {renderNotifMenu}
       </Box>
     </div>
   );

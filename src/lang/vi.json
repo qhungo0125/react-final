@@ -51,6 +51,10 @@
   "label.percentage": "Tỷ lệ",
   "label.grade": "Điểm",
   "label.overall": "Tổng kết",
+  "label.score.publish": "Công bố điểm",
+  "label.select.score.type": "Chọn loại điểm",
+  "label.publish.score": "Công bố điểm",
+  "label.list.comments": "Danh sách bình luận",
 
   "admin.nav.accounts": "Tài Khoản",
   "admin.manage.accounts": "Quản lý Tài Khoản",
@@ -71,6 +75,15 @@
   "label.vietnamese": "Tiếng Việt",
   "label.english": "Tiếng Anh",
 
+  "notif.receive.comment": "Bạn nhận được một bình luận mới trong {{name}}",
+  "notif.receive.comment.from": "Bạn nhận được một bình luận mới từ {{name}}",
+  "notif.receive.request": "Bạn nhận được một khiếu nại từ {{name}}",
+  "notif.receive.reject": "Khiếu nại của bạn đã bị từ chối bởi  {{name}}",
+  "notif.receive.approve": "Khiếu nại của bạn đã được phê duyệt bởi {{name}}",
+  "label.handled.fail": "Khiếu nại bị từ chối",
+  "label.handled.success": "Khiếu nại được phê duyệt",
+  "label.publish.scoretype": "Cột điểm {{type}} trong lớp {{class}} đã được công bố",
+
   "label.button.confirm": "Xác nhận",
   "label.button.download": "Tải xuống",
   "label.button.cancel": "Hủy",
@@ -88,7 +101,9 @@
   "label.button.filter": "Lọc",
   "label.button.sort": "Sắp xếp",
   "label.button.apply": "Áp dụng",
+  "label.button.detail": "Xem chi tiết",
   "label.button.previous": "Trước",
   "label.button.next": "Sau",
+  "label.button.logout": "Đăng xuất",
   "label.button.goback": "Quay lại"
 }

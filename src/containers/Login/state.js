@@ -3,15 +3,14 @@ import { postRequest, validateEmail } from '../Register/state';
 import useSWRMutation from 'swr/mutation';
 import { useNavigate } from 'react-router-dom';
 import { MenuContext } from '../../context/MenuContext';
-
+import { removeLS, saveLS } from '../../utils/format';
 
 export function useLogin() {
   const navigate = useNavigate();
   const [loading, setLoading] = React.useState(false);
   const { data, trigger } = useSWRMutation('/accounts/auth/login', postRequest);
   const menuContext = React.useContext(MenuContext);
-  const { updateTeacherId } = menuContext
-
+  const { updateTeacherId } = menuContext;
 
   const [formData, setFormData] = React.useState({
     email: '',
@@ -44,7 +43,6 @@ export function useLogin() {
 
   const handleLogin = async () => {
     const { email, password } = formData;
-
 
     try {
       //validation
@@ -79,26 +77,27 @@ export function useLogin() {
       setLoading(false);
 
       // save token to local storage
-      if (res && res.data) {
+      if (res && res.success) {
         const { access_token, _id: userId, role } = res.data;
-        localStorage.setItem('token', access_token);
-        localStorage.setItem('userid', userId);
-        localStorage.setItem('role', role);
-        // alert('login successfully');
-        // setTimeout()
-
-        setTimeout(() => navigate('/dashboard'), 2000);
+        saveLS({
+          token: access_token,
+          userId: userId,
+          role: role,
+        });
+        if (role === 'admin') {
+          navigate('/admin');
+        } else {
+          return navigate('/classes');
+        }
       } else {
         setLoading(false);
-
-        alert('Error occurs');
+        alert(res.error.message || 'Error occurs');
         // res.error ? alert(res.error.message) : alert('Error occurs');
+        removeLS();
       }
     } catch (error) {
       setLoading(false);
-
-      localStorage.removeItem('token');
-      localStorage.removeItem('userid');
+      removeLS();
       setErrors((data) => ({
         ...data,
         email: error.response.data.error.message,

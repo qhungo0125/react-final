@@ -34,3 +34,81 @@ export async function setStudentScore(params) {
   }
   return response;
 }
+
+export async function uploadScores(params) {
+  const { listScores } = params;
+  if (!listScores) {
+    console.error('listScores is required');
+    return;
+  }
+
+  const response = await ClientAxios.post(`/score/update-scores`, {
+    listScores,
+  });
+
+  if (response.error && response.error.message) {
+    console.error(response.error.message);
+    return response;
+  }
+  return response;
+}
+
+export async function approveRequest(params) {
+  const { value, teacherId, studentId, scoreId, requestId } = params;
+  if (!value || !teacherId || !studentId || !scoreId || !requestId) {
+    console.error(
+      'value, teacherId, studentId ,requestId and scoreId are required',
+    );
+    return;
+  }
+
+  const response = await ClientAxios.post(`/score/update-score`, {
+    value,
+    teacherId,
+    studentId,
+    scoreId,
+    requestId,
+  });
+
+  if (response.error && response.error.message) {
+    console.error(response.error.message);
+    return response;
+  }
+  return response;
+}
+
+export async function rejectRequest(params) {
+  const { requestId } = params;
+  if (!requestId) {
+    console.error('requestId is required');
+    return;
+  }
+
+  const response = await ClientAxios.post(`/score/request/reject`, {
+    requestId,
+  });
+
+  if (response.error && response.error.message) {
+    console.error(response.error.message);
+    return response;
+  }
+  return response;
+}
+
+export async function getRequest(params) {
+  const { reviewId } = params;
+  if (!reviewId) {
+    console.error('reviewId is required');
+    return;
+  }
+
+  const response = await ClientAxios.get(
+    `/score/request-details?requestId=${reviewId}`,
+  );
+
+  if (response.error && response.error.message) {
+    console.error(response.error.message);
+    return response;
+  }
+  return response;
+}

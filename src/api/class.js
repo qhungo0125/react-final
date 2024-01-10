@@ -1,8 +1,11 @@
 import ClientAxios from '../utils/axiosConfig';
 
-
-
-export const addMember = async ({ invitationCode, classId, teacherId, studentId }) => {
+export const addMember = async ({
+  invitationCode,
+  classId,
+  teacherId,
+  studentId,
+}) => {
   let params = {};
 
   if (invitationCode) params.invitationCode = invitationCode;
@@ -19,9 +22,9 @@ export const addMember = async ({ invitationCode, classId, teacherId, studentId 
 };
 
 export const getClass = async (classId) => {
-  let params = {}
-  params.id=classId 
-  console.log(params)
-  const res = await ClientAxios.get("/class/", {params})
-  return res
-}
+  let params = {};
+  params.id = classId;
+  console.log(params);
+  const res = await ClientAxios.get('/class/', { params });
+  return res;
+};

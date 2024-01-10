@@ -1,12 +1,26 @@
 import React from 'react';
-import { STUDENT_ROLE } from '../constant';
 import { useTranslation } from 'react-i18next';
+import { getNotifications } from '../api/notification';
+import { AuthenticationAPI } from '../api/authentication';
 
 const AppContext = React.createContext();
 
 const GlobalContext = ({ children }) => {
   const { i18n } = useTranslation();
   const [locale, setLocale] = React.useState('vi');
+  const [socketNotif, setSocketNotif] = React.useState(null);
+  const [notification, setNotification] = React.useState(null);
+
+  React.useEffect(() => {
+    const getDataNotif = async () => {
+      const resp = await getNotifications({
+        userId: localStorage.getItem('userid'),
+      });
+      // console.log(resp);
+      setNotification(resp.data);
+    };
+    getDataNotif();
+  }, [socketNotif]);
 
   React.useEffect(() => {
     const locale = localStorage.getItem('locale') || 'vi';
@@ -18,15 +32,18 @@ const GlobalContext = ({ children }) => {
     localStorage.setItem('locale', locale);
     setLocale(locale);
   };
-
-  const [loginState, setLoginState] = React.useState({
-    isLogin: false,
-    role: STUDENT_ROLE,
-  });
+  const changeSocketNotif = (value) => {
+    setSocketNotif(value);
+  };
 
   const value = React.useMemo(
-    () => ({ loginState, changeLanguage }),
-    [loginState],
+    () => ({
+      changeLanguage,
+      changeSocketNotif,
+      socketNotif,
+      notification,
+    }),
+    [locale, socketNotif, notification],
   );
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

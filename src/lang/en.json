@@ -51,6 +51,8 @@
   "label.composition": "Composition",
   "label.grade": "Grade",
   "label.overall": "Overall",
+  "label.score.publish": "Publish",
+  "label.list.comments": "List comments",
 
   "admin.nav.accounts": "Accounts",
   "admin.nav.classes": "Classes",
@@ -65,9 +67,20 @@
   "admin.status.asc": "Inactive first",
   "admin.status.desc": "Active first",
   "admin.map.selectClass": "Select class",
+  "label.select.score.type": "Select score type",
+  "label.publish.score": "Publish score",
 
   "label.vietnamese": "Vietnamese",
   "label.english": "English",
+
+  "notif.receive.comment": "You have a new comment in {{name}}",
+  "notif.receive.comment.from": "You have a new comment from {{name}}",
+  "notif.receive.request": "You have a new request from {{name}}",
+  "notif.receive.reject": "Your request has been rejected by {{name}}",
+  "notif.receive.approve": "Your request has been approved by {{name}}",
+  "label.handled.fail": "Request has been rejected ",
+  "label.handled.success": "Request has been approved ",
+  "label.publish.scoretype": "Score type {{type}} in class {{class}} has been published",
 
   "label.button.confirm": "Confirm",
   "label.button.download": "Download",
@@ -85,7 +98,9 @@
   "label.button.filter": "Filter",
   "label.button.sort": "Sort",
   "label.button.apply": "Apply",
+  "label.button.detail": "View detail",
   "label.button.previous": "Previous",
   "label.button.next": "Next",
+  "label.button.logout": "Logout",
   "label.button.cancel": "Cancel"
 }
