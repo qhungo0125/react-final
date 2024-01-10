@@ -20,7 +20,7 @@ import { MenuContext } from '../../context/MenuContext';
 import { useTranslation } from 'react-i18next';
 import { useGlobal } from '../../context';
 import { t } from 'i18next';
-import { formatDateTime } from '../../utils/format';
+import { formatDateTime, removeLS } from '../../utils/format';
 
 const buildMessageUrl = (item) => {
   switch (item.type) {
@@ -162,9 +162,7 @@ export default function PrimarySearchAppBar() {
       </MenuItem>
       <MenuItem
         onClick={(e) => {
-          localStorage.removeItem('token');
-          localStorage.removeItem('userid');
-          localStorage.removeItem('role');
+          removeLS();
           navigate('/login');
         }}
       >

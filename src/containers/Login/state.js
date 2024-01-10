@@ -77,7 +77,7 @@ export function useLogin() {
       setLoading(false);
 
       // save token to local storage
-      if (res && res.data) {
+      if (res && res.success) {
         const { access_token, _id: userId, role } = res.data;
         saveLS({
           token: access_token,
@@ -91,7 +91,7 @@ export function useLogin() {
         }
       } else {
         setLoading(false);
-        alert('Error occurs');
+        alert(res.error.message || 'Error occurs');
         // res.error ? alert(res.error.message) : alert('Error occurs');
         removeLS();
       }

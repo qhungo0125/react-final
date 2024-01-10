@@ -14,28 +14,15 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { useTranslation } from 'react-i18next';
 import { ADMIN_PAGES } from '../../constant';
+import { removeLS } from '../../utils/format';
+import { useNavigate } from 'react-router-dom';
 const drawerWidth = 240;
-
-// function DemandIcon(props) {
-//   const { name = '' } = props;
-//   switch (name) {
-//     case 'Manage Accounts':
-//       return <AccountCircleIcon />;
-//     case 'Mapping students':
-//       return <ChecklistIcon />;
-//     case 'Manage Classes':
-//       return <ClassIcon />;
-//     default:
-//       return;
-//   }
-// }
 
 function ListItemCustom(props) {
   const { name = '', handleItemClick = () => {} } = props;
   return (
     <ListItem disablePadding onClick={(e) => handleItemClick()}>
       <ListItemButton>
-        {/* <DemandIcon name={name} /> */}
         <ListItemText primary={name} />
       </ListItemButton>
     </ListItem>
@@ -51,7 +38,7 @@ function ListCustom(props) {
   } = props;
   return (
     <>
-      <Typography variant="h5" padding={1} noWrap component="div">
+      <Typography variant='h5' padding={1} noWrap component='div'>
         {header}
       </Typography>
       <List>
@@ -71,15 +58,16 @@ function ResponsiveDrawer(props) {
   const { t } = useTranslation();
   const { children, handleItemClick } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const handleClick = (value)=>{
+  const handleClick = (value) => {
     handleItemClick(value);
     handleDrawerToggle();
-  }
+  };
 
   const drawer = (
     <div>
@@ -105,7 +93,7 @@ function ResponsiveDrawer(props) {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar
-        position="fixed"
+        position='fixed'
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
@@ -113,27 +101,39 @@ function ResponsiveDrawer(props) {
       >
         <Toolbar>
           <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
+            color='inherit'
+            aria-label='open drawer'
+            edge='start'
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: 'none' } }}
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            {t('group.name')}
-          </Typography>
+
+          <div className='d-flex w-100 justify-content-between'>
+            <Typography variant='h6' noWrap component='div'>
+              {t('group.name')}
+            </Typography>
+            <button
+              onClick={(e) => {
+                removeLS();
+                navigate('/login');
+              }}
+              className='btn btn-warning'
+            >
+              {t('label.button.logout')}
+            </button>
+          </div>
         </Toolbar>
       </AppBar>
       <Box
-        component="nav"
+        component='nav'
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-        aria-label="mailbox folders"
+        aria-label='mailbox folders'
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
-          variant="temporary"
+          variant='temporary'
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
@@ -150,7 +150,7 @@ function ResponsiveDrawer(props) {
           {drawer}
         </Drawer>
         <Drawer
-          variant="permanent"
+          variant='permanent'
           sx={{
             display: { xs: 'none', sm: 'block' },
             '& .MuiDrawer-paper': {
@@ -164,7 +164,7 @@ function ResponsiveDrawer(props) {
         </Drawer>
       </Box>
       <Box
-        component="main"
+        component='main'
         sx={{
           flexGrow: 1,
           p: 3,
