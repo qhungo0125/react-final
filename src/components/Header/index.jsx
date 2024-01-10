@@ -168,7 +168,6 @@ export default function PrimarySearchAppBar() {
       >
         {t('label.button.logout')}
       </MenuItem>
-      {/* <MenuItem onClick={handleMenuClose}>My account</MenuItem> */}
     </Menu>
   );
   const renderNotifMenu = anchorEl && anchorEl.id === notifId && (
@@ -222,50 +221,57 @@ export default function PrimarySearchAppBar() {
         vertical: 'top',
         horizontal: 'right',
       }}
+      sx={{ width: '200px' }}
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      {/* <MenuItem>
-        <IconButton
-          size='large'
-          aria-label='show 17 new notifications'
-          color='inherit'
+      <IconButton
+        id={notifId}
+        size='small'
+        // edge='end'
+        sx={{
+          padding: 2,
+        }}
+        aria-controls={notifId}
+        aria-haspopup='true'
+        onClick={handleProfileMenuOpen}
+        color='inherit'
+      >
+        <Badge
+          badgeContent={notification ? notification.length : 0}
+          color='error'
         >
-          <Badge badgeContent={17} color='error'>
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>{t('label.notification')}</p>
-      </MenuItem> */}
-
-      {/* <MenuItem onClick={handleProfileMenuOpen}>
-          <IconButton
-            id={languageId}
-            size='large'
-            edge='end'
-            aria-controls={languageId}
-            aria-haspopup='true'
-            onClick={handleProfileMenuOpen}
-            color='inherit'
-          >
-            <LanguageIcon />
-          </IconButton>
-          <p>Choose language</p>
-        </MenuItem> */}
-
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size='large'
-          id={menuId}
-          aria-label='account of current user'
-          aria-controls='primary-search-account-menu'
-          aria-haspopup='true'
-          color='inherit'
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>{t('label.profile')}</p>
-      </MenuItem>
+          <NotificationsIcon />
+        </Badge>
+      </IconButton>
+      <IconButton
+        id={languageId}
+        size='small'
+        // edge='end'
+        sx={{
+          padding: 2,
+        }}
+        aria-controls={languageId}
+        aria-haspopup='true'
+        onClick={handleProfileMenuOpen}
+        color='inherit'
+      >
+        <LanguageIcon />
+      </IconButton>
+      <IconButton
+        id={menuId}
+        size='small'
+        // edge='end'
+        sx={{
+          padding: 2,
+        }}
+        aria-controls={menuId}
+        aria-haspopup='true'
+        onClick={handleProfileMenuOpen}
+        color='inherit'
+      >
+        <AccountCircle />
+      </IconButton>
     </Menu>
   );
   return (
