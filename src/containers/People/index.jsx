@@ -46,15 +46,17 @@ function People() {
           <Typography variant='h5' component='div'>
             {t('label.class.teachers')}
           </Typography>
-          <IconButton
-            color='primary'
-            size='small'
-            onClick={() => {
-              setTeacherModelOpen((prev) => !prev);
-            }}
-          >
-            <AddIcon />
-          </IconButton>
+          {localStorage.getItem('role') === 'teacher' && (
+            <IconButton
+              color='primary'
+              size='small'
+              onClick={() => {
+                setTeacherModelOpen((prev) => !prev);
+              }}
+            >
+              <AddIcon />
+            </IconButton>
+          )}
         </Box>
         <Typography variant='body1' component='div'>
           {teachers.map((teacher) => (
@@ -77,15 +79,17 @@ function People() {
           <Typography variant='h5' component='div'>
             {t('label.class.students')}
           </Typography>
-          <IconButton
-            color='primary'
-            size='small'
-            onClick={() => {
-              setStudentModelOpen((prev) => !prev);
-            }}
-          >
-            <AddIcon />
-          </IconButton>
+          {localStorage.getItem('role') === 'teacher' && (
+            <IconButton
+              color='primary'
+              size='small'
+              onClick={() => {
+                setStudentModelOpen((prev) => !prev);
+              }}
+            >
+              <AddIcon />
+            </IconButton>
+          )}
         </Box>
         <Typography variant='body1' component='div'>
           {students.map((student) => (
