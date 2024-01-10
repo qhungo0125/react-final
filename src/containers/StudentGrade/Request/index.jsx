@@ -7,7 +7,7 @@ import Comment from './Comment';
 import Request from './Request';
 import NewRequest from './NewRequest';
 
-const RequestList = () => {
+const RequestList = ({rows}) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [requests, setRequests] = React.useState([]);
   const [selectedRequest, setSelectedRequest] = React.useState({});
@@ -19,9 +19,9 @@ const RequestList = () => {
     const studentId = localStorage.getItem('userid')
     const requests = await getClassReviews({ classId });
     if (requests.success && requests.data && requests.data.length > 0) {
-      //const student_requests = requests.data.filter(rq => rq.student._id === studentId)
-      //return student_requests;
-      return requests.data;
+      const student_requests = requests.data.filter(rq => rq.student._id === studentId)
+      return student_requests;
+      //return requests.data;
     }
     return [];
   };
@@ -72,7 +72,7 @@ const RequestList = () => {
     }
   };
 
-  const handleAddRequestBtn = () => {
+  const handleAddRequestBtnClick = () => {
     setOpenRequest(prev => !prev)
   }
 
@@ -82,12 +82,12 @@ const RequestList = () => {
         <IconButton
           color='primary'
           size='large'
-          onClick={handleAddRequestBtn}
+          onClick={handleAddRequestBtnClick}
         >
           <AddIcon />
         </IconButton>
       </Box>
-      {openRequest && <NewRequest />}
+      {openRequest && <NewRequest closeForm={handleAddRequestBtnClick} rows={rows}/>}
       <div className={openComments && 'opacity-25'}>
         {requests.map((request) => {
           return (

@@ -59,10 +59,10 @@ export default function StudentGrade() {
                             </span>
                         </div>
                     </div>
-                    <Divider sx={{marginTop:"40px", marginBottom:"10px"}}><strong>Request List</strong></Divider>
-                    <RequestList />
+                    <Divider sx={{ marginTop: "40px", marginBottom: "10px" }}><strong>Request List</strong></Divider>
+                    <RequestList rows={rows} />
                 </div>
-                
+
             }
         </div>
     );
