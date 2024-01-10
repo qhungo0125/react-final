@@ -1,7 +1,5 @@
 import React from 'react';
-import useSWRMutation from 'swr/mutation';
 import { useNavigate } from 'react-router-dom';
-import axios from '../../utils/axiosConfig.js';
 import { MenuContext } from '../../context/MenuContext.jsx';
 import { GradeAPI } from '../../api/grade.js';
 import { useTranslation } from 'react-i18next';
@@ -52,28 +50,34 @@ export default function useGradeStructure() {
     };
 
 
-
     const getRows = ({ types, scores }) => {
+        console.log(types, scores)
         let temp_rows = []
         let over_all = 0;
         let sum_percent = 0;
+        const userId = localStorage.getItem('userid')
         for (var i = 0; i < types.length; i++) {
-            if (types[i].isPublish == false) {// de tam
-                let score = scores.filter(item => item.type && item.type._id === types[i]._id)
-                let grade = 0
+            //set score
+            if (types[i].isPublish == true) {
+                let score = scores.filter(item => item.type && item.type._id === types[i]._id && item.student._id === userId)
+                let grade = ''
                 if (score.length > 0) {
                     grade = score[0].value
                 }
                 temp_rows = [...temp_rows, {
                     id: `${types[i]._id}`, type: types[i].name, percentage: types[i].percentage, grade: grade
                 }]
+                if (grade === '') {
+                    sum_percent += types[i].percentage
+                } else {
+                    over_all += grade * types[i].percentage;
+                    sum_percent += types[i].percentage
+                }
 
-                over_all += grade*types[i].percentage;
-                sum_percent += types[i].percentage
             }
         }
         setRows(temp_rows)
-        setOverAll((1.0)*over_all/sum_percent)
+        setOverAll((1.0) * over_all / sum_percent)
     }
 
     return {

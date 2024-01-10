@@ -38,3 +38,47 @@ export async function sendChatContent(params) {
   }
   return response;
 }
+
+export async function createRequest(params) {
+  const {
+    title,
+    explain,
+    actualScore,
+    expectedScore,
+    studentId,
+    teacherId,
+    classId,
+    scoreId,
+  } = params;
+  if (
+    !title ||
+    !explain ||
+    !studentId ||
+    !teacherId ||
+    !classId ||
+    !actualScore ||
+    !expectedScore ||
+    !scoreId
+  ) {
+    console.error('Please fill in all information!');
+    return;
+  }
+
+  const response = await ClientAxios.get(
+    `/score/create-request'`, {
+    title,
+    explain,
+    actualScore,
+    expectedScore,
+    studentId,
+    teacherId,
+    classId,
+    scoreId,
+  });
+
+  if (response.error && response.error.message) {
+    console.error(response.error.message);
+    return response;
+  }
+  return response;
+}

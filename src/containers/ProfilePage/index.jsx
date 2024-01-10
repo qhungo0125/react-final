@@ -66,7 +66,7 @@ const ProfilePage = () => {
           console.log(data);
           try {
             if (data.mapCode === "") {
-              const rs = await mappingStudent({ studentId: profile._id, mapCode: data.mapCode })
+              const rs = await mappingStudent({ studentId: profile._id, mapCode: profile.mapCode })
             }
 
             setIsFetching(true);
