@@ -3,6 +3,7 @@ import { postRequest, validateEmail } from '../Register/state';
 import useSWRMutation from 'swr/mutation';
 import { useNavigate } from 'react-router-dom';
 import { MenuContext } from '../../context/MenuContext';
+import { removeLS, saveLS } from '../../utils/format';
 
 export function useLogin() {
   const navigate = useNavigate();
@@ -78,24 +79,25 @@ export function useLogin() {
       // save token to local storage
       if (res && res.data) {
         const { access_token, _id: userId, role } = res.data;
-        localStorage.setItem('token', access_token);
-        localStorage.setItem('userid', userId);
-        localStorage.setItem('role', role);
-        navigate('/classes');
+        saveLS({
+          token: access_token,
+          userId: userId,
+          role: role,
+        });
+        if (role === 'admin') {
+          navigate('/admin');
+        } else {
+          return navigate('/classes');
+        }
       } else {
         setLoading(false);
-
         alert('Error occurs');
         // res.error ? alert(res.error.message) : alert('Error occurs');
-        localStorage.removeItem('token');
-        localStorage.removeItem('userid');
-        localStorage.removeItem('role');
+        removeLS();
       }
     } catch (error) {
       setLoading(false);
-
-      localStorage.removeItem('token');
-      localStorage.removeItem('userid');
+      removeLS();
       setErrors((data) => ({
         ...data,
         email: error.response.data.error.message,
