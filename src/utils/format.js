@@ -35,3 +35,14 @@ export function formatDateTime(originalString) {
   )}:${dateObject.getUTCFullYear()} ${dateObject.getUTCHours()}:${dateObject.getUTCMinutes()}:${dateObject.getUTCSeconds()}`;
   return formattedString;
 }
+
+export function removeLS() {
+  localStorage.removeItem('token');
+  localStorage.removeItem('userid');
+  localStorage.removeItem('role');
+}
+export function saveLS({ token, userId, role }) {
+  localStorage.setItem('token', token);
+  localStorage.setItem('userid', userId);
+  localStorage.setItem('role', role);
+}

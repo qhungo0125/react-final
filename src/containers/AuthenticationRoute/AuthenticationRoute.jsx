@@ -1,33 +1,36 @@
 import React from 'react';
 import { AuthenticationAPI } from '../../api/authentication';
 import { useNavigate } from 'react-router-dom';
+import { removeLS, saveLS } from '../../utils/format';
 const AuthenticationRoute = ({ children }) => {
   const navigate = useNavigate();
   React.useEffect(() => {
     const userid = localStorage.getItem('userid');
+
     const autoLogin = async () => {
       const res = await AuthenticationAPI.loginWithUserId({ userId: userid });
-
       if (res && res.data) {
         const { access_token, _id: userId, role } = res.data;
-        localStorage.setItem('token', access_token);
-        localStorage.setItem('userid', userId);
-        localStorage.setItem('role', role);
-      } else {
-        localStorage.removeItem('token');
-        localStorage.removeItem('userid');
-        localStorage.removeItem('role');
-        setLoading(false);
-        alert('Error occurs');
+        saveLS({
+          token: access_token,
+          userId: userId,
+          role: role,
+        });
+        return;
       }
+      removeLS();
+      setLoading(false);
+      alert('Error occurs');
+      return;
     };
+
     if (userid) {
       autoLogin();
-    } else {
-      localStorage.removeItem('token');
-      localStorage.removeItem('role');
-      navigate('/login');
+      return;
     }
+    removeLS();
+    navigate('/login');
+    return;
   }, []);
   return children;
 };

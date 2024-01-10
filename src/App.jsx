@@ -20,6 +20,7 @@ import React from 'react';
 import AdminPage from './containers/AdminPage';
 import CustomizedSnackbars from './components/Notification/Notification';
 import AuthenticationRoute from './containers/AuthenticationRoute/AuthenticationRoute';
+import AdminRoute from './containers/AuthenticationRoute/AdminRoute';
 
 const router = createBrowserRouter([
   { path: '/login', Component: () => <Login /> },
@@ -143,7 +144,9 @@ const router = createBrowserRouter([
     path: '/admin',
     Component: () => (
       <AuthenticationRoute>
-        <AdminPage />
+        <AdminRoute>
+          <AdminPage />
+        </AdminRoute>
       </AuthenticationRoute>
     ),
   },
