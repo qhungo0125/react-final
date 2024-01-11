@@ -14,6 +14,7 @@ export default function StudentGrade() {
         columns,
         rows,
         overAll,
+        scores,
         fetchData
     } = useGradeStructure();
 
@@ -59,8 +60,8 @@ export default function StudentGrade() {
                             </span>
                         </div>
                     </div>
-                    <Divider sx={{ marginTop: "40px", marginBottom: "10px" }}><strong>Request List</strong></Divider>
-                    <RequestList rows={rows} />
+                    <Divider sx={{ marginTop: "40px", marginBottom: "10px" }}><strong>{t('label.scorerequests')}</strong></Divider>
+                    <RequestList rows={rows} scores={scores} />
                 </div>
 
             }

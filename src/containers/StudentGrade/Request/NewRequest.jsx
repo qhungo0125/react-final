@@ -3,10 +3,9 @@ import { createRequest } from '../../../api/review';
 import { t } from 'i18next';
 import React from 'react';
 
-const NewRequest = ({ closeForm, rows }) => {//types
+const NewRequest = ({ closeForm, rows, scores, reloadRequest }) => {//types
   const [form, setForm] = React.useState({
     title: '',
-    name: '',
     composition: '',
     actual_score: '',
     expected_score: '',
@@ -29,17 +28,23 @@ const NewRequest = ({ closeForm, rows }) => {//types
     }))
   }
 
+  console.log(form)
+
   const hanleCreateRequest = async () => {
+    const studentId = localStorage.getItem('userid')
+    const score = scores.filter(item => item.student._id === studentId && item.type._id === form.composition)
     await createRequest({
       title: form.title,
       explain: form.explain,
       actualScore: form.actual_score,
       expectedScore: form.expected_score,
-      studentId: localStorage.getItem('userid'),
-      teacherId: '',
-      classId: '',
-      scoreId: '',
+      studentId: studentId,
+      teacherId: score[0].teacher._id,
+      classId: score[0].type.class._id,
+      scoreId: score[0]._id,
     })
+    closeForm();
+    reloadRequest();
   }
 
   console.log(compositions)
@@ -48,7 +53,7 @@ const NewRequest = ({ closeForm, rows }) => {//types
     <div className='mb-4 border border-2 p-4 rounded'>
       <div style={{ maxWidth: "350px", marginInline: "auto" }}>
         <TextField
-          label="Title"
+          label={t('label.request.title')}
           variant="outlined"
           fullWidth
           InputLabelProps={{ shrink: true, }}
@@ -58,19 +63,9 @@ const NewRequest = ({ closeForm, rows }) => {//types
           required
           onChange={(e) => handleChangeText({ field: 'title', value: e.target.value })}
         />
-        <TextField
-          label="Name"
-          variant="outlined"
-          fullWidth
-          InputLabelProps={{ shrink: true, }}
-          size='small'
-          value={form.name}
-          required
-          onChange={(e) => handleChangeText({ field: 'name', value: e.target.value })}
-        />
         <div className='mt-2 d-flex gap-4 justify-content-center mt-4'>
           <FormControl >
-            <InputLabel id="Composition" size='small' required >Composition</InputLabel>
+            <InputLabel id="Composition" size='small' required >{t('label.composition')}</InputLabel>
             <Select
               labelId="Composition"
               label="Composition"
@@ -90,7 +85,7 @@ const NewRequest = ({ closeForm, rows }) => {//types
           </FormControl>
           <div className='d-flex flex-column gap-2'>
             <TextField
-              label="Actual Score"
+              label={t('label.request.score.actual')}
               variant="outlined"
               size="small"
               sx={{ maxWidth: "150px" }}
@@ -102,7 +97,7 @@ const NewRequest = ({ closeForm, rows }) => {//types
 
             />
             <TextField
-              label="Expected Score"
+              label={t('label.request.score.expected')}
               variant="outlined"
               size="small"
               sx={{ maxWidth: "150px" }}
@@ -116,7 +111,7 @@ const NewRequest = ({ closeForm, rows }) => {//types
         </div>
 
         <TextField
-          placeholder="Your explaination..."
+          placeholder={t('label.request.explain')+"..."}
           multiline
           rows={5}
           maxRows={20}
@@ -131,10 +126,10 @@ const NewRequest = ({ closeForm, rows }) => {//types
       </div>
       <div className='mt-2 d-flex gap-4 justify-content-center'>
         <button className='btn btn-light' onClick={closeForm}>
-          Cancel
+          {t('label.cancel')}
         </button>
         <button className='btn btn-info' onClick={hanleCreateRequest}>
-          Create
+          {t('label.create')}
         </button>
       </div>
     </div >
