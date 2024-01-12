@@ -29,6 +29,7 @@ function Stream() {
       <div className='card-body'>
         <h5 className='card-title'>{infoClass.name}</h5>
         <p className='card-text'>{infoClass.description}</p>
+        {localStorage.getItem("role") === "teacher" && <p className='card-text'>Invitation Code: {infoClass.invitationCode}</p>}
       </div>
     </div>
   );
