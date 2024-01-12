@@ -1,11 +1,12 @@
-# react-mid-term
+# react-final
 
 ## Development
-
-### We are using node version management to control nodejs version (.nvmrc file)
 
 - install nvm
 - `$ nvm use` with version in .nvmrc
 - `$ npm i`
 - `$ npm run dev`
-# react-final
+
+## Deployment
+
+- We are using free deployment in Vercel that can be visited in (here)[http://react-final-jade.vercel.app/]
