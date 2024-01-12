@@ -19,7 +19,7 @@ const ScoreStructureItem = (props) => {
     >
       <th scope='row'>{index}</th>
       <td>{name}</td>
-      <td>{`${percentage} %`}</td>
+      <td>{`${percentage}`}</td>
       <td>
         <div
           className='btn-group'
