@@ -9,4 +9,4 @@
 
 ## Deployment
 
-- We are using free deployment in Vercel that can be visited in (here)[http://react-final-jade.vercel.app/]
+- We are using free deployment in Vercel that can be visited in [here](http://react-final-jade.vercel.app/)
