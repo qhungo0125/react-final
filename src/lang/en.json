@@ -74,6 +74,8 @@
   "admin.status.asc": "Inactive first",
   "admin.status.desc": "Active first",
   "admin.map.selectClass": "Select class",
+  "admin.reset.code": "Reset code",
+  "admin.add.code": "Add code",
   "label.select.score.type": "Select score type",
   "label.publish.score": "Publish score",
 
@@ -95,6 +97,7 @@
   "label.button.close": "Close",
   "label.button.edit": "Edit",
   "label.button.map.code": "Map code",
+  "label.button.unmap.code": "Unmap code",
   "label.button.add": "Add",
   "label.button.remove": "Remove",
   "label.button.approve": "Approve",
