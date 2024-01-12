@@ -57,6 +57,7 @@ export default function useGradeStructure() {
         console.log(types, scores)
         let temp_rows = []
         let over_all = 0;
+        let sum_percent = 0;
         const userId = localStorage.getItem('userid')
         for (var i = 0; i < types.length; i++) {
             //set score
@@ -69,14 +70,17 @@ export default function useGradeStructure() {
                 temp_rows = [...temp_rows, {
                     id: `${types[i]._id}`, type: types[i].name, percentage: types[i].percentage, grade: grade
                 }]
-                if (grade !== '') {
+                if (grade === '') {
+                    sum_percent += types[i].percentage
+                } else {
                     over_all += grade * types[i].percentage;
+                    sum_percent += types[i].percentage
                 }
 
             }
         }
         setRows(temp_rows)
-        setOverAll(over_all)
+        setOverAll((1.0) * over_all / sum_percent)
     }
 
     return {
