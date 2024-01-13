@@ -1,14 +1,16 @@
 import { t } from 'i18next';
 import React from 'react';
 
-const EditScore = (props) => {
+const EditScoresForm = (props) => {
   const {
     selected: data,
     onClose: handleClose = () => {},
     editScoreValue = () => {},
   } = props;
   const { name, mapCode, scoreTypes } = data;
-  const [scores, setScores] = React.useState(scoreTypes);
+  const [scores, setScores] = React.useState(
+    scoreTypes.filter((sc) => sc.scoreId),
+  );
   return (
     <div
       style={{
@@ -33,7 +35,7 @@ const EditScore = (props) => {
       >
         <h4 className='mb-4'>{`${mapCode} - ${name}`}</h4>
         {scores
-          .filter((score) => !score.scoreId)
+          .filter((score) => score.scoreId)
           .map((scoreType) => {
             return (
               <div
@@ -75,7 +77,7 @@ const EditScore = (props) => {
           <button
             onClick={async (e) => {
               const scoreParams = scores.map((item) => ({
-                typeId: item._id,
+                id: item.scoreId,
                 value: item.value,
               }));
               console.log(scoreParams);
@@ -91,4 +93,4 @@ const EditScore = (props) => {
   );
 };
 
-export default EditScore;
+export default EditScoresForm;

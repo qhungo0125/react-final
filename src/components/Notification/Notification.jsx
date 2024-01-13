@@ -25,6 +25,7 @@ export default function CustomizedSnackbars() {
     }
 
     socket.on('connect', () => {
+      changeSocketNotif();
       console.log('Connected to the server');
     });
 

@@ -3,7 +3,7 @@ import ScoreBoardItem from './ScoreBoardItem';
 import { t } from 'i18next';
 
 const ScoreBoard = (props) => {
-  const { students, scoreTypes, onEditClick, onMapClick } = props;
+  const { students, scoreTypes, onInitClick, onEditClick, onMapClick } = props;
   return (
     <table className='table table-striped'>
       <thead>
@@ -30,6 +30,7 @@ const ScoreBoard = (props) => {
             key={index}
             index={index}
             item={item}
+            onInitClick={onInitClick}
             onEditClick={onEditClick}
             onMapClick={onMapClick}
           />

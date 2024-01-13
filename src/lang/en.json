@@ -98,6 +98,7 @@
   "label.button.goback": "Go back",
   "label.button.close": "Close",
   "label.button.edit": "Edit",
+  "label.button.init.score": "Init score",
   "label.button.map.code": "Map code",
   "label.button.unmap.code": "Unmap code",
   "label.button.add": "Add",

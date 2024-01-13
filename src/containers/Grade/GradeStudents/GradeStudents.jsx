@@ -13,12 +13,14 @@ import { downloadExcel, getDatafromUploadExcel } from '../../../utils/excel';
 import { t } from 'i18next';
 import PublishForm from './PublishForm';
 import { useParams } from 'react-router-dom';
+import EditScoresForm from './EditScores';
 
 const GradeStudents = () => {
   const [students, setStudents] = React.useState([]);
   const [scoreTypes, setScoreTypes] = React.useState([]);
   const [selectedStudent, setSelectedStudent] = React.useState({});
   const [openEditForm, setOpenEditForm] = React.useState(false);
+  const [openEditScores, setOpenEditScores] = React.useState(false);
   const [openMapForm, setOpenMapForm] = React.useState(false);
   const [openPublishForm, setOpenPublishForm] = React.useState(false);
   const [excelData, setExcelData] = React.useState(null);
@@ -87,9 +89,14 @@ const GradeStudents = () => {
     getClassData();
   }, [selectedStudent]);
 
-  const onEditClick = ({ student }) => {
+  const onInitClick = ({ student }) => {
     setSelectedStudent(student);
     setOpenEditForm(true);
+  };
+
+  const onEditClick = ({ student }) => {
+    setSelectedStudent(student);
+    setOpenEditScores(true);
   };
 
   const onMapClick = ({ student }) => {
@@ -100,6 +107,24 @@ const GradeStudents = () => {
   const onClose = () => {
     setOpenEditForm(false);
     setSelectedStudent({});
+  };
+
+  const onCloseEdit = () => {
+    setOpenEditScores(false);
+    setSelectedStudent({});
+  };
+
+  const editScores = async ({ scores }) => {
+    try {
+      const response = await uploadScores({ listScores: scores });
+      alert('Edit score successfully');
+    } catch (err) {
+      alert('Edit score failed');
+      console.error(err);
+    } finally {
+      getClassData();
+      onCloseEdit();
+    }
   };
 
   const editScoreValue = async ({ scores }) => {
@@ -178,7 +203,7 @@ const GradeStudents = () => {
     <>
       <div
         className={
-          openEditForm || openMapForm || openPublishForm
+          openEditForm || openMapForm || openPublishForm || openEditScores
             ? 'w-75 opacity-25'
             : 'w-75'
         }
@@ -232,15 +257,25 @@ const GradeStudents = () => {
         <ScoreBoard
           students={students}
           scoreTypes={scoreTypes}
+          onInitClick={onInitClick}
           onEditClick={onEditClick}
           onMapClick={onMapClick}
         />
       </div>
+      {/* this case for edit init score */}
       {openEditForm && (
         <EditScore
           selected={selectedStudent}
           onClose={onClose}
           editScoreValue={editScoreValue}
+        />
+      )}
+
+      {openEditScores && (
+        <EditScoresForm
+          selected={selectedStudent}
+          onClose={onCloseEdit}
+          editScoreValue={editScores}
         />
       )}
       {openMapForm && (

@@ -2,7 +2,13 @@ import { t } from 'i18next';
 import React from 'react';
 
 const ScoreBoardItem = (props) => {
-  const { item, index, onEditClick: handleEdit = () => {}, onMapClick } = props;
+  const {
+    item,
+    index,
+    onInitClick: handleInitClick = () => {},
+    onMapClick,
+    onEditClick,
+  } = props;
   const { _id, name, mapCode, scoreTypes = [] } = item;
   const total = React.useMemo(() => {
     if (!scoreTypes || !scoreTypes.length) return 0;
@@ -16,7 +22,11 @@ const ScoreBoardItem = (props) => {
       <td>{mapCode}</td>
       <td>{name}</td>
       {scoreTypes.map((scoreType) => {
-        return <td key={scoreType._id}>{scoreType.value}</td>;
+        return (
+          <td key={scoreType._id}>
+            {scoreType.scoreId ? scoreType.value : 'null'}
+          </td>
+        );
       })}
       <td>{Number(total.toFixed(2))}</td>
       <td>
@@ -29,7 +39,16 @@ const ScoreBoardItem = (props) => {
             type='button'
             className={'btn btn-warning'}
             onClick={(e) => {
-              handleEdit({ student: item });
+              handleInitClick({ student: item });
+            }}
+          >
+            {t('label.button.init.score')}
+          </button>
+          <button
+            type='button'
+            className={'btn btn-warning'}
+            onClick={(e) => {
+              onEditClick({ student: item });
             }}
           >
             {t('label.button.edit')}
