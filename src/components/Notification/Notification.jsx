@@ -15,10 +15,13 @@ export default function CustomizedSnackbars() {
   const { changeSocketNotif, socketNotif } = useGlobal();
 
   React.useEffect(() => {
+    console.log('Connecting to the server...');
     const userId = localStorage.getItem('userid');
     if (userId) {
       // Emit 'userConnected' event with the user ID
       socket.emit('userConnected', userId);
+    } else {
+      console.log('No user id');
     }
 
     socket.on('connect', () => {

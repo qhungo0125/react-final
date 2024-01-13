@@ -156,12 +156,9 @@ const router = createBrowserRouter([
 export default function App() {
   return (
     <GlobalContext>
+      <CustomizedSnackbars />
       <MenuProvider>
-        <RouterProvider router={router}>
-          <AuthenticationRoute>
-            <CustomizedSnackbars />
-          </AuthenticationRoute>
-        </RouterProvider>
+        <RouterProvider router={router} />
       </MenuProvider>
     </GlobalContext>
   );
