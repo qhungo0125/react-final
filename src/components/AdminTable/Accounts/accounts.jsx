@@ -17,14 +17,14 @@ const AccountsTable = (props) => {
   const { t } = useTranslation();
 
   return (
-    <div className="position-relative">
+    <div className='position-relative'>
       <div
         className={isShow ? 'table-responsive opacity-50' : 'table-responsive'}
       >
-        <table className="table table-striped">
+        <table className='table table-striped'>
           <thead>
             <tr>
-              {selectedRole === t('label.student') && <th>Mapcode</th>}
+              {selectedRole === 'student' ? <th>Mapcode</th> : null}
               <th>{t('label.name')}</th>
               <th>{t('label.email')}</th>
               <th>{t('label.phone')}</th>
@@ -51,7 +51,7 @@ const AccountsTable = (props) => {
       </div>
       {isShow && (
         <div
-          className="rounded position-absolute top-50 start-50 translate-middle"
+          className='rounded position-absolute top-50 start-50 translate-middle'
           style={{
             zIndex: 100,
             backgroundColor: 'rgba(0, 0, 0, 0.5)',

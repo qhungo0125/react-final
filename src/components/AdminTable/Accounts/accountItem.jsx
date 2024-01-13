@@ -1,5 +1,5 @@
+import { t } from 'i18next';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
 const AccountItem = (props) => {
   const {
@@ -9,13 +9,12 @@ const AccountItem = (props) => {
     onBlock: handleBlock = () => {},
     onUnMapping: handleUnMap = () => {},
   } = props;
-  const { t } = useTranslation();
 
   const { _id, name, phone, mapCode, isLocked, email, address } = account;
 
   return (
     <tr className='align-items-center' style={{ verticalAlign: 'middle' }}>
-      {selectedRole === t('label.student') && <th scope='row'>{mapCode}</th>}
+      {selectedRole === 'student' && <th scope='row'>{mapCode}</th>}
       <td>{name}</td>
       <td>{email}</td>
       <td>{phone}</td>
@@ -26,7 +25,7 @@ const AccountItem = (props) => {
           role='group'
           aria-label='Basic mixed styles example'
         >
-          {selectedRole === t('label.student') && (
+          {selectedRole === 'student' && (
             <button
               onClick={(e) => {
                 if (mapCode && mapCode.length) {

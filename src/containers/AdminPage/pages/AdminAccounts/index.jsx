@@ -17,15 +17,11 @@ const MyComboBox = ({ selectedRole, onSelectRole }) => {
   return (
     <Dropdown onSelect={onSelectRole}>
       <Dropdown.Toggle variant='primary' id='dropdown-basic'>
-        {selectedRole || 'Select Role'}
+        {t(`label.${selectedRole}`)}
       </Dropdown.Toggle>
       <Dropdown.Menu>
-        <Dropdown.Item eventKey={t('label.student')}>
-          {t('label.student')}
-        </Dropdown.Item>
-        <Dropdown.Item eventKey={t('label.teacher')}>
-          {t('label.teacher')}
-        </Dropdown.Item>
+        <Dropdown.Item eventKey={'student'}>{t('label.student')}</Dropdown.Item>
+        <Dropdown.Item eventKey={'teacher'}>{t('label.teacher')}</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
   );
@@ -34,7 +30,7 @@ const MyComboBox = ({ selectedRole, onSelectRole }) => {
 const AdminAccounts = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { t } = useTranslation();
-  const [selectedRole, setSelectedRole] = React.useState(t('label.student'));
+  const [selectedRole, setSelectedRole] = React.useState('student');
   const [pagination, setPagination] = React.useState({
     page: 1,
     limit: 10,

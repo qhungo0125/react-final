@@ -10,6 +10,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import { TextField } from '@mui/material';
 import ClientAxios from '../../utils/axiosConfig';
+import { t } from 'i18next';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -43,7 +44,7 @@ export default function StudentInviteModal({ open, classId, handleClose }) {
         sx={{ m: 0, p: 2, width: '500px' }}
         id='customized-dialog-title'
       >
-        Student Invitation
+        {t('label.students.invitaion')}
       </DialogTitle>
       <IconButton
         aria-label='close'
@@ -74,10 +75,10 @@ export default function StudentInviteModal({ open, classId, handleClose }) {
       </DialogContent>
       <DialogActions>
         <Button autoFocus onClick={handleClose}>
-          Cancel
+          {t('label.button.cancel')}
         </Button>
         <Button autoFocus onClick={handleInvite}>
-          Invite
+          {t('label.button.invite')}
         </Button>
       </DialogActions>
     </BootstrapDialog>

@@ -23,7 +23,7 @@
   "label.class.people": "People",
   "label.class.teachers": "Teachers",
   "label.class.students": "Students",
-  "label.class.score.upload": "Upload",
+  "label.class.score.upload": "Upload Students ID",
   "label.class.score.students": "Students Grade",
   "label.class.score.structure": "Score Structure",
   "label.class.score.request": "Request",
@@ -60,6 +60,8 @@
   "label.request.explain": "Your explaination",
   "label.create": "Create",
   "label.cancel": "Cancel",
+  "label.students.invitaion": "Students Invitation",
+  "label.teachers.invitaion": "Teachers Invitation",
 
   "admin.nav.accounts": "Accounts",
   "admin.nav.classes": "Classes",
@@ -112,5 +114,6 @@
   "label.button.previous": "Previous",
   "label.button.next": "Next",
   "label.button.logout": "Logout",
+  "label.button.invite": "Invite",
   "label.button.cancel": "Cancel"
 }

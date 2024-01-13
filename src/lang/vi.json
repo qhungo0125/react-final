@@ -22,7 +22,7 @@
   "label.class.people": "Thành viên",
   "label.class.teachers": "Giáo viên",
   "label.class.students": "Học sinh",
-  "label.class.score.upload": "Cập nhật điểm",
+  "label.class.score.upload": "Cập nhật ID",
   "label.class.score.students": "Điểm học sinh",
   "label.class.score.structure": "Cấu trúc điểm",
   "label.class.score.request": "Khiếu nại",
@@ -62,6 +62,8 @@
   "label.request.explain": "Lý do của bạn",
   "label.create": "Tạo",
   "label.cancel": "Hủy",
+  "label.students.invitaion": "Mời học sinh",
+  "label.teachers.invitaion": "Mời giáo viên",
 
   "admin.nav.accounts": "Tài Khoản",
   "admin.manage.accounts": "Quản lý Tài Khoản",
@@ -112,5 +114,6 @@
   "label.button.previous": "Trước",
   "label.button.next": "Sau",
   "label.button.logout": "Đăng xuất",
+  "label.button.invite": "Mời",
   "label.button.goback": "Quay lại"
 }
