@@ -60,6 +60,8 @@
   "label.request.explain": "Your explaination",
   "label.create": "Create",
   "label.cancel": "Cancel",
+  "label.students.invitaion": "Students Invitation",
+  "label.teachers.invitaion": "Teachers Invitation",
 
   "admin.nav.accounts": "Accounts",
   "admin.nav.classes": "Classes",
@@ -112,5 +114,6 @@
   "label.button.previous": "Previous",
   "label.button.next": "Next",
   "label.button.logout": "Logout",
+  "label.button.invite": "Invite",
   "label.button.cancel": "Cancel"
 }
