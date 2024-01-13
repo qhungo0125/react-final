@@ -116,7 +116,7 @@ export default function NavTabs() {
                   : {}
               }
             >
-              {t('label.class.score.upload')}
+              {t('label.student.upload')}
             </MenuItem>
             <MenuItem
               onClick={(e) =>
