@@ -24,6 +24,8 @@ export default function CustomizedSnackbars() {
       console.log('No user id');
     }
 
+    socket.connect();
+
     socket.on('connect', () => {
       changeSocketNotif();
       console.log('Connected to the server');
@@ -42,7 +44,9 @@ export default function CustomizedSnackbars() {
     // Additional custom events can be handled here
 
     return () => {
-      // Clean up the socket connection when the component unmounts
+      socket.off('notification');
+      socket.off('connect');
+      socket.off('disconnect');
       socket.disconnect();
     };
   }, []);
