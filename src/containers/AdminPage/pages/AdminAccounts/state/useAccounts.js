@@ -6,7 +6,6 @@ import { createArrayFrom1ToN } from '../../../../../utils/format';
 const useAccounts = (props) => {
   const { page = 1, limit = 10, role } = props;
   const [pages, setPages] = React.useState([]);
-  const { t } = useTranslation();
   const [accounts, setAccounts] = React.useState({
     data: [],
     isLoading: true,
@@ -22,7 +21,7 @@ const useAccounts = (props) => {
       const response = await getAccounts({
         page,
         limit,
-        role: role === t('label.student') ? 'student' : 'teacher',
+        role: role === 'student' ? 'student' : 'teacher',
       });
 
       if (response.error) {
